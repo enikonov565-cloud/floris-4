@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Свадебные букеты — Флорис</title>
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<div id="site-header-mount"></div>
+
+<section class="page listing" id="свадебные">
+
+  <div class="listing-wrap lw-4">
+    <div class="listing-head">
+      <h1><span class="cap">С</span>вадебные букеты</h1>
+      <div class="listing-desc ld-light">
+        <p>Нежность и красота каждой веточки,<br>останется на фото свежими весь день.</p>
+        <p>Свадебные композиции под ваш<br>образ. Учтём Ваши пожелания.</p>
+      </div>
+    </div>
+
+    <div class="listing-grid">
+      <div class="listing-card">
+        <img class="listing-card-photo photo-hands-hero" src="frames/свадебный букет 1.png" alt="Романтичный Веер">
+        <div class="listing-card-body">
+          <p class="listing-card-name"><span class="cap">Р</span>омантичный Веер</p>
+        <p class="listing-card-price">7 200 руб.</p>
+        <div class="listing-card-actions">
+          <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
+          <a class="listing-more" href="товар.html">подробнее</a>
+        </div>
+        </div>
+      </div>
+      <div class="listing-card">
+        <img class="listing-card-photo" src="frames/свадебный букет 3.png" alt="Романтическая Изысканность">
+        <div class="listing-card-body">
+          <p class="listing-card-name"><span class="cap">Р</span>омантическая Изысканность</p>
+        <p class="listing-card-price">4 200 руб.</p>
+        <div class="listing-card-actions">
+          <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
+          <a class="listing-more" href="товар.html">подробнее</a>
+        </div>
+        </div>
+      </div>
+      <div class="listing-card">
+        <img class="listing-card-photo" src="frames/свадебный букет 2.png" alt="Свадебная Элегантность">
+        <div class="listing-card-body">
+          <p class="listing-card-name"><span class="cap">С</span>вадебная Элегантность</p>
+        <p class="listing-card-price">8700 руб.</p>
+        <div class="listing-card-actions">
+          <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
+          <a class="listing-more" href="товар.html">подробнее</a>
+        </div>
+        </div>
+      </div>
+      <div class="listing-card">
+        <img class="listing-card-photo" src="frames/свадебный букет 4.png" alt="Свадебная Классика">
+        <div class="listing-card-body">
+          <p class="listing-card-name"><span class="cap">С</span>вадебная Классика</p>
+        <p class="listing-card-price">5 400 руб.</p>
+        <div class="listing-card-actions">
+          <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
+          <a class="listing-more" href="товар.html">подробнее</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="img-lightbox" id="img-lightbox">
+  <div class="img-lightbox-media" id="img-lightbox-media">
+    <img class="img-lightbox-img" id="img-lightbox-img" src="" alt="">
+    <div class="img-lightbox-caption">
+      <p class="img-lightbox-name" id="img-lightbox-name"></p>
+      <a class="img-lightbox-more" id="img-lightbox-more" href="товар.html">подробнее</a>
+    </div>
+  </div>
+  <button type="button" class="img-lightbox-close" id="img-lightbox-close" aria-label="Закрыть">&times;</button>
+</div>
+
+<div id="site-footer-mount"></div>
+<script src="components.js"></script>
+
+<script>
+(function(){
+  var badge = document.querySelector('.topbar-badge');
+  var cartCount = parseInt(badge ? badge.textContent : '0', 10) || 0;
+
+  function setBadge(n){
+    cartCount = Math.max(0, n);
+    if (badge) badge.textContent = String(cartCount);
+  }
+
+  function parsePrice(text){
+    return parseInt(text.replace(/[^\d]/g, ''), 10) || 0;
+  }
+  function formatPrice(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.';
+  }
+
+  // --- счётчики в карточках каталога: "+"/"-" сразу меняют корзину ---
+  document.querySelectorAll('.listing-stepper').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      if (v > 0) {
+        count.textContent = String(v - 1);
+        setBadge(cartCount - 1);
+      }
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+      setBadge(cartCount + 1);
+    });
+  });
+
+  // --- счётчик в карточке товара: локальный, влияет на «Добавить в корзину» ---
+  document.querySelectorAll('.product-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(Math.max(0, v - 1));
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+    });
+  });
+
+  // --- счётчики количества в корзине: пересчитывают сумму строки и итог ---
+  function recalcCartSummary(){
+    var rows = document.querySelectorAll('.cart-row');
+    var totalSum = 0, totalQty = 0;
+    rows.forEach(function(row){
+      var unit = parsePrice(row.querySelector('.cart-row-price').textContent);
+      var qty = parseInt(row.querySelector('.cart-row-qty span').textContent, 10) || 0;
+      var lineTotal = unit * qty;
+      row.querySelector('.cart-row-total').textContent = formatPrice(lineTotal);
+      totalSum += lineTotal;
+      totalQty += qty;
+    });
+    var summaryRow = document.querySelector('.cart-summary-row .value');
+    var summaryLabel = document.querySelector('.cart-summary-row span:first-child');
+    var summaryTotal = document.querySelector('.cart-summary-total .price');
+    if (summaryLabel) summaryLabel.textContent = 'Товары (' + totalQty + ')';
+    if (summaryRow) summaryRow.textContent = formatPrice(totalSum);
+    if (summaryTotal) summaryTotal.textContent = formatPrice(totalSum);
+  }
+
+  document.querySelectorAll('.cart-row-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(Math.max(1, v - 1));
+      recalcCartSummary();
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(v + 1);
+      recalcCartSummary();
+    });
+  });
+
+  document.querySelectorAll('.cart-row-remove').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = btn.closest('.cart-row');
+      if (row) row.remove();
+      recalcCartSummary();
+    });
+  });
+
+  // --- «в корзину» / «Добавить в корзину»: увеличивают счётчик в хедере ---
+  document.querySelectorAll('.postcard-btn').forEach(function(btn){
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', function(){
+      setBadge(cartCount + 1);
+    });
+  });
+
+  var addBtn = document.querySelector('.product-add-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', function(){
+      var qtyEl = document.querySelector('.product-qty span');
+      var qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
+      setBadge(cartCount + qty);
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* reveal-on-scroll для карточек листинга (stagger, IntersectionObserver) */
+(function(){
+  var cards = document.querySelectorAll('.listing-card');
+  if (!cards.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)){
+    cards.forEach(function(c){ c.classList.add('is-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){
+        var el = e.target;
+        var i = +el.getAttribute('data-i') || 0;
+        el.style.transitionDelay = Math.min(i,6) * 80 + 'ms';
+        el.classList.add('is-in');
+        io.unobserve(el);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+  cards.forEach(function(c,i){ c.setAttribute('data-i', i); io.observe(c); });
+})();
+</script>
+
+<script>
+/* Лайтбокс: фото hero-карточки открывается на весь экран без обрезки */
+(function(){
+  var lightbox = document.getElementById('img-lightbox');
+  var lightboxImg = document.getElementById('img-lightbox-img');
+  var lightboxName = document.getElementById('img-lightbox-name');
+  var lightboxMore = document.getElementById('img-lightbox-more');
+  var closeBtn = document.getElementById('img-lightbox-close');
+  var heroCard = document.querySelector('.listing-card:first-child');
+  var heroImg = heroCard ? heroCard.querySelector('.listing-card-photo') : null;
+  var heroName = heroCard ? heroCard.querySelector('.listing-card-name') : null;
+  var heroMore = heroCard ? heroCard.querySelector('.listing-more') : null;
+  if (!lightbox || !lightboxImg || !heroImg) return;
+
+  var lastFocused = null;
+
+  function openLightbox(){
+    lightboxImg.src = heroImg.currentSrc || heroImg.src;
+    lightboxImg.alt = heroImg.alt;
+    if (lightboxName && heroName) lightboxName.innerHTML = heroName.innerHTML;
+    if (lightboxMore && heroMore) lightboxMore.setAttribute('href', heroMore.getAttribute('href'));
+    lastFocused = document.activeElement;
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  heroImg.addEventListener('click', openLightbox);
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  });
+})();
+</script>
+
+<script>
+/* Клик по маленькому букету — он становится большим (hero), а прежний большой уходит на его место */
+(function(){
+  var heroCard = document.querySelector('.listing-card:first-child');
+  if (!heroCard) return;
+  var heroPhoto = heroCard.querySelector('.listing-card-photo');
+  var heroName = heroCard.querySelector('.listing-card-name');
+  var heroPrice = heroCard.querySelector('.listing-card-price');
+  if (!heroPhoto || !heroName || !heroPrice) return;
+
+  function fadeOutIn(el, applyFn){
+    el.style.transition = 'opacity .25s ease';
+    el.style.opacity = '0';
+    setTimeout(function(){
+      applyFn();
+      el.style.opacity = '1';
+    }, 250);
+  }
+
+  document.querySelectorAll('.listing-card:not(:first-child)').forEach(function(card){
+    var photo = card.querySelector('.listing-card-photo');
+    var name = card.querySelector('.listing-card-name');
+    var price = card.querySelector('.listing-card-price');
+    if (!photo || !name || !price) return;
+    photo.style.cursor = 'pointer';
+    photo.addEventListener('click', function(){
+      var heroSrc = heroPhoto.src, heroAlt = heroPhoto.alt;
+      var cardSrc = photo.currentSrc || photo.src, cardAlt = photo.alt;
+      var heroNameHTML = heroName.innerHTML, cardNameHTML = name.innerHTML;
+      var heroPriceText = heroPrice.textContent, cardPriceText = price.textContent;
+
+      fadeOutIn(heroPhoto, function(){ heroPhoto.src = cardSrc; heroPhoto.alt = cardAlt; });
+      fadeOutIn(photo, function(){ photo.src = heroSrc; photo.alt = heroAlt; });
+      heroName.innerHTML = cardNameHTML;
+      name.innerHTML = heroNameHTML;
+      heroPrice.textContent = cardPriceText;
+      price.textContent = heroPriceText;
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

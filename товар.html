@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карточка товара — Флорис</title>
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<div id="site-header-mount"></div>
+
+<section class="pd" id="товар">
+
+  <div class="pd-gallery">
+    <img class="pd-gallery-main" id="pdMainPhoto" src="frames/карточка тов 1.png" alt="Изысканная Роскошь">
+
+    <div class="pd-gallery-dots" role="tablist" aria-label="Фотографии букета">
+      <button type="button" class="pd-dot is-active" data-photo="frames/карточка тов 1.png" aria-label="Фото 1" aria-selected="true"></button>
+      <button type="button" class="pd-dot" data-photo="frames/карточка тов 2.png" aria-label="Фото 2" aria-selected="false"></button>
+      <button type="button" class="pd-dot" data-photo="frames/карточка тов 3.png" aria-label="Фото 3" aria-selected="false"></button>
+      <button type="button" class="pd-dot" data-photo="frames/карточка тов 4.png" aria-label="Фото 4" aria-selected="false"></button>
+    </div>
+  </div>
+
+  <div class="pd-info">
+    <div class="pd-info-inner">
+      <p class="pd-eyebrow">Моно-букет</p>
+      <h1 class="pd-title"><span class="cap">И</span>зысканная Роскошь</h1>
+      <p class="pd-price">5 300 ₽</p>
+
+      <p class="pd-desc">Белые лилии — символ чистоты, величия и изысканности. Королева цветов. Этот роскошный моно-букет покоряет своим изяществом с первого взгляда. При правильном уходе цветы сохранят свежесть до 10 дней.</p>
+
+      <div class="pd-accordion">
+        <div class="pd-row">
+          <span class="pd-row-label">Состав</span>
+          <span class="pd-row-value">Белые лилии, 15 шт</span>
+        </div>
+        <div class="pd-row">
+          <span class="pd-row-label">Количество</span>
+          <div class="pd-qty"><button type="button" aria-label="Уменьшить">–</button><span>1</span><button type="button" aria-label="Увеличить">+</button></div>
+        </div>
+      </div>
+
+      <div class="pd-actions">
+        <button class="pd-add-btn" type="button">Добавить в корзину</button>
+        <button class="pd-checkout-btn" type="button" id="open-quick-buy">Оформить сразу</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="qb-overlay" id="qb-overlay">
+  <div class="qb-modal">
+    <div class="qb-head">
+      <p class="qb-eyebrow">Быстрый заказ</p>
+      <button type="button" class="qb-close" id="qb-close" aria-label="закрыть">×</button>
+    </div>
+    <div class="qb-product">
+      <div class="qb-product-info">
+        <p class="qb-product-name" id="qbName">Изысканная Роскошь</p>
+        <p class="qb-product-price" id="qbPrice">5 300 ₽</p>
+      </div>
+      <img class="qb-product-photo" id="qbPhoto" src="frames/карточка тов 1.png" alt="">
+    </div>
+
+    <div class="qb-field"><input type="text" id="qb-name" placeholder="Имя"></div>
+    <div class="qb-field"><input type="tel" id="qb-phone" placeholder="Телефон"></div>
+    <div class="qb-field"><input type="email" id="qb-email" placeholder="E-mail"></div>
+
+    <button type="button" class="qb-submit" id="qb-submit">Быстрая покупка</button>
+    <p class="qb-note" id="qb-note"></p>
+
+    <label class="qb-check">
+      <input type="checkbox" class="qb-check-input" checked>
+      <span class="qb-check-icon"></span>
+      <span>Отправлять мне последние предложения и рекомендации</span>
+    </label>
+    <label class="qb-check">
+      <input type="checkbox" class="qb-check-input" id="qb-agree" checked>
+      <span class="qb-check-icon"></span>
+      <span>Я принимаю <a href="faq.html">Политику конфиденциальности</a> и Правила использования сайта Флорис. Мы не передаём ваши данные и храним их в безопасности</span>
+    </label>
+  </div>
+</div>
+
+<section class="pd-addons" aria-label="Открытки ручной работы">
+  <div class="pd-addons-wrap">
+    <p class="pd-addons-label">+ добавить к букету</p>
+    <div class="pd-addons-list">
+      <label class="pd-addon">
+        <input type="checkbox" class="pd-addon-check">
+        <img class="pd-addon-photo" src="frames/открытка в букет 2.webp" alt="">
+        <span class="pd-addon-name">Открытка «Розовый пион»</span>
+        <span class="pd-addon-price">+ 4 200 ₽</span>
+      </label>
+      <label class="pd-addon">
+        <input type="checkbox" class="pd-addon-check">
+        <img class="pd-addon-photo" src="frames/открытка в букет 1.webp" alt="">
+        <span class="pd-addon-name">Открытка «Изысканная лилия»</span>
+        <span class="pd-addon-price">+ 3 600 ₽</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+<section class="pd-related" aria-label="С этим товаром покупают">
+  <div class="pd-related-wrap">
+    <h2 class="pd-related-title">С этим букетом покупают</h2>
+    <div class="pd-related-list">
+      <a class="pd-related-card" href="моно.html">
+        <img src="frames/моно-букет 3.png" alt="Чистая Нежность">
+        <p class="pd-related-name">Чистая Нежность</p>
+        <p class="pd-related-price">4 700 ₽</p>
+      </a>
+      <a class="pd-related-card" href="коробки.html">
+        <img src="frames/букет в корзине 1.png" alt="Розовая Нежность">
+        <p class="pd-related-name">Розовая Нежность</p>
+        <p class="pd-related-price">4 900 ₽</p>
+      </a>
+      <a class="pd-related-card" href="авторские.html">
+        <img src="frames/авторский букет 3.png" alt="Весенний Сад">
+        <p class="pd-related-name">Весенний Сад</p>
+        <p class="pd-related-price">6 300 ₽</p>
+      </a>
+      <a class="pd-related-card" href="свадебные.html">
+        <img src="frames/свадебный букет 1.png" alt="Романтичный Веер">
+        <p class="pd-related-name">Романтичный Веер</p>
+        <p class="pd-related-price">7 200 ₽</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var mainPhoto = document.getElementById('pdMainPhoto');
+  var dots = document.querySelectorAll('.pd-dot');
+  if (!mainPhoto || !dots.length) return;
+  dots.forEach(function(dot){
+    dot.addEventListener('click', function(){
+      if (dot.classList.contains('is-active')) return;
+      var src = dot.getAttribute('data-photo');
+      mainPhoto.style.opacity = '0';
+      setTimeout(function(){
+        mainPhoto.src = src;
+        mainPhoto.style.opacity = '1';
+      }, 180);
+      dots.forEach(function(d){ d.classList.remove('is-active'); d.setAttribute('aria-selected','false'); });
+      dot.classList.add('is-active');
+      dot.setAttribute('aria-selected','true');
+    });
+  });
+
+  var qty = document.querySelector('.pd-qty');
+  if (qty) {
+    var buttons = qty.querySelectorAll('button');
+    var count = qty.querySelector('span');
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(Math.max(1, v - 1));
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(v + 1);
+    });
+  }
+
+  // --- быстрый заказ: всплывающее окно ---
+  var qbOverlay = document.getElementById('qb-overlay');
+  var openBtn = document.getElementById('open-quick-buy');
+  var closeBtn = document.getElementById('qb-close');
+  var titleEl = document.querySelector('.pd-title');
+  var priceEl = document.querySelector('.pd-price');
+
+  function openQuickBuy(){
+    if (titleEl) document.getElementById('qbName').textContent = titleEl.textContent.trim();
+    if (priceEl) document.getElementById('qbPrice').textContent = priceEl.textContent.trim();
+    if (mainPhoto) document.getElementById('qbPhoto').src = mainPhoto.src;
+    qbOverlay.classList.add('open');
+  }
+  function closeQuickBuy(){ qbOverlay.classList.remove('open'); }
+
+  if (openBtn) openBtn.addEventListener('click', openQuickBuy);
+  if (closeBtn) closeBtn.addEventListener('click', closeQuickBuy);
+  if (qbOverlay) qbOverlay.addEventListener('click', function(e){ if (e.target === qbOverlay) closeQuickBuy(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeQuickBuy(); });
+
+  var qbSubmit = document.getElementById('qb-submit');
+  var qbNote = document.getElementById('qb-note');
+  if (qbSubmit) {
+    qbSubmit.addEventListener('click', function(){
+      var name = document.getElementById('qb-name');
+      var phone = document.getElementById('qb-phone');
+      var agree = document.getElementById('qb-agree');
+      var missing = false;
+      [name, phone].forEach(function(input){
+        if (!input.value.trim()) { input.style.borderBottomColor = '#D8534F'; missing = true; }
+        else { input.style.borderBottomColor = ''; }
+      });
+      if (!agree.checked) { missing = true; }
+      if (missing) {
+        qbNote.textContent = 'Укажите имя и телефон, подтвердите согласие';
+        qbNote.classList.add('error');
+        return;
+      }
+      qbNote.classList.remove('error');
+      qbNote.textContent = 'Готово! Мы перезвоним вам для подтверждения заказа.';
+      qbSubmit.disabled = true;
+      var badge = document.querySelector('.topbar-badge');
+      if (badge) badge.textContent = String((parseInt(badge.textContent,10)||0) + 1);
+    });
+  }
+})();
+</script>
+
+<div id="site-footer-mount"></div>
+<script src="components.js"></script>
+
+<script>
+(function(){
+  var badge = document.querySelector('.topbar-badge');
+  var cartCount = parseInt(badge ? badge.textContent : '0', 10) || 0;
+
+  function setBadge(n){
+    cartCount = Math.max(0, n);
+    if (badge) badge.textContent = String(cartCount);
+  }
+
+  function parsePrice(text){
+    return parseInt(text.replace(/[^\d]/g, ''), 10) || 0;
+  }
+  function formatPrice(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.';
+  }
+
+  // --- счётчики в карточках каталога: "+"/"-" сразу меняют корзину ---
+  document.querySelectorAll('.listing-stepper').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      if (v > 0) {
+        count.textContent = String(v - 1);
+        setBadge(cartCount - 1);
+      }
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+      setBadge(cartCount + 1);
+    });
+  });
+
+  // --- счётчик в карточке товара: локальный, влияет на «Добавить в корзину» ---
+  document.querySelectorAll('.product-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(Math.max(0, v - 1));
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+    });
+  });
+
+  // --- счётчики количества в корзине: пересчитывают сумму строки и итог ---
+  function recalcCartSummary(){
+    var rows = document.querySelectorAll('.cart-row');
+    var totalSum = 0, totalQty = 0;
+    rows.forEach(function(row){
+      var unit = parsePrice(row.querySelector('.cart-row-price').textContent);
+      var qty = parseInt(row.querySelector('.cart-row-qty span').textContent, 10) || 0;
+      var lineTotal = unit * qty;
+      row.querySelector('.cart-row-total').textContent = formatPrice(lineTotal);
+      totalSum += lineTotal;
+      totalQty += qty;
+    });
+    var summaryRow = document.querySelector('.cart-summary-row .value');
+    var summaryLabel = document.querySelector('.cart-summary-row span:first-child');
+    var summaryTotal = document.querySelector('.cart-summary-total .price');
+    if (summaryLabel) summaryLabel.textContent = 'Товары (' + totalQty + ')';
+    if (summaryRow) summaryRow.textContent = formatPrice(totalSum);
+    if (summaryTotal) summaryTotal.textContent = formatPrice(totalSum);
+  }
+
+  document.querySelectorAll('.cart-row-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(Math.max(1, v - 1));
+      recalcCartSummary();
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(v + 1);
+      recalcCartSummary();
+    });
+  });
+
+  document.querySelectorAll('.cart-row-remove').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = btn.closest('.cart-row');
+      if (row) row.remove();
+      recalcCartSummary();
+    });
+  });
+
+  // --- «в корзину» / «Добавить в корзину»: увеличивают счётчик в хедере ---
+  document.querySelectorAll('.postcard-btn').forEach(function(btn){
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', function(){
+      setBadge(cartCount + 1);
+    });
+  });
+
+  var addBtn = document.querySelector('.pd-add-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', function(){
+      var qtyEl = document.querySelector('.pd-qty span');
+      var qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
+      setBadge(cartCount + qty);
+      window.location.href = 'корзина.html';
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

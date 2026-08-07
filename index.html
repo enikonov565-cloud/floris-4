@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Флорис — цветочный магазин</title>
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<div id="site-header-mount"></div>
+
+<section class="page hero">
+
+  <div class="hero-photo">
+    <video class="hero-anim-video" autoplay muted loop playsinline>
+      <source src="frames/HERO/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="hero-copy">
+    <p class="hero-title hero-reveal" style="--reveal-delay:.1s"><span class="hero-word hero-word--green"><span class="cap">С</span>вежие</span> <span class="hero-word">авторские</span> <span class="hero-word">Букеты</span></p>
+    <div class="hero-checklist hero-reveal" style="--reveal-delay:.28s">
+      <img class="hero-checklist-icons" src="icons/check.png" alt="">
+      <div class="hero-checklist-text">
+        <p>Гарантия свежести — 2 дня</p>
+        <p>Фото-подтверждение перед отправкой</p>
+        <p>Доставка в течение 2 часов</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <a class="hero-cta-btn hero-reveal" href="категории.html" style="--reveal-delay:.42s">
+      <span>Выбрать букет</span>
+      <span class="ico-arrow"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="#BFCC2A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <p class="hero-cta-note hero-reveal" style="--reveal-delay:.54s">И получить скидку 15% на первый заказ</p>
+  </div>
+</section>
+
+<script>
+/* HERO: только послойное появление копии при загрузке (fade + translateY, stagger).
+   Видео — в своём объёме, без параллакса/масштаба. Отключается при prefers-reduced-motion. */
+(function(){
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 1) Появление по слоям — по загрузке. При reduced-motion CSS сам показывает всё.
+  if (reduced) { hero.classList.add('is-loaded'); return; }
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ hero.classList.add('is-loaded'); });
+  });
+
+  // Параллакс убран: видео остаётся в своём оригинальном объёме, без сдвига/масштаба.
+})();
+</script>
+
+
+<div id="catalog-mount"></div>
+
+<!-- ХИТЫ ПРОДАЖ — bento-витрина популярных букетов (namespace .hits-*) -->
+<section class="page hits" id="хиты-продаж" aria-labelledby="hits-title">
+  <div class="hits-head">
+    <h2 class="hits-title" id="hits-title"><span class="cap">Х</span>иты<br>сезона</h2>
+  </div>
+
+  <div class="hits-grid">
+
+    <!-- Акцентная крупная карточка (feature, span 2×2) -->
+    <a class="hits-card hits-card--feature reveal" href="товар.html" style="--hits-i:0">
+      <div class="hits-card-media">
+        <img class="hits-card-img" src="frames/авторский букет 1.png" alt="Огненный Закат" loading="lazy">
+        <span class="hits-tag">Бестселлер №1</span>
+      </div>
+      <div class="hits-card-body">
+        <div class="hits-card-info">
+          <p class="hits-card-name">Огненный Закат</p>
+          <p class="hits-card-price">7 800 руб.</p>
+        </div>
+        <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Огненный Закат» в корзину">
+          <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="hits-add-label">в корзину</span>
+        </button>
+      </div>
+    </a>
+
+    <a class="hits-card reveal" href="товар.html" style="--hits-i:1">
+      <div class="hits-card-media">
+        <img class="hits-card-img hits-img-passion" src="frames/моно-букет 2.png" alt="Страстная Глубина" loading="lazy">
+      </div>
+      <div class="hits-card-body">
+        <div class="hits-card-info">
+          <p class="hits-card-name">Страстная Глубина</p>
+          <p class="hits-card-price">7 200 руб.</p>
+        </div>
+        <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Страстная Глубина» в корзину">
+          <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="hits-add-label">в корзину</span>
+        </button>
+      </div>
+    </a>
+
+    <a class="hits-card reveal" href="товар.html" style="--hits-i:2">
+      <div class="hits-card-media">
+        <img class="hits-card-img hits-img-peach" src="frames/букет в корзине 2.png" alt="Персиковый Рассвет" loading="lazy">
+      </div>
+      <div class="hits-card-body">
+        <div class="hits-card-info">
+          <p class="hits-card-name">Персиковый Рассвет</p>
+          <p class="hits-card-price">5 900 руб.</p>
+        </div>
+        <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Персиковый Рассвет» в корзину">
+          <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="hits-add-label">в корзину</span>
+        </button>
+      </div>
+    </a>
+
+    <a class="hits-card reveal" href="товар.html" style="--hits-i:3">
+      <div class="hits-card-media">
+        <img class="hits-card-img hits-img-awakening" src="frames/авторский букет 4.jpg" alt="Пробуждение Весны" loading="lazy">
+      </div>
+      <div class="hits-card-body">
+        <div class="hits-card-info">
+          <p class="hits-card-name">Пробуждение Весны</p>
+          <p class="hits-card-price">5 200 руб.</p>
+        </div>
+        <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Пробуждение Весны» в корзину">
+          <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="hits-add-label">в корзину</span>
+        </button>
+      </div>
+    </a>
+
+    <!-- ПЛАШКА ГАРАНТИИ СВЕЖЕСТИ — trust-элемент (c4 / r2-3, высокая) -->
+    <div class="hits-card hits-guarantee reveal" role="note" aria-label="Гарантия свежести — 2 дня" style="--hits-i:4">
+      <span class="hits-guarantee-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+          <path d="M12 21c5-2.8 8-6.4 8-11V5.2L12 3 4 5.2V10c0 4.6 3 8.2 8 11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M8.6 12.2l2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div class="hits-guarantee-body">
+        <p class="hits-guarantee-kicker">Гарантия свежести</p>
+        <p class="hits-guarantee-num">2<span class="hits-guarantee-unit">&nbsp;дня</span></p>
+        <p class="hits-guarantee-note">Заменим букет бесплатно, если&nbsp;лепестки увянут раньше срока</p>
+      </div>
+      <ul class="hits-guarantee-list">
+        <li>Фото перед отправкой</li>
+        <li>Срезка в день заказа</li>
+      </ul>
+    </div>
+
+    <!-- Романтичный Веер — крупная карточка (span 2 колонки, выше) c1-2 / r3 -->
+    <a class="hits-card hits-card--wide hits-card--fan reveal" href="товар.html" style="--hits-i:5">
+      <div class="hits-card-media">
+        <img class="hits-card-img" src="frames/свадебный букет 1.png" alt="Романтичный Веер" loading="lazy">
+        <span class="hits-tag">Выбор невест</span>
+      </div>
+      <div class="hits-card-body">
+        <div class="hits-card-info">
+          <p class="hits-card-name">Романтичный Веер</p>
+          <p class="hits-card-price">7 200 руб.</p>
+        </div>
+        <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Романтичный Веер» в корзину">
+          <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="hits-add-label">в корзину</span>
+        </button>
+      </div>
+    </a>
+
+    <a class="hits-card reveal" href="товар.html" style="--hits-i:6">
+      <div class="hits-card-media">
+        <img class="hits-card-img hits-img-symphony" src="frames/моно-букет 4.png" alt="Розовая Симфония" loading="lazy">
+      </div>
+      <div class="hits-card-body">
+        <div class="hits-card-info">
+          <p class="hits-card-name">Розовая Симфония</p>
+          <p class="hits-card-price">5 800 руб.</p>
+        </div>
+        <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Розовая Симфония» в корзину">
+          <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="hits-add-label">в корзину</span>
+        </button>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="hits-foot">
+    <a class="hits-all" href="категории.html">
+      <span>Смотреть все букеты</span>
+      <span class="ico-arrow"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="#BFCC2A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ ГЛАВНАЯ: ОРБИТА ФОТО (Spin Image — портирован с Originkit на vanilla JS) ============ -->
+<section class="page spin" id="spin" aria-label="Галерея букетов">
+  <div class="spin-head" data-reveal>
+    <h2 class="spin-title">Наша работа</h2>
+  </div>
+  <div class="spin-stage" id="spin-stage" aria-hidden="true">
+    <div class="spin-orbit" id="spin-orbit">
+      <span class="spin-img" style="background-image:url('frames/авторский букет 1.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/моно-букет 1.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/свадебный букет 1.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/букет в корзине 1.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/авторский букет 3.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/моно-букет 3.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/свадебный букет 2.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/букет в корзине 2.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/авторский букет 2.png')"></span>
+      <span class="spin-img" style="background-image:url('frames/моно-букет 4.png')"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ГЛАВНАЯ: ОТЗЫВЫ (витринный блок) ============ -->
+<section class="page home-reviews" id="home-reviews">
+  <div class="home-reviews-inner">
+
+    <header class="home-reviews-head" data-reveal>
+      <div class="home-reviews-head-left">
+        <h2 class="home-reviews-title">Что говорят наши клиенты</h2>
+      </div>
+      <div class="home-reviews-head-right">
+        <div class="home-reviews-score">
+          <span class="home-reviews-score-num">4.9</span>
+          <span class="home-reviews-score-meta"><span class="home-reviews-stars">★★★★★</span>350+ отзывов</span>
+        </div>
+        <a class="home-reviews-yandex" href="#" aria-label="4.9 на Яндекс Услугах">
+          <span class="ya-logo" aria-hidden="true">Я</span>
+          <span class="ya-text"><strong>4.9</strong> на Яндекс&nbsp;Услугах</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="home-reviews-carousel" data-reveal>
+      <button class="hr-nav hr-prev" type="button" aria-label="Предыдущие отзывы"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="home-reviews-track" id="reviews-track">
+        <article class="hr-card">
+          <div class="hr-card-photo"><img src="frames/отзывы 3.png" alt="Букет от клиента Анны Волковой" loading="lazy"><span class="hr-card-tag">Фото от клиента</span></div>
+          <span class="home-reviews-stars">★★★★★</span>
+          <p class="hr-card-quote">Заказываю букеты каждый месяц на&nbsp;работу. Всегда свежие, цены честные, доставка пунктуальная. Это&nbsp;мой цветочный магазин!</p>
+          <div class="home-reviews-author"><span class="home-reviews-avatar av-3">А</span><span class="home-reviews-author-info"><span class="home-reviews-author-name">Анна Волкова</span><span class="home-reviews-author-role">Постоянный клиент</span></span></div>
+        </article>
+        <article class="hr-card">
+          <div class="hr-card-photo"><img src="frames/отзывы 1.png" alt="Букет от клиента Елены Козловой" loading="lazy"><span class="hr-card-tag">Фото от клиента</span></div>
+          <span class="home-reviews-stars">★★★★★</span>
+          <p class="hr-card-quote">Заказала букет для мамы на&nbsp;день рождения. Приехал за&nbsp;2&nbsp;часа, свежайший, красивый. Мама была в&nbsp;восторге!</p>
+          <div class="home-reviews-author"><span class="home-reviews-avatar av-1">Е</span><span class="home-reviews-author-info"><span class="home-reviews-author-name">Елена Козлова</span><span class="home-reviews-author-role">Клиент</span></span></div>
+        </article>
+        <article class="hr-card">
+          <div class="hr-card-photo"><img src="frames/отзывы 2.png" alt="Букет от клиента Максима Сорокина" loading="lazy"><span class="hr-card-tag">Фото от клиента</span></div>
+          <span class="home-reviews-stars">★★★★★</span>
+          <p class="hr-card-quote">Купил букет без&nbsp;шипов для дочки, как просил. Цветы стоят уже 3&nbsp;недели в&nbsp;вазе! Не&nbsp;ожидал такого качества.</p>
+          <div class="home-reviews-author"><span class="home-reviews-avatar av-2">М</span><span class="home-reviews-author-info"><span class="home-reviews-author-name">Максим Сорокин</span><span class="home-reviews-author-role">Новый клиент</span></span></div>
+        </article>
+        <article class="hr-card">
+          <div class="hr-card-photo"><img src="frames/отзывы 4.png" alt="Букет от клиента Ирины Мироновой" loading="lazy"><span class="hr-card-tag">Фото от клиента</span></div>
+          <span class="home-reviews-stars">★★★★★</span>
+          <p class="hr-card-quote">Чудесный магазин! Цветы, как на&nbsp;фото. Доставили с&nbsp;открыткой. Мужа растрогали до&nbsp;слёз. Спасибо за&nbsp;заботу к&nbsp;деталям!</p>
+          <div class="home-reviews-author"><span class="home-reviews-avatar av-4">И</span><span class="home-reviews-author-info"><span class="home-reviews-author-name">Ирина Миронова</span><span class="home-reviews-author-role">Клиент</span></span></div>
+        </article>
+        <article class="hr-card">
+          <div class="hr-card-photo"><img src="frames/отзывы 5.png" alt="Букет от клиента Олега Петрова" loading="lazy"><span class="hr-card-tag">Фото от клиента</span></div>
+          <span class="home-reviews-stars">★★★★★</span>
+          <p class="hr-card-quote">Позвонил с&nbsp;вопросом — флорист подробно объяснил, какие цветы в&nbsp;сезоне и что дольше стоит. Порекомендовал друзьям!</p>
+          <div class="home-reviews-author"><span class="home-reviews-avatar av-5">О</span><span class="home-reviews-author-info"><span class="home-reviews-author-name">Олег Петров</span><span class="home-reviews-author-role">Клиент</span></span></div>
+        </article>
+      </div>
+      <button class="hr-nav hr-next" type="button" aria-label="Следующие отзывы"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ГЛАВНАЯ: FAQ (единый компонент, инжектится из components.js) ============ -->
+<div id="faq-mount"></div>
+
+<script>
+(function(){
+  /* reveal-on-scroll для витринного блока отзывов
+     (FAQ-аккордеон вынесен в components.js → initFAQ) */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.home-reviews [data-reveal]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function(el){ el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+<div id="site-footer-mount"></div>
+<script src="components.js"></script>
+
+<script>
+(function(){
+  var badge = document.querySelector('.topbar-badge');
+  var cartCount = parseInt(badge ? badge.textContent : '0', 10) || 0;
+
+  function setBadge(n){
+    cartCount = Math.max(0, n);
+    if (badge) badge.textContent = String(cartCount);
+  }
+
+  function parsePrice(text){
+    return parseInt(text.replace(/[^\d]/g, ''), 10) || 0;
+  }
+  function formatPrice(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.';
+  }
+
+  // --- счётчики в карточках каталога: "+"/"-" сразу меняют корзину ---
+  document.querySelectorAll('.listing-stepper').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      if (v > 0) {
+        count.textContent = String(v - 1);
+        setBadge(cartCount - 1);
+      }
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+      setBadge(cartCount + 1);
+    });
+  });
+
+  // --- счётчик в карточке товара: локальный, влияет на «Добавить в корзину» ---
+  document.querySelectorAll('.product-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(Math.max(0, v - 1));
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+    });
+  });
+
+  // --- счётчики количества в корзине: пересчитывают сумму строки и итог ---
+  function recalcCartSummary(){
+    var rows = document.querySelectorAll('.cart-row');
+    var totalSum = 0, totalQty = 0;
+    rows.forEach(function(row){
+      var unit = parsePrice(row.querySelector('.cart-row-price').textContent);
+      var qty = parseInt(row.querySelector('.cart-row-qty span').textContent, 10) || 0;
+      var lineTotal = unit * qty;
+      row.querySelector('.cart-row-total').textContent = formatPrice(lineTotal);
+      totalSum += lineTotal;
+      totalQty += qty;
+    });
+    var summaryRow = document.querySelector('.cart-summary-row .value');
+    var summaryLabel = document.querySelector('.cart-summary-row span:first-child');
+    var summaryTotal = document.querySelector('.cart-summary-total .price');
+    if (summaryLabel) summaryLabel.textContent = 'Товары (' + totalQty + ')';
+    if (summaryRow) summaryRow.textContent = formatPrice(totalSum);
+    if (summaryTotal) summaryTotal.textContent = formatPrice(totalSum);
+  }
+
+  document.querySelectorAll('.cart-row-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(Math.max(1, v - 1));
+      recalcCartSummary();
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(v + 1);
+      recalcCartSummary();
+    });
+  });
+
+  document.querySelectorAll('.cart-row-remove').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = btn.closest('.cart-row');
+      if (row) row.remove();
+      recalcCartSummary();
+    });
+  });
+
+  // --- «в корзину» / «Добавить в корзину»: увеличивают счётчик в хедере ---
+  document.querySelectorAll('.postcard-btn').forEach(function(btn){
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', function(){
+      setBadge(cartCount + 1);
+    });
+  });
+
+  var addBtn = document.querySelector('.product-add-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', function(){
+      var qtyEl = document.querySelector('.product-qty span');
+      var qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
+      setBadge(cartCount + qty);
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  // --- превью-карточки каталога: видео проигрывается при наведении ---
+  document.querySelectorAll('.home-cat-card-photo-wrap').forEach(function(wrap){
+    var video = wrap.querySelector('.home-cat-card-video');
+    if (!video) return;
+    wrap.addEventListener('mouseenter', function(){
+      video.currentTime = 0;
+      video.play();
+    });
+    wrap.addEventListener('mouseleave', function(){
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+
+  // --- reveal-on-scroll для доп. секций главной ---
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  revealEls.forEach(function(el){ observer.observe(el); });
+})();
+</script>
+
+<script>
+/* ХИТЫ ПРОДАЖ: кнопка «в корзину» внутри ссылки-карточки.
+   Гасим переход по ссылке-карточке и всплытие; счётчик увеличивает общий
+   badge-обработчик (навешан на .postcard-btn выше). Здесь — только preventDefault. */
+(function(){
+  document.querySelectorAll('.hits-add').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  });
+})();
+</script>
+
+<script>
+/* Отзывы — горизонтальный слайдер с кнопками ‹ ›. Листает по одной карточке (scroll-snap). */
+(function(){
+  var track = document.getElementById('reviews-track');
+  if (!track) return;
+  var prev = document.querySelector('.hr-prev');
+  var next = document.querySelector('.hr-next');
+  function step(){
+    var card = track.querySelector('.hr-card');
+    if (!card) return track.clientWidth;
+    var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 24;
+    return card.getBoundingClientRect().width + gap;
+  }
+  function update(){
+    if (!prev || !next) return;
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  }
+  if (prev) prev.addEventListener('click', function(){ track.scrollBy({left:-step(), behavior:'smooth'}); });
+  if (next) next.addEventListener('click', function(){ track.scrollBy({left:step(), behavior:'smooth'}); });
+  track.addEventListener('scroll', function(){ requestAnimationFrame(update); }, {passive:true});
+  window.addEventListener('resize', update, {passive:true});
+  update();
+})();
+</script>
+
+<script>
+/* Spin Image — эллиптическая 3D-орбита фото букетов (портировано с Originkit/Framer на vanilla JS).
+   Фото едут по наклонному эллипсу, глубина задаёт масштаб и z-index. rAF-вращение.
+   Отключается при prefers-reduced-motion (статичная раскладка). */
+(function(){
+  var orbit = document.getElementById('spin-orbit');
+  var stage = document.getElementById('spin-stage');
+  if (!orbit || !stage) return;
+  var imgs = Array.prototype.slice.call(orbit.querySelectorAll('.spin-img'));
+  var n = imgs.length;
+  if (!n) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // параметры (как в оригинале): наклон орбиты в 3D + эллипс
+  var X_CURVE = 0, Y_CURVE = -18;       // без бокового перекоса (rotateY=0) — орбита симметрична по центру; лёгкий наклон вглубь
+  var B_RATIO = 0.5;                    // выше эллипс — фото компактнее, меньше дыр
+  var REVS_PER_SEC = reduced ? 0 : 0.05; // скорость вращения
+
+  orbit.style.transform = 'rotateY(' + X_CURVE + 'deg) rotateX(' + (-Y_CURVE) + 'deg)';
+
+  var W = 0, H = 0, cx = 0, cy = 0, a = 0, b = 0, cosT = 1, sinT = 0;
+  var IMG_W = 200, IMG_H = 250;
+  function measure(){
+    var r = stage.getBoundingClientRect();
+    W = r.width; H = r.height;
+    cx = W/2; cy = H/2;
+    // размер фото под ширину экрана
+    IMG_W = W < 700 ? 130 : (W < 1100 ? 170 : 210);
+    IMG_H = Math.round(IMG_W * 1.25);
+    var totalW = 0.86 * W;             // орбита плотнее (меньше дыр между фото)
+    a = totalW/2; b = a * B_RATIO;
+    // вертикальный размах ограничен высотой сцены, чтобы фото НЕ вылезали за stage
+    // (и не налезали на заголовок сверху / на след. блок снизу)
+    var maxB = (H - IMG_H)/2 - 10;
+    if (b > maxB) b = maxB;
+    var theta0 = Math.atan2(H, W) * 0.18; // почти горизонтальная орбита
+    cosT = Math.cos(theta0); sinT = Math.sin(theta0);
+    imgs.forEach(function(el){ el.style.width = IMG_W+'px'; el.style.height = IMG_H+'px'; });
+  }
+
+  var phi0 = 0, raf = null, last = null;
+  function frame(now){
+    if (last == null) last = now;
+    var dt = (now - last)/1000; last = now;
+    phi0 += 2*Math.PI*REVS_PER_SEC*dt * -1; // anticlockwise
+    render();
+    raf = requestAnimationFrame(frame);
+  }
+  function render(){
+    for (var i=0;i<n;i++){
+      var phi = (i/n)*Math.PI*2 + phi0;
+      var ex = a*Math.cos(phi), ey = b*Math.sin(phi);
+      var x = ex*cosT - ey*sinT, y = ex*sinT + ey*cosT;
+      var depth = (Math.cos(phi)+1)/2;          // 0 назад … 1 вперёд
+      var sf = 0.6 + 0.8*depth;                 // масштаб по глубине
+      var el = imgs[i];
+      el.style.left = (cx + x - IMG_W/2) + 'px';
+      el.style.top  = (cy + y - IMG_H/2) + 'px';
+      el.style.transform = 'rotateX(' + Y_CURVE + 'deg) rotateY(' + (-X_CURVE) + 'deg) scale(' + sf.toFixed(3) + ')';
+      el.style.zIndex = Math.round(y);
+    }
+  }
+
+  measure(); render();
+  if (REVS_PER_SEC > 0){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ if(!raf){ last=null; raf=requestAnimationFrame(frame); } }
+        else { if(raf){ cancelAnimationFrame(raf); raf=null; } }
+      });
+    }, {threshold:0.05});
+    io.observe(stage);
+  }
+  var rt=null;
+  window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(function(){ measure(); render(); }, 150); }, {passive:true});
+})();
+</script>
+
+</body>
+</html>

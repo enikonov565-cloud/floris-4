@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>О компании — Флорис</title>
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<div id="site-header-mount"></div>
+
+<section class="page about" id="о-компании">
+
+  <div class="about-inner">
+
+    <div class="about-title" data-reveal>
+      <h1><span class="cap">О</span> компании</h1>
+      <p>Создаём авторские цветочные композиции с 2018 года, которые дарят положительные эмоции.</p>
+    </div>
+
+    <div class="about-grid">
+
+      <!-- Крупное фото команды -->
+      <div class="about-cell photo team" data-reveal style="--d:0">
+        <img src="frames/о компании 1.png" alt="Наша команда">
+      </div>
+
+      <!-- 98% — донат-диаграмма -->
+      <div class="about-cell stat" data-reveal style="--d:1">
+        <div class="stat-viz">
+          <svg class="viz-donut" viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+            <circle class="donut-track" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
+            <circle class="donut-fill" cx="60" cy="60" r="52" fill="none" stroke-width="8" stroke-linecap="round"
+                    transform="rotate(-90 60 60)" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" data-fill="98"/>
+          </svg>
+        </div>
+        <p class="num" data-count="98" data-suffix="%" data-cd="1">0%</p>
+        <p class="lbl">довольных<br>клиентов</p>
+      </div>
+
+      <!-- Видео -->
+      <div class="about-cell photo" data-reveal style="--d:2">
+        <video class="about-cell-video" autoplay muted loop playsinline>
+          <source src="frames/video/о-компании-2.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Текст -->
+      <div class="about-cell text" data-reveal style="--d:3">
+        <p>Гарантируем доставку свежих цветов точно в&nbsp;срок.</p>
+      </div>
+
+      <!-- 2 часа — мини-таймлайн -->
+      <div class="about-cell stat" data-reveal style="--d:4">
+        <div class="stat-viz">
+          <svg class="viz-timeline" viewBox="0 0 160 44" width="160" height="44" aria-hidden="true">
+            <line class="tl-track" x1="16" y1="30" x2="144" y2="30" stroke-width="2"/>
+            <line class="tl-fill" x1="16" y1="30" x2="16" y2="30" stroke-width="2" stroke-linecap="round" data-x2="144"/>
+            <circle class="tl-dot start" cx="16" cy="30" r="6"/>
+            <circle class="tl-dot end" cx="144" cy="30" r="6"/>
+          </svg>
+        </div>
+        <p class="num row"><span data-count="2" data-cd="2">0</span><span class="unit">часа</span></p>
+        <p class="lbl">время<br>доставки</p>
+      </div>
+
+      <!-- Текст -->
+      <div class="about-cell text" data-reveal style="--d:5">
+        <p>Собираем и доставляем букет быстро, и&nbsp;точно в&nbsp;срок.</p>
+      </div>
+
+      <!-- Видео -->
+      <div class="about-cell photo" data-reveal style="--d:6">
+        <video class="about-cell-video" autoplay muted loop playsinline>
+          <source src="frames/video/авторский-букет.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- 100% — линейный прогресс -->
+      <div class="about-cell stat wide" data-reveal style="--d:7">
+        <p class="num" data-count="100" data-suffix="%" data-cd="3">0%</p>
+        <p class="lbl">гарантия свежести</p>
+        <div class="stat-viz bar">
+          <svg class="viz-bar" viewBox="0 0 240 10" width="240" height="10" preserveAspectRatio="none" aria-hidden="true">
+            <rect class="bar-track" x="0" y="1" width="240" height="8" rx="4"/>
+            <rect class="bar-fill" x="0" y="1" width="0" height="8" rx="4" data-w="240"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 24/7 — круговой индикатор -->
+      <div class="about-cell stat" data-reveal style="--d:8">
+        <div class="stat-viz">
+          <svg class="viz-ring" viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+            <circle class="ring-track" cx="60" cy="60" r="52" fill="none" stroke-width="6"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="6" stroke-linecap="round"
+                    transform="rotate(-90 60 60)" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" data-fill="100"/>
+          </svg>
+        </div>
+        <p class="num" data-cd="4">24/7</p>
+        <p class="lbl">служба<br>доставки</p>
+      </div>
+
+      <!-- Текст -->
+      <div class="about-cell text" data-reveal style="--d:9">
+        <p>Менеджер на&nbsp;связи от&nbsp;заказа до&nbsp;доставки.</p>
+      </div>
+
+      <!-- Текст -->
+      <div class="about-cell text" data-reveal style="--d:10">
+        <p>Помогаем говорить «спасибо», «люблю» и&nbsp;«ты у&nbsp;меня одна».</p>
+      </div>
+
+      <!-- Кнопки -->
+      <div class="about-cell btns" data-reveal style="--d:11">
+        <a class="about-btn-outline" href="#контакты"><p>Консультация<br>с&nbsp;менеджером</p><span class="ico-arrow"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="#BFCC2A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        <a class="about-btn-solid" href="категории.html"><span>Перейти в&nbsp;каталог</span><span class="ico-arrow"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="#2D2D35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var section = document.getElementById('о-компании');
+    if (!section) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = section.querySelectorAll('[data-reveal]');
+
+    function animateCount(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      var delay = (parseInt(el.getAttribute('data-cd'),10) || 0) * 220;
+      if (reduce){ el.textContent = target + suffix; return; }
+      setTimeout(function(){
+        var dur = 1100, start = null;
+        function step(ts){
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(step);
+      }, delay);
+    }
+
+    function runViz(cell){
+      if (reduce) return;
+      cell.querySelectorAll('[data-fill]').forEach(function(c){
+        var v = parseFloat(c.getAttribute('data-fill'));
+        requestAnimationFrame(function(){ c.style.strokeDashoffset = String(100 - v); });
+      });
+      cell.querySelectorAll('.tl-fill[data-x2]').forEach(function(l){
+        requestAnimationFrame(function(){ l.setAttribute('x2', l.getAttribute('data-x2')); });
+      });
+      cell.querySelectorAll('.bar-fill[data-w]').forEach(function(r){
+        requestAnimationFrame(function(){ r.setAttribute('width', r.getAttribute('data-w')); });
+      });
+    }
+
+    function reveal(cell){
+      cell.classList.add('is-in');
+      cell.querySelectorAll('[data-count]').forEach(animateCount);
+      runViz(cell);
+    }
+
+    if (!('IntersectionObserver' in window) || reduce){
+      revealEls.forEach(reveal);
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ reveal(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  })();
+  </script>
+</section>
+
+<div id="site-footer-mount"></div>
+<script src="components.js"></script>
+
+<script>
+(function(){
+  var badge = document.querySelector('.topbar-badge');
+  var cartCount = parseInt(badge ? badge.textContent : '0', 10) || 0;
+
+  function setBadge(n){
+    cartCount = Math.max(0, n);
+    if (badge) badge.textContent = String(cartCount);
+  }
+
+  function parsePrice(text){
+    return parseInt(text.replace(/[^\d]/g, ''), 10) || 0;
+  }
+  function formatPrice(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.';
+  }
+
+  // --- счётчики в карточках каталога: "+"/"-" сразу меняют корзину ---
+  document.querySelectorAll('.listing-stepper').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      if (v > 0) {
+        count.textContent = String(v - 1);
+        setBadge(cartCount - 1);
+      }
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+      setBadge(cartCount + 1);
+    });
+  });
+
+  // --- счётчик в карточке товара: локальный, влияет на «Добавить в корзину» ---
+  document.querySelectorAll('.product-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(Math.max(0, v - 1));
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+    });
+  });
+
+  // --- счётчики количества в корзине: пересчитывают сумму строки и итог ---
+  function recalcCartSummary(){
+    var rows = document.querySelectorAll('.cart-row');
+    var totalSum = 0, totalQty = 0;
+    rows.forEach(function(row){
+      var unit = parsePrice(row.querySelector('.cart-row-price').textContent);
+      var qty = parseInt(row.querySelector('.cart-row-qty span').textContent, 10) || 0;
+      var lineTotal = unit * qty;
+      row.querySelector('.cart-row-total').textContent = formatPrice(lineTotal);
+      totalSum += lineTotal;
+      totalQty += qty;
+    });
+    var summaryRow = document.querySelector('.cart-summary-row .value');
+    var summaryLabel = document.querySelector('.cart-summary-row span:first-child');
+    var summaryTotal = document.querySelector('.cart-summary-total .price');
+    if (summaryLabel) summaryLabel.textContent = 'Товары (' + totalQty + ')';
+    if (summaryRow) summaryRow.textContent = formatPrice(totalSum);
+    if (summaryTotal) summaryTotal.textContent = formatPrice(totalSum);
+  }
+
+  document.querySelectorAll('.cart-row-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(Math.max(1, v - 1));
+      recalcCartSummary();
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(v + 1);
+      recalcCartSummary();
+    });
+  });
+
+  document.querySelectorAll('.cart-row-remove').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = btn.closest('.cart-row');
+      if (row) row.remove();
+      recalcCartSummary();
+    });
+  });
+
+  // --- «в корзину» / «Добавить в корзину»: увеличивают счётчик в хедере ---
+  document.querySelectorAll('.postcard-btn').forEach(function(btn){
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', function(){
+      setBadge(cartCount + 1);
+    });
+  });
+
+  var addBtn = document.querySelector('.product-add-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', function(){
+      var qtyEl = document.querySelector('.product-qty span');
+      var qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
+      setBadge(cartCount + qty);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

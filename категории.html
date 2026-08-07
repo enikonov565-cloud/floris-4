@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог — Флорис</title>
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<div id="site-header-mount"></div>
+
+<div id="catalog-mount"></div>
+
+<div id="site-footer-mount"></div>
+<script src="components.js"></script>
+
+<script>
+(function(){
+  var badge = document.querySelector('.topbar-badge');
+  var cartCount = parseInt(badge ? badge.textContent : '0', 10) || 0;
+
+  function setBadge(n){
+    cartCount = Math.max(0, n);
+    if (badge) badge.textContent = String(cartCount);
+  }
+
+  function parsePrice(text){
+    return parseInt(text.replace(/[^\d]/g, ''), 10) || 0;
+  }
+  function formatPrice(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.';
+  }
+
+  // --- счётчики в карточках каталога: "+"/"-" сразу меняют корзину ---
+  document.querySelectorAll('.listing-stepper').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      if (v > 0) {
+        count.textContent = String(v - 1);
+        setBadge(cartCount - 1);
+      }
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+      setBadge(cartCount + 1);
+    });
+  });
+
+  // --- счётчик в карточке товара: локальный, влияет на «Добавить в корзину» ---
+  document.querySelectorAll('.product-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(Math.max(0, v - 1));
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 0;
+      count.textContent = String(v + 1);
+    });
+  });
+
+  // --- счётчики количества в корзине: пересчитывают сумму строки и итог ---
+  function recalcCartSummary(){
+    var rows = document.querySelectorAll('.cart-row');
+    var totalSum = 0, totalQty = 0;
+    rows.forEach(function(row){
+      var unit = parsePrice(row.querySelector('.cart-row-price').textContent);
+      var qty = parseInt(row.querySelector('.cart-row-qty span').textContent, 10) || 0;
+      var lineTotal = unit * qty;
+      row.querySelector('.cart-row-total').textContent = formatPrice(lineTotal);
+      totalSum += lineTotal;
+      totalQty += qty;
+    });
+    var summaryRow = document.querySelector('.cart-summary-row .value');
+    var summaryLabel = document.querySelector('.cart-summary-row span:first-child');
+    var summaryTotal = document.querySelector('.cart-summary-total .price');
+    if (summaryLabel) summaryLabel.textContent = 'Товары (' + totalQty + ')';
+    if (summaryRow) summaryRow.textContent = formatPrice(totalSum);
+    if (summaryTotal) summaryTotal.textContent = formatPrice(totalSum);
+  }
+
+  document.querySelectorAll('.cart-row-qty').forEach(function(stepper){
+    var buttons = stepper.querySelectorAll('button');
+    var count = stepper.querySelector('span');
+    if (buttons.length < 2 || !count) return;
+    buttons[0].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(Math.max(1, v - 1));
+      recalcCartSummary();
+    });
+    buttons[1].addEventListener('click', function(){
+      var v = parseInt(count.textContent, 10) || 1;
+      count.textContent = String(v + 1);
+      recalcCartSummary();
+    });
+  });
+
+  document.querySelectorAll('.cart-row-remove').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = btn.closest('.cart-row');
+      if (row) row.remove();
+      recalcCartSummary();
+    });
+  });
+
+  // --- «в корзину» / «Добавить в корзину»: увеличивают счётчик в хедере ---
+  document.querySelectorAll('.postcard-btn').forEach(function(btn){
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', function(){
+      setBadge(cartCount + 1);
+    });
+  });
+
+  var addBtn = document.querySelector('.product-add-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', function(){
+      var qtyEl = document.querySelector('.product-qty span');
+      var qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
+      setBadge(cartCount + qty);
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* reveal-on-scroll для карточек категорий (stagger, IntersectionObserver) */
+(function(){
+  var cards = document.querySelectorAll('.cat-card');
+  if (!cards.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)){
+    cards.forEach(function(c){ c.classList.add('is-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){
+        var el = e.target;
+        var i = +el.getAttribute('data-i') || 0;
+        el.style.transitionDelay = Math.min(i,6) * 80 + 'ms';
+        el.classList.add('is-in');
+        io.unobserve(el);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+  cards.forEach(function(c,i){ c.setAttribute('data-i', i); io.observe(c); });
+})();
+</script>
+
+</body>
+</html>
