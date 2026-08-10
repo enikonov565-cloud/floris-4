@@ -1611,7 +1611,7 @@ body:has(.faq) ::view-transition-new(root){
   .listing-grid{grid-template-columns:1fr;width:100%;gap:28px;}
   .listing-card{width:100%;height:auto;padding:0;gap:16px;}
   .listing-card:first-child{flex-direction:column;padding:0;gap:16px;}
-  .listing-card:first-child .listing-card-photo{width:100%;aspect-ratio:16/10;}
+  .listing-card:first-child .listing-card-photo{width:calc(100% - 12px);aspect-ratio:16/10;margin:0 6px 6px;}
   .listing-card:first-child .listing-card-body{padding-right:0;}
   .listing-card:first-child .listing-card-name{font-size:20px;}
   .listing-card:first-child .listing-card-name .cap{font-size:36px;}
