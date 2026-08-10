@@ -1600,7 +1600,7 @@ body:has(.faq) ::view-transition-new(root){
   .cat-card-btn{width:100%;box-sizing:border-box;justify-content:space-between;}
 
   /* ---------- ЛИСТИНГИ ---------- */
-  .listing-wrap,.listing-wrap.lw-4,.listing-wrap.lw-5,.listing-wrap.lw-6{position:static;width:100%;top:auto;gap:24px;}
+  .listing-wrap,.listing-wrap.lw-4,.listing-wrap.lw-5,.listing-wrap.lw-6{position:static;width:auto;top:auto;gap:24px;}
   .listing-head{flex-direction:column;align-items:flex-start;height:auto;gap:16px;}
   .listing-head h1{font-size:32px;}
   .listing-head h1 .cap{font-size:40px;}
@@ -1652,6 +1652,15 @@ body:has(.faq) ::view-transition-new(root){
   .product-delivery-row{flex-direction:column;align-items:stretch;gap:12px;}
   .product-delivery-row span.label{width:auto;}
   .product-checkout-btn{width:100%;box-sizing:border-box;}
+
+  /* ---------- КАРТОЧКА ТОВАРА — фото и текст: было 50/50 в ряд без мобильной
+     раскладки, из-за чего оба блока сжимались до ~половины экрана; ставим
+     фото сверху на всю ширину, текст под ним ---------- */
+  .pd{flex-direction:column;min-height:0;}
+  .pd-gallery{width:100%;height:auto;aspect-ratio:1/1;min-height:0;}
+  .pd-info{width:100%;}
+  .pd-info-inner{max-width:none;padding:28px 16px;}
+  .pd-related-list{grid-template-columns:repeat(2,1fr);}
 
   /* ---------- ОТКРЫТКИ (+ добавить к букету) ---------- */
   .pd-addon{width:100%;justify-content:space-between;box-sizing:border-box;}
@@ -1734,10 +1743,17 @@ body:has(.faq) ::view-transition-new(root){
   .cart-heading{position:static;font-size:32px;margin:0 0 24px;}
   .cart-heading .cap{font-size:40px;}
   .cart-list{position:static;width:100%;gap:20px;}
-  .cart-row{flex-wrap:wrap;gap:16px;}
-  .cart-row-photo{width:84px;height:84px;border-radius:16px;}
-  .cart-row-content{flex-direction:column;align-items:flex-start;gap:12px;}
-  .cart-row-meta{flex-wrap:wrap;gap:16px;width:100%;justify-content:space-between;}
+  /* компактная строка корзины — как в оформлении заказа (.dl-cart-item):
+     фото слева, название+цена в столбик, счётчик справа, без переноса */
+  .cart-row{flex-wrap:nowrap;align-items:center;gap:14px;padding-bottom:16px;}
+  .cart-row-photo{width:56px;height:56px;border-radius:10px;}
+  .cart-row-content{flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;}
+  .cart-row-name{white-space:normal;font-size:16px;}
+  .cart-row-name .cap{font-size:26px;}
+  .cart-row-meta{flex-wrap:nowrap;width:auto;gap:12px;}
+  .cart-row-price{font-size:14px;}
+  .cart-row-qty button,.cart-row-qty span{width:26px;height:26px;font-size:14px;}
+  .cart-row-total,.cart-row-add{display:none;}
   .cart-summary{position:static;width:100%;height:auto;margin-top:32px;padding:28px 20px;gap:24px;}
   .cart-summary-actions{gap:24px;}
   .cart-services{position:static;width:100%;flex-direction:column;gap:16px;margin-top:32px;}
