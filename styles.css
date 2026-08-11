@@ -1609,6 +1609,9 @@ body:has(.faq) ::view-transition-new(root){
   .listing-desc br{display:none;}
   .listing-grid{grid-template-columns:1fr;width:100%;gap:28px;}
   .listing-card{width:100%;height:auto;padding:0;gap:16px;}
+  /* постоянная белая подложка под фото+текстом (раньше была только на hover,
+     а на тач-экранах hover не срабатывает вовсе) */
+  .listing-card:not(:first-child){background:#FDFDFD;border-radius:24px;padding:10px 10px 14px;}
   .listing-card:first-child{flex-direction:column;padding:0;gap:16px;}
   .listing-card:first-child .listing-card-photo{width:calc(100% - 12px);aspect-ratio:16/10;margin:0 6px 6px;}
   .listing-card:first-child .listing-card-body{padding-right:0;}
