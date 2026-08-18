@@ -1192,11 +1192,7 @@ body:has(.faq) ::view-transition-new(root){
 /* фото команды — портретный кадр, лица у самого верха: обрезаем снизу (пол/ноги), не сверху (головы) */
 .about-cell.team img{object-position:center 8%;}
 .about-cell-video{position:absolute;inset:0;}
-/* низ кадра видео обрезает руку/букет неестественно (артефакт исходной съёмки) —
-   прижимаем кадр к верху и слегка увеличиваем, чтобы скрыть неудачный нижний край */
-.about-cell-video{transform:scale(1.16);transform-origin:center 10%;}
-.about-cell.photo:hover img{transform:scale(1.06);}
-.about-cell.photo:hover .about-cell-video{transform:scale(1.23);}
+.about-cell.photo:hover img,.about-cell.photo:hover .about-cell-video{transform:scale(1.06);}
 
 .about-cell.stat{
   background:rgba(191,204,42,0.16);border:2px solid var(--green);
