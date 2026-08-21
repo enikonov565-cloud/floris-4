@@ -138,7 +138,10 @@
     <img class="img-lightbox-img" id="img-lightbox-img" src="" alt="">
     <div class="img-lightbox-caption">
       <p class="img-lightbox-name" id="img-lightbox-name"></p>
-      <a class="img-lightbox-more" id="img-lightbox-more" href="товар.html">подробнее</a>
+      <button type="button" class="hits-add postcard-btn img-lightbox-add" id="img-lightbox-add" aria-label="Добавить в корзину">
+        <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <span class="hits-add-label">в корзину</span>
+      </button>
     </div>
   </div>
   <button type="button" class="img-lightbox-close" id="img-lightbox-close" aria-label="Закрыть">&times;</button>
@@ -150,7 +153,6 @@
   var lightbox = document.getElementById('img-lightbox');
   var lightboxImg = document.getElementById('img-lightbox-img');
   var lightboxName = document.getElementById('img-lightbox-name');
-  var lightboxMore = document.getElementById('img-lightbox-more');
   var closeBtn = document.getElementById('img-lightbox-close');
   if (!lightbox || !lightboxImg) return;
 
@@ -159,7 +161,6 @@
     lightboxImg.src = photo.currentSrc || photo.src;
     lightboxImg.alt = photo.alt;
     if (lightboxName) lightboxName.textContent = name;
-    if (lightboxMore) lightboxMore.setAttribute('href', 'товар.html');
     lastFocused = document.activeElement;
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';

@@ -29,10 +29,10 @@
         <p class="listing-card-price">7 200 руб.</p>
         <div class="listing-card-actions">
           <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
-          <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Романтичный Веер» в корзину">
+          <a class="hits-add postcard-btn" aria-label="Добавить «Романтичный Веер» в корзину" href="товар.html">
             <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
             <span class="hits-add-label">в корзину</span>
-          </button>
+          </a>
         </div>
         </div>
       </div>
@@ -43,10 +43,10 @@
         <p class="listing-card-price">4 200 руб.</p>
         <div class="listing-card-actions">
           <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
-          <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Романтическая Изысканность» в корзину">
+          <a class="hits-add postcard-btn" aria-label="Добавить «Романтическая Изысканность» в корзину" href="товар.html">
             <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
             <span class="hits-add-label">в корзину</span>
-          </button>
+          </a>
         </div>
         </div>
       </div>
@@ -57,10 +57,10 @@
         <p class="listing-card-price">8700 руб.</p>
         <div class="listing-card-actions">
           <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
-          <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Свадебная Элегантность» в корзину">
+          <a class="hits-add postcard-btn" aria-label="Добавить «Свадебная Элегантность» в корзину" href="товар.html">
             <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
             <span class="hits-add-label">в корзину</span>
-          </button>
+          </a>
         </div>
         </div>
       </div>
@@ -71,10 +71,10 @@
         <p class="listing-card-price">5 400 руб.</p>
         <div class="listing-card-actions">
           <div class="listing-stepper"><button>-</button><span>0</span><button>+</button></div>
-          <button type="button" class="hits-add postcard-btn" aria-label="Добавить «Свадебная Классика» в корзину">
+          <a class="hits-add postcard-btn" aria-label="Добавить «Свадебная Классика» в корзину" href="товар.html">
             <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
             <span class="hits-add-label">в корзину</span>
-          </button>
+          </a>
         </div>
         </div>
       </div>
@@ -87,7 +87,10 @@
     <img class="img-lightbox-img" id="img-lightbox-img" src="" alt="">
     <div class="img-lightbox-caption">
       <p class="img-lightbox-name" id="img-lightbox-name"></p>
-      <a class="img-lightbox-more" id="img-lightbox-more" href="товар.html">подробнее</a>
+      <a class="hits-add postcard-btn img-lightbox-add" id="img-lightbox-add" aria-label="Добавить в корзину" href="товар.html">
+        <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <span class="hits-add-label">в корзину</span>
+      </a>
     </div>
   </div>
   <button type="button" class="img-lightbox-close" id="img-lightbox-close" aria-label="Закрыть">&times;</button>
@@ -129,15 +132,6 @@
       var v = parseInt(count.textContent, 10) || 0;
       count.textContent = String(v + 1);
       setBadge(cartCount + 1);
-    });
-  });
-
-  // --- клик по карточке каталога (кроме фото и блока с кнопкой/степпером) — переход в карточку товара ---
-  document.querySelectorAll('.listing-card').forEach(function(card){
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', function(e){
-      if (e.target.closest('.listing-card-actions') || e.target.closest('.listing-card-photo')) return;
-      window.location.href = 'товар.html';
     });
   });
 
@@ -251,12 +245,10 @@
   var lightbox = document.getElementById('img-lightbox');
   var lightboxImg = document.getElementById('img-lightbox-img');
   var lightboxName = document.getElementById('img-lightbox-name');
-  var lightboxMore = document.getElementById('img-lightbox-more');
   var closeBtn = document.getElementById('img-lightbox-close');
   var heroCard = document.querySelector('.listing-card:first-child');
   var heroImg = heroCard ? heroCard.querySelector('.listing-card-photo') : null;
   var heroName = heroCard ? heroCard.querySelector('.listing-card-name') : null;
-  var heroMore = heroCard ? heroCard.querySelector('.listing-more') : null;
   if (!lightbox || !lightboxImg || !heroImg) return;
 
   var lastFocused = null;
@@ -265,7 +257,6 @@
     lightboxImg.src = heroImg.currentSrc || heroImg.src;
     lightboxImg.alt = heroImg.alt;
     if (lightboxName && heroName) lightboxName.innerHTML = heroName.innerHTML;
-    if (lightboxMore && heroMore) lightboxMore.setAttribute('href', heroMore.getAttribute('href'));
     lastFocused = document.activeElement;
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';

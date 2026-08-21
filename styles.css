@@ -619,15 +619,9 @@ body:has(.faq) ::view-transition-new(root){
   font-size:clamp(18px,2vw,24px);line-height:1.1;letter-spacing:-0.01em;color:#FFFFFF;
 }
 .img-lightbox-name .cap{font-family:var(--font-script);font-size:1.5em;letter-spacing:0.02em;line-height:1;}
-.img-lightbox-more{
-  flex:none;text-decoration:none;
-  background:var(--green);border-radius:14px;padding:0 26px;height:46px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-sans);font-weight:400;font-size:16px;letter-spacing:-0.01em;color:var(--dark);white-space:nowrap;
-  box-shadow:0 1px 1px rgba(45,45,53,0.05), 0 6px 16px rgba(191,204,42,0.28);
-  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s cubic-bezier(.22,1,.36,1);
-}
-.img-lightbox-more:hover{transform:translateY(-2px);box-shadow:0 1px 1px rgba(45,45,53,0.06), 0 10px 22px rgba(191,204,42,0.38);}
+.img-lightbox-add{flex:none;width:146px;box-shadow:0 1px 1px rgba(45,45,53,0.05), 0 6px 16px rgba(191,204,42,0.28);}
+.img-lightbox-add .hits-add-label{opacity:1;}
+.img-lightbox-add:hover{box-shadow:0 1px 1px rgba(45,45,53,0.06), 0 10px 22px rgba(191,204,42,0.38);}
 .img-lightbox-close{
   position:absolute;top:clamp(16px,3vw,32px);right:clamp(16px,3vw,32px);
   width:48px;height:48px;border-radius:50%;
@@ -641,7 +635,6 @@ body:has(.faq) ::view-transition-new(root){
 @media (max-width:640px){
   .img-lightbox-close{width:42px;height:42px;font-size:20px;}
   .img-lightbox-caption{flex-direction:column;align-items:center;gap:14px;padding:18px;text-align:center;}
-  .img-lightbox-more{height:42px;padding:0 22px;font-size:15px;}
 }
 
 /* Обёртка текстовой части — общая для всех карточек */
