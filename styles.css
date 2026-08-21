@@ -554,7 +554,7 @@ body:has(.faq) ::view-transition-new(root){
 /* --- Акцентная hero-карточка (первая) --- */
 .listing-card:first-child{
   grid-column:1 / -1;
-  flex-direction:row;align-items:stretch;gap:54px;
+  flex-direction:row;align-items:stretch;gap:42px;
   padding:18px;border-radius:40px;
 }
 .listing-card:first-child .listing-card-photo{
