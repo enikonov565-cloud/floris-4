@@ -784,7 +784,7 @@ body:has(.faq) ::view-transition-new(root){
 .pd-addon:hover{border-color:rgba(45,45,53,0.3);}
 .pd-addon-check{position:absolute;opacity:0;width:0;height:0;}
 .pd-addon:has(.pd-addon-check:checked){border-color:var(--green);background:rgba(191,204,42,0.08);}
-.pd-addon-photo{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;}
+.pd-addon-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;}
 .pd-addon-name{font-family:var(--font-sans);font-weight:400;font-size:15px;color:var(--dark);white-space:nowrap;}
 .pd-addon-price{font-family:var(--font-sans);font-weight:500;font-size:14px;color:rgba(45,45,53,0.55);white-space:nowrap;}
 
