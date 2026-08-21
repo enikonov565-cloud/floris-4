@@ -2140,7 +2140,7 @@ body:has(.faq) ::view-transition-new(root){
 .hr-grid[data-reveal]{transition-delay:.12s;}
 
 /* ---------- FAQ (тихо) ---------- */
-.home-faq{height:auto;padding:90px 0 120px;}
+.home-faq{height:auto;padding:30px 0 120px;}
 .home-faq-inner{
   width:1798px;max-width:calc(100% - 120px);margin:0 auto;
   display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);
