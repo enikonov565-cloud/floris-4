@@ -134,6 +134,15 @@
     });
   });
 
+  // --- клик по карточке каталога (кроме фото и блока с кнопкой/степпером) — переход в карточку товара ---
+  document.querySelectorAll('.listing-card').forEach(function(card){
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function(e){
+      if (e.target.closest('.listing-card-actions') || e.target.closest('.listing-card-photo')) return;
+      window.location.href = 'товар.html';
+    });
+  });
+
   // --- счётчик в карточке товара: локальный, влияет на «Добавить в корзину» ---
   document.querySelectorAll('.product-qty').forEach(function(stepper){
     var buttons = stepper.querySelectorAll('button');
