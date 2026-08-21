@@ -91,13 +91,13 @@
     <div class="pd-addons-list">
       <label class="pd-addon">
         <input type="checkbox" class="pd-addon-check">
-        <img class="pd-addon-photo" src="frames/открытка в букет 2.webp" alt="">
+        <img class="pd-addon-photo" src="frames/открытка в букет 2.webp" alt="Открытка «Розовый пион»">
         <span class="pd-addon-name">Открытка «Розовый пион»</span>
         <span class="pd-addon-price">+ 4 200 ₽</span>
       </label>
       <label class="pd-addon">
         <input type="checkbox" class="pd-addon-check">
-        <img class="pd-addon-photo" src="frames/открытка в букет 1.webp" alt="">
+        <img class="pd-addon-photo" src="frames/открытка в букет 1.webp" alt="Открытка «Изысканная лилия»">
         <span class="pd-addon-name">Открытка «Изысканная лилия»</span>
         <span class="pd-addon-price">+ 3 600 ₽</span>
       </label>
@@ -132,6 +132,65 @@
     </div>
   </div>
 </section>
+
+<div class="img-lightbox" id="img-lightbox">
+  <div class="img-lightbox-media" id="img-lightbox-media">
+    <img class="img-lightbox-img" id="img-lightbox-img" src="" alt="">
+    <div class="img-lightbox-caption">
+      <p class="img-lightbox-name" id="img-lightbox-name"></p>
+      <a class="img-lightbox-more" id="img-lightbox-more" href="товар.html">подробнее</a>
+    </div>
+  </div>
+  <button type="button" class="img-lightbox-close" id="img-lightbox-close" aria-label="Закрыть">&times;</button>
+</div>
+
+<script>
+/* Лайтбокс: клик по открытке в разделе «+ добавить к букету» открывает фото на весь экран */
+(function(){
+  var lightbox = document.getElementById('img-lightbox');
+  var lightboxImg = document.getElementById('img-lightbox-img');
+  var lightboxName = document.getElementById('img-lightbox-name');
+  var lightboxMore = document.getElementById('img-lightbox-more');
+  var closeBtn = document.getElementById('img-lightbox-close');
+  if (!lightbox || !lightboxImg) return;
+
+  var lastFocused = null;
+  function openLightbox(photo, name){
+    lightboxImg.src = photo.currentSrc || photo.src;
+    lightboxImg.alt = photo.alt;
+    if (lightboxName) lightboxName.textContent = name;
+    if (lightboxMore) lightboxMore.setAttribute('href', 'товар.html');
+    lastFocused = document.activeElement;
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.querySelectorAll('.pd-addon-photo').forEach(function(photo){
+    photo.style.cursor = 'zoom-in';
+    photo.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var label = photo.closest('.pd-addon');
+      var nameEl = label ? label.querySelector('.pd-addon-name') : null;
+      openLightbox(photo, nameEl ? nameEl.textContent : photo.alt);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  });
+})();
+</script>
 
 <script>
 (function(){
