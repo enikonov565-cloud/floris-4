@@ -649,7 +649,10 @@ body:has(.faq) ::view-transition-new(root){
 .listing-card-name{margin:0;font-family:var(--font-sans);font-weight:400;font-size:22px;line-height:1.05;letter-spacing:-0.01em;color:var(--dark);}
 .listing-card-name .cap{font-family:var(--font-script);font-size:36px;letter-spacing:0.02em;line-height:1;}
 .listing-card-price{margin:0;font-family:var(--font-sans);font-weight:300;font-size:26px;line-height:1;letter-spacing:0.01em;color:var(--dark);opacity:0.82;}
-.listing-card-actions{display:flex;align-items:center;gap:10px;margin-top:2px;width:100%;}
+.listing-card-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px;width:100%;}
+/* кнопка «в корзину» как в разделе «Хиты сезона» — кружок с крестиком, при наведении на карточку выезжает подпись */
+.listing-card:hover .hits-add{width:146px;box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
+.listing-card:hover .hits-add-label{opacity:1;}
 .listing-stepper{display:flex;align-items:center;gap:6px;flex:none;}
 .listing-stepper button,.listing-stepper span{
   background:#FDFDFD;border-radius:14px;padding:0;
