@@ -2023,7 +2023,7 @@ body:has(.faq) ::view-transition-new(root){
    ===================================================== */
 
 /* ---------- ОТЗЫВЫ ---------- */
-.home-reviews{height:auto;padding:90px 0 110px;}
+.home-reviews{height:auto;padding:30px 0 110px;}
 .home-reviews-inner{width:1798px;max-width:calc(100% - 120px);margin:0 auto;}
 
 .home-reviews-head{
@@ -2253,7 +2253,7 @@ body:has(.faq) ::view-transition-new(root){
 .spin{
   height:auto;
   display:flex;flex-direction:column;align-items:center;
-  padding:clamp(120px,12vw,190px) var(--page-pad) clamp(130px,13vw,200px);box-sizing:border-box;overflow:hidden;
+  padding:clamp(50px,5vw,80px) var(--page-pad) clamp(130px,13vw,200px);box-sizing:border-box;overflow:hidden;
 }
 /* заголовок над орбитой с гарантированным зазором — фото орбиты его НЕ перекрывают */
 .spin-head{text-align:center;margin-bottom:clamp(56px,6vw,96px);}
