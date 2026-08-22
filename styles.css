@@ -176,7 +176,7 @@ body:has(.faq) ::view-transition-new(root){
 .topbar{
   position:absolute;left:var(--page-pad);top:49px;right:var(--page-pad);width:auto;height:60px;box-sizing:border-box;
   display:flex;align-items:center;justify-content:space-between;
-  pointer-events:auto;
+  pointer-events:none;
   transition:top .4s cubic-bezier(.22,1,.36,1);
 }
 /* при скролле шапка прижимается к самому верху, стеклянная плашка тянется до края */
@@ -193,8 +193,10 @@ body:has(.faq) ::view-transition-new(root){
   transition:opacity .4s cubic-bezier(.22,1,.36,1);
   pointer-events:none;
 }
-/* контент топбара — поверх стеклянной плашки */
-.topbar-left,.topbar-right{position:relative;z-index:1;}
+/* контент топбара — поверх стеклянной плашки; pointer-events возвращаем только тут,
+   чтобы пустое место между логотипом и иконками (у самого .topbar — none) не перехватывало
+   клики по контенту страницы, когда тот проскроллен под шапку */
+.topbar-left,.topbar-right{position:relative;z-index:1;pointer-events:auto;}
 .site-header.is-scrolled .topbar::before{opacity:1;transform:none;}
 /* у футера закреплённую шапку прячем — не мешает тёмному футеру */
 .site-header.is-at-footer{opacity:0;transform:translateY(-100%);pointer-events:none;}
