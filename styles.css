@@ -1961,7 +1961,7 @@ body:has(.faq) ::view-transition-new(root){
 }
 .hits-guarantee-unit{font-size:28px;font-weight:300;letter-spacing:0;color:var(--cream);}
 .hits-guarantee-note{
-  margin:0;font-family:var(--font-sans);font-weight:300;font-size:15px;line-height:1.4;
+  margin:20px 0 0;font-family:var(--font-sans);font-weight:300;font-size:15px;line-height:1.4;
   color:rgba(242,239,232,0.8);max-width:22ch;
 }
 .hits-guarantee-list{
