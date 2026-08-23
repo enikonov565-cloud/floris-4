@@ -1383,14 +1383,13 @@ body:has(.faq) ::view-transition-new(root){
 .cart-continue-btn{background:rgba(191,204,42,0.15);}
 .cart-continue-btn:hover{background:rgba(191,204,42,0.26);}
 
-.cart-services{position:absolute;left:var(--page-pad);top:863px;right:var(--page-pad);width:auto;display:flex;gap:18px;align-items:flex-start;}
+.cart-services{position:absolute;left:var(--page-pad);top:863px;right:var(--page-pad);width:auto;display:flex;gap:18px;align-items:center;}
 .cart-services-label{margin:0;flex:none;font-family:var(--font-sans);font-weight:300;font-size:var(--fs-section-title);letter-spacing:0.02em;color:var(--dark);}
-.cart-services-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 30px;width:100%;max-width:1412px;align-items:start;}
-.cart-services-col{display:flex;flex-direction:column;gap:10px;}
-.cart-service{display:flex;align-items:center;gap:15px;}
-.cart-service input{appearance:none;width:30px;height:30px;flex:none;border-radius:50%;margin:0;cursor:pointer;background-size:cover;background-image:url('frames/корзина/radio-empty-b.png');}
+.cart-services-cols{display:flex;align-items:center;justify-content:space-between;flex:1 1 auto;}
+.cart-service{display:flex;align-items:center;gap:9px;}
+.cart-service input{appearance:none;width:22px;height:22px;flex:none;border-radius:50%;margin:0;cursor:pointer;background-size:cover;background-image:url('frames/корзина/radio-empty-b.png');}
 .cart-service input:checked{background-image:url('frames/корзина/radio-selected.png');}
-.cart-service label{font-family:var(--font-sans);font-weight:400;font-size:16px;color:rgba(45,45,53,0.7);cursor:pointer;white-space:nowrap;}
+.cart-service label{font-family:var(--font-sans);font-weight:400;font-size:15px;color:rgba(45,45,53,0.7);cursor:pointer;white-space:nowrap;}
 
 /* =====================================================
    СТРАНИЦА 13 — ФУТЕР
@@ -1542,8 +1541,8 @@ body:has(.faq) ::view-transition-new(root){
   .checkout-col{width:100%;}
   .checkout-col.right{align-items:flex-start;}
 
-  /* корзина: услуги-сетка 3→2 колонки */
-  .cart-services-cols{grid-template-columns:repeat(2,1fr);}
+  /* корзина: услуги в одну строку, на планшете допускаем перенос */
+  .cart-services-cols{flex-wrap:wrap;row-gap:12px;}
 }
 
 /* =====================================================
@@ -1771,7 +1770,7 @@ body:has(.faq) ::view-transition-new(root){
   .cart-summary{position:static;width:100%;height:auto;margin-top:32px;padding:28px 20px;gap:24px;}
   .cart-summary-actions{gap:24px;}
   .cart-services{position:static;width:100%;flex-direction:column;gap:16px;margin-top:32px;}
-  .cart-services-cols{grid-template-columns:1fr;width:100%;gap:16px;}
+  .cart-services-cols{flex-direction:column;align-items:flex-start;justify-content:flex-start;width:100%;gap:12px;}
 
   /* ---------- ФУТЕР ---------- */
   .footer{height:auto;}
