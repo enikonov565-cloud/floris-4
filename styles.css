@@ -546,7 +546,7 @@ body:has(.faq) ::view-transition-new(root){
 .photo-zoom-wrap .photo-zoom-sm{width:100%;height:100%;aspect-ratio:auto;border-radius:0;object-position:center 40%;transform:scale(1.13);transform-origin:center 45%;}
 .listing-card:hover .photo-zoom-sm{transform:scale(1.18)!important;}
 /* «Фиолетовая Грёза» — над цветами торчал кусочек затылка модели: окно кадра ниже, чисто на букет */
-.photo-no-head{object-position:center 34%!important;}
+.photo-no-head{height:clamp(420px,30vw,480px)!important;object-position:center 34%!important;}
 /* «Пробуждение Весны» — лицо/волосы модели занимали верх кадра сильнее, чем у соседних букетов */
 .photo-no-head-2{height:clamp(420px,30vw,480px)!important;object-position:center 55%!important;}
 
