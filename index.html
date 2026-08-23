@@ -136,6 +136,7 @@
 
     <!-- ПЛАШКА ГАРАНТИИ СВЕЖЕСТИ — trust-элемент (c4 / r2-3, высокая) -->
     <div class="hits-card hits-guarantee reveal" role="note" aria-label="Гарантия свежести — 2 дня" style="--hits-i:4">
+      <canvas class="hits-guarantee-fx" id="guaranteeFx" aria-hidden="true"></canvas>
       <span class="hits-guarantee-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
           <path d="M12 21c5-2.8 8-6.4 8-11V5.2L12 3 4 5.2V10c0 4.6 3 8.2 8 11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -143,7 +144,10 @@
         </svg>
       </span>
       <div class="hits-guarantee-body">
-        <p class="hits-guarantee-kicker">Гарантия свежести</p>
+        <p class="hits-guarantee-kicker shiny-pill">
+          <span class="shiny-pill-base">Гарантия свежести</span>
+          <span class="shiny-pill-shine" aria-hidden="true">Гарантия свежести</span>
+        </p>
         <p class="hits-guarantee-num">2<span class="hits-guarantee-unit">&nbsp;дня</span></p>
         <p class="hits-guarantee-note">Заменим букет бесплатно, если&nbsp;лепестки увянут раньше срока</p>
       </div>
@@ -465,6 +469,209 @@
       e.stopPropagation();
     });
   });
+})();
+</script>
+
+<script>
+/* Плашка «Гарантия свежести»: поле мелких капсул, которые светятся и
+   отталкиваются кольцом, следующим за курсором (упрощённый canvas-порт
+   идеи Cursor Ring Field — без WebGL/шейдеров, для одной небольшой карточки). */
+(function(){
+  var canvas = document.getElementById('guaranteeFx');
+  var card = canvas ? canvas.closest('.hits-guarantee') : null;
+  if (!canvas || !card) return;
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  var COLOR_A = [206, 217, 74];   // #CED94A
+  var COLOR_B = [191, 204, 42];   // #BFCC2A
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  var W = 0, H = 0;
+  var points = [];
+  var ring = { x: 0, y: 0 };
+  var wanderSeedX = Math.random() * 1000;
+  var wanderSeedY = Math.random() * 1000;
+  var pointer = { x: 0, y: 0, over: false };
+  var follow = 0;
+  var raf = 0;
+  var running = false;
+  var lastT = 0;
+
+  function noise1(x){
+    // лёгкий 1D value-noise на синусах — плавное «блуждание» без библиотек
+    var i = Math.floor(x), f = x - i;
+    function h(n){ var s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); }
+    var u = f * f * (3 - 2 * f);
+    return h(i) * (1 - u) + h(i + 1) * u;
+  }
+
+  function buildPoints(){
+    points = [];
+    var cell = 15; // шаг решётки в CSS px — плотность поля
+    var cols = Math.max(1, Math.round(W / cell));
+    var rows = Math.max(1, Math.round(H / cell));
+    var cw = W / cols, ch = H / rows;
+    for (var r = 0; r < rows; r++){
+      for (var c = 0; c < cols; c++){
+        var hx = (c + 0.5) * cw + (Math.random() - 0.5) * cw * 0.6;
+        var hy = (r + 0.5) * ch + (Math.random() - 0.5) * ch * 0.6;
+        points.push({
+          hx: hx, hy: hy,
+          dx: 0, dy: 0,
+          scale: 0,
+          hue: Math.random(),
+          seed: Math.random() * 1000
+        });
+      }
+    }
+  }
+
+  function resize(){
+    var rect = card.getBoundingClientRect();
+    W = Math.max(1, rect.width);
+    H = Math.max(1, rect.height);
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ring.x = W * 0.7; ring.y = H * 0.28;
+    buildPoints();
+  }
+
+  card.addEventListener('pointermove', function(e){
+    var rect = card.getBoundingClientRect();
+    pointer.x = e.clientX - rect.left;
+    pointer.y = e.clientY - rect.top;
+    pointer.over = true;
+  });
+  card.addEventListener('pointerleave', function(){
+    pointer.over = false;
+  });
+
+  function drawCapsule(x, y, angle, len, thick, color, alpha){
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.beginPath();
+    var r = thick / 2;
+    var hl = len / 2 - r;
+    ctx.moveTo(-hl, -r);
+    ctx.lineTo(hl, -r);
+    ctx.arc(hl, 0, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(-hl, r);
+    ctx.arc(-hl, 0, r, Math.PI / 2, -Math.PI / 2);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(' + color[0] + ',' + color[1] + ',' + color[2] + ',' + alpha + ')';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function frame(now){
+    if (!running) return;
+    raf = requestAnimationFrame(frame);
+    var dt = lastT ? Math.min((now - lastT) / 1000, 1 / 20) : 1 / 60;
+    lastT = now;
+
+    follow += ((pointer.over ? 1 : 0) - follow) * (1 - Math.pow(1 - 0.08, dt * 60));
+
+    var wx = (noise1(now * 0.00035 + wanderSeedX) - 0.5) * 2;
+    var wy = (noise1(now * 0.00035 + wanderSeedY) - 0.5) * 2;
+    var wanderX = W * 0.5 + wx * W * 0.32;
+    var wanderY = H * 0.4 + wy * H * 0.32;
+
+    var targetX = wanderX + (pointer.x - wanderX) * follow;
+    var targetY = wanderY + (pointer.y - wanderY) * follow;
+    var lerp = 0.02 + (0.14 - 0.02) * follow;
+    var rk = 1 - Math.pow(1 - lerp, dt * 60);
+    ring.x += (targetX - ring.x) * rk;
+    ring.y += (targetY - ring.y) * rk;
+
+    var ringRadius = Math.min(W, H) * 0.16 + Math.sin(now * 0.0012) * 6;
+    var band = Math.max(30, Math.min(W, H) * 0.2);
+
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < points.length; i++){
+      var p = points[i];
+      var dist = Math.hypot(p.hx - ring.x, p.hy - ring.y);
+      var t = Math.max(0, 1 - Math.abs(dist - ringRadius) / band);
+      t = Math.pow(t, 1.1);
+      var ambient = (Math.sin(now * 0.0009 + p.seed) + 1) * 0.5 * 0.1;
+      var targetScale = Math.min(1, t * 0.6 + ambient);
+      p.scale += (targetScale - p.scale) * 0.15;
+
+      if (t > 0.05 && dist > 0.001){
+        var push = t * t * 0.7;
+        p.dx += ((p.hx - ring.x) / dist) * push;
+        p.dy += ((p.hy - ring.y) / dist) * push;
+      }
+      p.dx *= 0.85;
+      p.dy *= 0.85;
+
+      if (p.scale < 0.03) continue;
+      var x = p.hx + p.dx, y = p.hy + p.dy;
+      var angle = Math.atan2(y - ring.y, x - ring.x);
+      var len = 2 + p.scale * 4.5;
+      var thick = 0.9 + p.scale * 1.1;
+      var mix = p.hue;
+      var color = [
+        COLOR_A[0] + (COLOR_B[0] - COLOR_A[0]) * mix,
+        COLOR_A[1] + (COLOR_B[1] - COLOR_A[1]) * mix,
+        COLOR_A[2] + (COLOR_B[2] - COLOR_A[2]) * mix
+      ];
+      drawCapsule(x, y, angle, len, thick, color, Math.min(0.55, p.scale));
+    }
+  }
+
+  function start(){
+    if (running) return;
+    running = true;
+    lastT = 0;
+    raf = requestAnimationFrame(frame);
+  }
+  function stop(){
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+  }
+
+  resize();
+  var ro = new ResizeObserver(function(){ resize(); });
+  ro.observe(card);
+
+  if (reduceMotion){
+    // статичный кадр без анимации/курсора
+    ring.x = W * 0.62; ring.y = H * 0.3;
+    var ringRadiusStatic = Math.min(W, H) * 0.16;
+    var bandStatic = Math.max(30, Math.min(W, H) * 0.2);
+    ctx.clearRect(0, 0, W, H);
+    points.forEach(function(p){
+      var dist = Math.hypot(p.hx - ring.x, p.hy - ring.y);
+      var t = Math.pow(Math.max(0, 1 - Math.abs(dist - ringRadiusStatic) / bandStatic), 1.1) * 0.6;
+      if (t < 0.05) return;
+      var angle = Math.atan2(p.hy - ring.y, p.hx - ring.x);
+      var mix = p.hue;
+      var color = [
+        COLOR_A[0] + (COLOR_B[0] - COLOR_A[0]) * mix,
+        COLOR_A[1] + (COLOR_B[1] - COLOR_A[1]) * mix,
+        COLOR_A[2] + (COLOR_B[2] - COLOR_A[2]) * mix
+      ];
+      drawCapsule(p.hx, p.hy, angle, 2 + t * 4.5, 0.9 + t * 1.1, color, Math.min(0.55, t));
+    });
+    return;
+  }
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) start(); else stop();
+      });
+    }, { threshold: 0.05 });
+    io.observe(card);
+  } else {
+    start();
+  }
 })();
 </script>
 
