@@ -1334,7 +1334,7 @@ body:has(.faq) ::view-transition-new(root){
 /* =====================================================
    КОРЗИНА — Флорис 15 (id 2754:345)
    ===================================================== */
-.cart{height:1080px;}
+.cart{height:1000px;}
 .cart-heading{position:absolute;left:var(--page-pad);top:152px;margin:0;font-family:var(--font-sans);font-weight:400;font-size:var(--fs-hero-title);line-height:1.01;letter-spacing:-0.01em;color:var(--dark);}
 .cart-heading .cap{font-family:var(--font-script);font-size:var(--fs-hero-script);letter-spacing:0.1em;color:var(--green);}
 
