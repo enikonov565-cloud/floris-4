@@ -37,7 +37,7 @@
           <img class="dl-row-icon dl-addr-icon" src="frames/Pin_light.svg" alt="">
           <span class="dl-row-text">
             <span class="dl-row-label">Адрес доставки</span>
-            <span class="dl-row-value" id="dl-address-value">Вешняковская улица, 5к2, подъезд 5, кв. 177</span>
+            <span class="dl-row-value" id="dl-address-value"></span>
           </span>
           <span class="dl-row-arrow">›</span>
         </button>
@@ -47,7 +47,7 @@
         <button type="button" class="dl-row" id="dl-date-row">
           <img class="dl-row-icon dl-date-icon" src="frames/calendar.svg" alt="">
           <span class="dl-row-text">
-            <span class="dl-row-value" id="dl-date-value">5 – 6 августа</span>
+            <span class="dl-row-value" id="dl-date-value"></span>
             <span class="dl-row-label">Отслеживайте статус заказа по email</span>
           </span>
           <span class="dl-row-arrow">›</span>
@@ -148,13 +148,13 @@
   <div class="addr-modal">
     <button type="button" class="addr-close" id="addr-close" aria-label="закрыть">×</button>
     <h3>Укажите адрес доставки</h3>
-    <div class="addr-field"><label>Адрес *</label><input type="text" id="addr-street" placeholder="Город, улица, дом" value="Москва, Вешняковская улица, 5к2, подъезд 5"></div>
+    <div class="addr-field"><label>Адрес *</label><input type="text" id="addr-street" placeholder="Город, улица, дом"></div>
     <div class="addr-field-row">
-      <div class="addr-field"><label>Квартира</label><input type="text" id="addr-flat" value="177"></div>
-      <div class="addr-field"><label>Этаж</label><input type="text" id="addr-floor" value="9"></div>
+      <div class="addr-field"><label>Квартира</label><input type="text" id="addr-flat"></div>
+      <div class="addr-field"><label>Этаж</label><input type="text" id="addr-floor"></div>
     </div>
     <div class="addr-field-row">
-      <div class="addr-field"><label>Подъезд</label><input type="text" id="addr-entrance" value="5"></div>
+      <div class="addr-field"><label>Подъезд</label><input type="text" id="addr-entrance"></div>
       <div class="addr-field"><label>Домофон</label><input type="text" id="addr-intercom" placeholder="177#139"></div>
     </div>
     <div class="addr-field"><label>Комментарий для курьера</label><textarea id="addr-comment" rows="2"></textarea></div>
@@ -296,6 +296,7 @@
     chip.addEventListener('click', function(){ selectDate(i); });
   });
   selectDate(0);
+  document.getElementById('dl-date-value').textContent = formatRange(dates[0]);
 
   document.getElementById('dl-date-row').addEventListener('click', function(){
     dtOverlay.classList.add('open');
