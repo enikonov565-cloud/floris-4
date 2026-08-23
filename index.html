@@ -148,7 +148,7 @@
           <span class="shiny-pill-base">Гарантия свежести</span>
           <span class="shiny-pill-shine" aria-hidden="true">Гарантия свежести</span>
         </p>
-        <p class="hits-guarantee-num">2<span class="hits-guarantee-unit">&nbsp;дня</span></p>
+        <p class="hits-guarantee-num" id="guaranteeNum">2<span class="hits-guarantee-unit">&nbsp;дня</span></p>
         <p class="hits-guarantee-note">Заменим букет бесплатно, если&nbsp;лепестки увянут раньше срока</p>
       </div>
       <ul class="hits-guarantee-list">
@@ -672,6 +672,86 @@
   } else {
     start();
   }
+})();
+</script>
+
+<script>
+/* Число «2 дня» в плашке гарантии: пружинно следует за курсором и оставляет
+   цветной хроматический след (упрощённый порт идеи Spring Text — без React). */
+(function(){
+  var card = document.querySelector('.hits-guarantee');
+  var word = document.getElementById('guaranteeNum');
+  if (!card || !word) return;
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var DAMPING = 0.82;
+  var SPRING_K = 0.001 * Math.pow(20, 6 / 20); // snap = 6
+  var GAP = 8;
+  var LIMIT = 14; // px — сдержанная амплитуда, чтобы не спорить с остальным текстом
+  var COLORS = ['#7ECD45', '#F3F7E3', '#859A17'];
+
+  var center = { x: 0, y: 0 };
+  function measure(){
+    var prev = word.style.transform;
+    word.style.transform = '';
+    var r = word.getBoundingClientRect();
+    word.style.transform = prev;
+    center = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+  measure();
+  window.addEventListener('resize', measure);
+  window.addEventListener('scroll', measure, { passive: true });
+  if ('ResizeObserver' in window) new ResizeObserver(measure).observe(card);
+
+  var pointer = { x: -9999, y: -9999, inside: false };
+  card.addEventListener('pointermove', function(e){
+    pointer.inside = true;
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+  });
+  card.addEventListener('pointerleave', function(){ pointer.inside = false; });
+
+  var dispX = 0, dispY = 0, velX = 0, velY = 0;
+  var trailX = new Array(COLORS.length).fill(0);
+  var trailY = new Array(COLORS.length).fill(0);
+
+  function frame(){
+    requestAnimationFrame(frame);
+
+    var targetX = 0, targetY = 0;
+    if (pointer.inside){
+      targetX = pointer.x - center.x;
+      targetY = pointer.y - center.y;
+    }
+    targetX = Math.max(-LIMIT, Math.min(LIMIT, targetX));
+    targetY = Math.max(-LIMIT, Math.min(LIMIT, targetY));
+
+    velX += (targetX - dispX) * SPRING_K;
+    velY += (targetY - dispY) * SPRING_K;
+    velX *= DAMPING;
+    velY *= DAMPING;
+    dispX += velX;
+    dispY += velY;
+
+    var mag = Math.hypot(dispX, dispY);
+    word.style.transform = mag < 0.1 ? '' : 'translate3d(' + dispX.toFixed(2) + 'px,' + dispY.toFixed(2) + 'px,0)';
+
+    var speed = Math.hypot(velX, velY);
+    var ramp = Math.min(1, speed / 2);
+    var dirX = speed > 0.001 ? (velX / speed) * ramp : 0;
+    var dirY = speed > 0.001 ? (velY / speed) * ramp : 0;
+    var parts = [];
+    for (var i = 0; i < COLORS.length; i++){
+      var offX = -dirX * GAP * (i + 1);
+      var offY = -dirY * GAP * (i + 1);
+      trailX[i] += (offX - trailX[i]) * 0.25;
+      trailY[i] += (offY - trailY[i]) * 0.25;
+      parts.push(trailX[i].toFixed(2) + 'px ' + trailY[i].toFixed(2) + 'px 0 ' + COLORS[i]);
+    }
+    word.style.textShadow = parts.join(',');
+  }
+  requestAnimationFrame(frame);
 })();
 </script>
 
