@@ -22,7 +22,6 @@
           <p class="cart-row-price">5 200 руб.</p>
           <div class="cart-row-qty"><button aria-label="меньше">-</button><span>1</span><button aria-label="больше">+</button></div>
           <p class="cart-row-total">5 200 руб.</p>
-          <button class="cart-row-add" aria-label="добавить ещё"></button>
         </div>
       </div>
     </div>
@@ -34,7 +33,6 @@
           <p class="cart-row-price">5 300 руб.</p>
           <div class="cart-row-qty"><button aria-label="меньше">-</button><span>1</span><button aria-label="больше">+</button></div>
           <p class="cart-row-total">5 300 руб.</p>
-          <button class="cart-row-add" aria-label="добавить ещё"></button>
         </div>
       </div>
     </div>
@@ -46,7 +44,6 @@
           <p class="cart-row-price">5 800 руб.</p>
           <div class="cart-row-qty"><button aria-label="меньше">-</button><span>1</span><button aria-label="больше">+</button></div>
           <p class="cart-row-total">5 800 руб.</p>
-          <button class="cart-row-add" aria-label="добавить ещё"></button>
         </div>
       </div>
     </div>
@@ -183,17 +180,6 @@
       var row = btn.closest('.cart-row');
       if (row) row.remove();
       recalcCartSummary();
-    });
-  });
-
-  document.querySelectorAll('.cart-row-add').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var row = btn.closest('.cart-row');
-      var count = row.querySelector('.cart-row-qty span');
-      var v = parseInt(count.textContent, 10) || 1;
-      count.textContent = String(v + 1);
-      recalcCartSummary();
-      setBadge(cartCount + 1);
     });
   });
 

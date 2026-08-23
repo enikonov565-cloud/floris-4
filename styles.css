@@ -1345,7 +1345,7 @@ body:has(.faq) ::view-transition-new(root){
 .cart-row-content{display:flex;align-items:center;justify-content:space-between;flex:1 1 auto;min-width:0;gap:20px;}
 .cart-row-name{margin:0;font-family:var(--font-sans);font-weight:300;font-size:20px;letter-spacing:-0.01em;color:var(--dark);white-space:nowrap;}
 .cart-row-name .cap{font-family:var(--font-script);font-size:33px;letter-spacing:0.02em;}
-.cart-row-meta{flex:none;display:flex;align-items:center;gap:40px;}
+.cart-row-meta{flex:1 1 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;}
 .cart-row-price{flex:none;font-family:var(--font-sans);font-weight:300;font-size:20px;letter-spacing:-0.01em;color:#9C9A9A;white-space:nowrap;}
 .cart-row-qty{flex:none;display:flex;align-items:center;gap:4px;}
 .cart-row-qty button,.cart-row-qty span{
@@ -1357,8 +1357,6 @@ body:has(.faq) ::view-transition-new(root){
 .cart-row-qty button:hover{border-color:var(--green);background:rgba(191,204,42,0.12);}
 .cart-row-qty span{border-color:transparent;background:transparent;font-weight:500;}
 .cart-row-total{flex:none;width:110px;font-family:var(--font-sans);font-weight:300;font-size:20px;letter-spacing:-0.01em;color:var(--dark);white-space:nowrap;}
-.cart-row-add{flex:none;width:50px;height:50px;border:none;background:transparent url('frames/корзина/add-icon.png') center/cover no-repeat;cursor:pointer;}
-.cart-row-add:hover{opacity:0.8;}
 
 .cart-summary{
   position:absolute;right:var(--page-pad);top:285px;width:481px;height:512px;box-sizing:border-box;
@@ -1769,7 +1767,7 @@ body:has(.faq) ::view-transition-new(root){
   .cart-row-meta{flex-wrap:nowrap;width:auto;gap:12px;}
   .cart-row-price{font-size:14px;}
   .cart-row-qty button,.cart-row-qty span{width:26px;height:26px;font-size:14px;}
-  .cart-row-total,.cart-row-add{display:none;}
+  .cart-row-total{display:none;}
   .cart-summary{position:static;width:100%;height:auto;margin-top:32px;padding:28px 20px;gap:24px;}
   .cart-summary-actions{gap:24px;}
   .cart-services{position:static;width:100%;flex-direction:column;gap:16px;margin-top:32px;}
