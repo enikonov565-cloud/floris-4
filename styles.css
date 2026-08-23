@@ -1387,9 +1387,9 @@ body:has(.faq) ::view-transition-new(root){
 .cart-services-label{margin:0;flex:none;font-family:var(--font-sans);font-weight:300;font-size:var(--fs-section-title);letter-spacing:0.02em;color:var(--dark);}
 .cart-services-cols{display:flex;align-items:center;justify-content:space-between;flex:1 1 auto;}
 .cart-service{display:flex;align-items:center;gap:9px;}
-.cart-service input{appearance:none;width:22px;height:22px;flex:none;border-radius:50%;margin:0;cursor:pointer;background-size:cover;background-image:url('frames/корзина/radio-empty-b.png');}
+.cart-service input{appearance:none;width:24px;height:24px;flex:none;border-radius:50%;margin:0;cursor:pointer;background-size:cover;background-image:url('frames/корзина/radio-empty-b.png');}
 .cart-service input:checked{background-image:url('frames/корзина/radio-selected.png');}
-.cart-service label{font-family:var(--font-sans);font-weight:400;font-size:15px;color:rgba(45,45,53,0.7);cursor:pointer;white-space:nowrap;}
+.cart-service label{font-family:var(--font-sans);font-weight:400;font-size:16px;color:rgba(45,45,53,0.7);cursor:pointer;white-space:nowrap;}
 
 /* =====================================================
    СТРАНИЦА 13 — ФУТЕР
