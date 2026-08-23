@@ -1383,7 +1383,7 @@ body:has(.faq) ::view-transition-new(root){
 .cart-continue-btn{background:rgba(191,204,42,0.15);}
 .cart-continue-btn:hover{background:rgba(191,204,42,0.26);}
 
-.cart-services{position:absolute;left:var(--page-pad);top:863px;right:var(--page-pad);width:auto;display:flex;gap:18px;align-items:center;}
+.cart-services{position:absolute;left:var(--page-pad);top:863px;right:var(--page-pad);width:auto;display:flex;gap:93px;align-items:center;}
 .cart-services-label{margin:0;flex:none;font-family:var(--font-sans);font-weight:300;font-size:var(--fs-section-title);letter-spacing:0.02em;color:var(--dark);}
 .cart-services-cols{display:flex;align-items:center;justify-content:space-between;flex:1 1 auto;}
 .cart-service{display:flex;align-items:center;gap:9px;}
