@@ -267,6 +267,7 @@
   var heroCard = document.querySelector('.listing-card:first-child');
   var heroImg = heroCard ? heroCard.querySelector('.listing-card-photo') : null;
   var heroName = heroCard ? heroCard.querySelector('.listing-card-name') : null;
+  var heroPrice = heroCard ? heroCard.querySelector('.listing-card-price') : null;
   if (!lightbox || !lightboxImg || !heroImg) return;
 
   var lastFocused = null;
@@ -275,6 +276,7 @@
     lightboxImg.src = heroImg.currentSrc || heroImg.src;
     lightboxImg.alt = heroImg.alt;
     if (lightboxName && heroName) lightboxName.innerHTML = heroName.innerHTML;
+    if (heroPrice) lightbox.setAttribute('data-price', heroPrice.textContent);
     lastFocused = document.activeElement;
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';

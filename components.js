@@ -334,6 +334,11 @@
     return items;
   }
 
+  function florisClearCart(){
+    florisSaveCartItems([]);
+    return [];
+  }
+
   // get()/set() оставлены для обратной совместимости: set(n) переводит счётчик в единственную
   // «условную» строку корзины, get() — сумма количеств по всем строкам (как и раньше).
   function florisGetCartCount(){ return florisRenderBadge(); }
@@ -349,7 +354,8 @@
     getItems: florisGetCartItems,
     addItem: florisAddCartItem,
     setItemQty: florisSetCartItemQty,
-    removeItem: florisRemoveCartItem
+    removeItem: florisRemoveCartItem,
+    clear: florisClearCart
   };
 
   /* Достаёт {id,name,price,photo} из карточки/лайтбокса, в которых лежит нажатая
@@ -364,7 +370,7 @@
       var lbName = document.getElementById('img-lightbox-name');
       var lbImg = document.getElementById('img-lightbox-img');
       var name = lbName ? lbName.textContent.trim() : 'Товар';
-      return { id: name, name: name, price: 0, photo: lbImg ? lbImg.src : '' };
+      return { id: name, name: name, price: parsePrice(lightbox.getAttribute('data-price') || '0'), photo: lbImg ? lbImg.src : '' };
     }
 
     var card = btn.closest('.listing-card') || btn.closest('.hits-card') || btn.closest('.pd-related-card');

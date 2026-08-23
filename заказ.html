@@ -55,32 +55,8 @@
 
         <div class="dl-divider"></div>
 
-        <div class="dl-cart-list" id="dl-cart-list">
-          <div class="dl-cart-item">
-            <img src="frames/корзина/photo1.png" alt="Пробуждение Весны">
-            <div class="dl-cart-item-info">
-              <p class="dl-cart-item-name">Пробуждение Весны</p>
-              <p class="dl-cart-item-price" data-unit="5200">5 200 ₽</p>
-            </div>
-            <div class="dl-cart-item-qty"><button type="button" aria-label="меньше">−</button><span>1</span><button type="button" aria-label="больше">+</button></div>
-          </div>
-          <div class="dl-cart-item">
-            <img src="frames/корзина/photo2.png" alt="Изысканная Роскошь">
-            <div class="dl-cart-item-info">
-              <p class="dl-cart-item-name">Изысканная Роскошь</p>
-              <p class="dl-cart-item-price" data-unit="5300">5 300 ₽</p>
-            </div>
-            <div class="dl-cart-item-qty"><button type="button" aria-label="меньше">−</button><span>1</span><button type="button" aria-label="больше">+</button></div>
-          </div>
-          <div class="dl-cart-item">
-            <img src="frames/корзина/photo3.png" alt="Розовая Симфония">
-            <div class="dl-cart-item-info">
-              <p class="dl-cart-item-name">Розовая Симфония</p>
-              <p class="dl-cart-item-price" data-unit="5800">5 800 ₽</p>
-            </div>
-            <div class="dl-cart-item-qty"><button type="button" aria-label="меньше">−</button><span>1</span><button type="button" aria-label="больше">+</button></div>
-          </div>
-        </div>
+        <div class="dl-cart-list" id="dl-cart-list"></div>
+        <p id="dl-cart-empty" hidden style="font-family:var(--font-sans);font-size:15px;color:rgba(45,45,53,0.55);padding:8px 0;">Корзина пуста — добавьте букет из каталога.</p>
 
         <div class="dl-tabs">
           <button type="button" class="dl-tab active" data-tab="pay">Оплата</button>
@@ -193,22 +169,52 @@
   var savedAddress = addressValue.textContent;
   var summaryDelivery = document.getElementById('dl-summary-delivery');
 
-  function recalcSummary(){
-    var items = document.querySelectorAll('.dl-cart-item');
-    var subtotal = 0, count = 0;
-    items.forEach(function(item){
-      var priceEl = item.querySelector('.dl-cart-item-price');
-      var unit = parseInt(priceEl.getAttribute('data-unit'), 10) || 0;
-      var qty = parseInt(item.querySelector('.dl-cart-item-qty span').textContent, 10) || 1;
-      subtotal += unit * qty;
-      count += qty;
+  // --- список товаров в заказе: рендерится из реальной корзины (localStorage), ---
+  // --- как на странице «Корзина» — раньше здесь были 3 статичных демо-товара. ---
+  var dlCartList = document.getElementById('dl-cart-list');
+  var dlCartEmpty = document.getElementById('dl-cart-empty');
+
+  function renderDlCartItem(item){
+    var row = document.createElement('div');
+    row.className = 'dl-cart-item';
+    row.innerHTML =
+      '<img src="' + item.photo + '" alt="' + item.name + '">' +
+      '<div class="dl-cart-item-info">' +
+        '<p class="dl-cart-item-name">' + item.name + '</p>' +
+        '<p class="dl-cart-item-price">' + formatPrice(item.price) + '</p>' +
+      '</div>' +
+      '<div class="dl-cart-item-qty"><button type="button" aria-label="меньше">−</button><span>' + item.qty + '</span><button type="button" aria-label="больше">+</button></div>';
+    var buttons = row.querySelectorAll('.dl-cart-item-qty button');
+    buttons[0].addEventListener('click', function(){
+      window.florisCart.setItemQty(item.id, item.qty - 1);
+      renderCart();
     });
+    buttons[1].addEventListener('click', function(){
+      window.florisCart.setItemQty(item.id, item.qty + 1);
+      renderCart();
+    });
+    return row;
+  }
+
+  function recalcSummary(items){
+    var subtotal = 0, count = 0;
+    items.forEach(function(it){ subtotal += it.price * it.qty; count += it.qty; });
     var isPickup = document.querySelector('.dl-method.active').getAttribute('data-method') === 'pickup';
     var deliveryPrice = isPickup ? 0 : DELIVERY_PRICE;
     document.getElementById('dl-summary-count').textContent = count;
     document.getElementById('dl-summary-subtotal').textContent = formatPrice(subtotal);
     summaryDelivery.textContent = isPickup ? 'Бесплатно' : ('от ' + formatPrice(deliveryPrice));
     document.getElementById('dl-summary-total').textContent = formatPrice(subtotal + deliveryPrice);
+  }
+
+  function renderCart(){
+    var items = window.florisCart ? window.florisCart.getItems() : [];
+    dlCartList.innerHTML = '';
+    var hasItems = items.length > 0;
+    dlCartList.hidden = !hasItems;
+    if (dlCartEmpty) dlCartEmpty.hidden = hasItems;
+    items.forEach(function(item){ dlCartList.appendChild(renderDlCartItem(item)); });
+    recalcSummary(items);
   }
 
   methodBtns.forEach(function(btn){
@@ -218,25 +224,15 @@
       var isPickup = btn.getAttribute('data-method') === 'pickup';
       addressValue.textContent = isPickup ? PICKUP_ADDRESS : savedAddress;
       addressRow.classList.toggle('disabled', isPickup);
-      recalcSummary();
+      recalcSummary(window.florisCart ? window.florisCart.getItems() : []);
     });
   });
 
-  // --- карточки товара: степпер количества ---
-  document.querySelectorAll('.dl-cart-item-qty').forEach(function(stepper){
-    var buttons = stepper.querySelectorAll('button');
-    var count = stepper.querySelector('span');
-    buttons[0].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 1;
-      count.textContent = String(Math.max(1, v - 1));
-      recalcSummary();
-    });
-    buttons[1].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 1;
-      count.textContent = String(v + 1);
-      recalcSummary();
-    });
-  });
+  // Этот <script> идёт ДО components.js (см. ниже по файлу) — window.florisCart
+  // на этом этапе ещё не существует, поэтому синхронный вызов renderCart() тут
+  // всегда покажет пустую корзину. Функцию делаем доступной глобально и вызываем
+  // её уже после components.js, отдельным блоком.
+  window.florisRenderOrderCart = renderCart;
 
   // --- адрес: попап ---
   var addrOverlay = document.getElementById('addr-overlay');
@@ -327,16 +323,15 @@
     submitNote.classList.remove('error');
     submitNote.textContent = 'Заказ оформлен! Мы свяжемся с вами в ближайшее время.';
     submitBtn.disabled = true;
-    var badge = document.querySelector('.topbar-badge');
-    if (badge) badge.textContent = '0';
+    if (window.florisCart) { window.florisCart.clear(); }
+    renderCart();
   });
-
-  recalcSummary();
 })();
 </script>
 
 <div id="site-footer-mount"></div>
 <script src="components.js"></script>
+<script>if (window.florisRenderOrderCart) window.florisRenderOrderCart();</script>
 
 <script>
 (function(){
@@ -467,10 +462,11 @@
   if (!lightbox || !lightboxImg) return;
 
   var lastFocused = null;
-  function openLightbox(photo, name){
+  function openLightbox(photo, name, price){
     lightboxImg.src = photo.currentSrc || photo.src;
     lightboxImg.alt = photo.alt;
     if (lightboxName) lightboxName.textContent = name;
+    lightbox.setAttribute('data-price', price || '0');
     lastFocused = document.activeElement;
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -489,7 +485,8 @@
       e.stopPropagation();
       var label = photo.closest('.pd-addon');
       var nameEl = label ? label.querySelector('.pd-addon-name') : null;
-      openLightbox(photo, nameEl ? nameEl.textContent : photo.alt);
+      var priceEl = label ? label.querySelector('.pd-addon-price') : null;
+      openLightbox(photo, nameEl ? nameEl.textContent : photo.alt, priceEl ? priceEl.textContent : '0');
     });
   });
 

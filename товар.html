@@ -157,10 +157,11 @@
   if (!lightbox || !lightboxImg) return;
 
   var lastFocused = null;
-  function openLightbox(photo, name){
+  function openLightbox(photo, name, price){
     lightboxImg.src = photo.currentSrc || photo.src;
     lightboxImg.alt = photo.alt;
     if (lightboxName) lightboxName.textContent = name;
+    lightbox.setAttribute('data-price', price || '0');
     lastFocused = document.activeElement;
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -179,7 +180,8 @@
       e.stopPropagation();
       var label = photo.closest('.pd-addon');
       var nameEl = label ? label.querySelector('.pd-addon-name') : null;
-      openLightbox(photo, nameEl ? nameEl.textContent : photo.alt);
+      var priceEl = label ? label.querySelector('.pd-addon-price') : null;
+      openLightbox(photo, nameEl ? nameEl.textContent : photo.alt, priceEl ? priceEl.textContent : '0');
     });
   });
 
