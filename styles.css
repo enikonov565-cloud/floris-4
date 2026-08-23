@@ -496,9 +496,6 @@ body:has(.faq) ::view-transition-new(root){
    ===================================================== */
 .listing{height:auto;padding-bottom:140px;box-sizing:border-box;}
 .listing-wrap{position:relative;width:auto;margin:0 var(--page-pad);padding-top:98px;display:flex;flex-direction:column;gap:39px;align-items:flex-start;}
-.listing-wrap.lw-4{padding-top:138px;}
-.listing-wrap.lw-5{padding-top:121px;}
-.listing-wrap.lw-6{padding-top:140px;}
 .listing-head{display:flex;align-items:center;justify-content:space-between;width:100%;height:173px;flex-wrap:wrap;gap:20px;}
 .listing-head h1{margin:0;font-family:var(--font-sans);font-weight:500;font-size:var(--fs-hero-title);line-height:1.01;letter-spacing:-0.01em;color:var(--dark);text-transform:none;}
 .listing-head h1 .cap{font-family:var(--font-script);font-size:var(--fs-listing-script);letter-spacing:0.1em;color:var(--green);}
@@ -1610,7 +1607,7 @@ body:has(.faq) ::view-transition-new(root){
   .cat-card-btn{width:100%;box-sizing:border-box;justify-content:space-between;}
 
   /* ---------- ЛИСТИНГИ ---------- */
-  .listing-wrap,.listing-wrap.lw-4,.listing-wrap.lw-5,.listing-wrap.lw-6{position:static;width:auto;top:auto;gap:24px;}
+  .listing-wrap{position:static;width:auto;top:auto;gap:24px;}
   .listing-head{flex-direction:column;align-items:flex-start;height:auto;gap:16px;}
   .listing-head h1{font-size:32px;}
   .listing-head h1 .cap{font-size:40px;}
