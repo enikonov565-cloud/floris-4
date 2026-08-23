@@ -406,7 +406,11 @@
   document.querySelectorAll('.postcard-btn').forEach(function(btn){
     btn.style.cursor = 'pointer';
     btn.addEventListener('click', function(){
-      setBadge(cartCount + 1);
+      if (window.florisCart && window.florisExtractProduct) {
+        window.florisCart.addItem(window.florisExtractProduct(btn));
+      } else {
+        setBadge(cartCount + 1);
+      }
     });
   });
 

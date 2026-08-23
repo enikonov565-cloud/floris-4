@@ -13,41 +13,8 @@
 <section class="page cart" id="корзина">
   <h1 class="cart-heading"><span class="cap">К</span>орзина</h1>
 
-  <div class="cart-list">
-    <div class="cart-row">
-      <img class="cart-row-photo" src="frames/корзина/photo1.png" alt="Пробуждение Весны">
-      <div class="cart-row-content">
-        <p class="cart-row-name"><span class="cap">П</span>робуждение Весны</p>
-        <div class="cart-row-meta">
-          <p class="cart-row-price">5 200 руб.</p>
-          <div class="cart-row-qty"><button aria-label="меньше">-</button><span>1</span><button aria-label="больше">+</button></div>
-          <p class="cart-row-total">5 200 руб.</p>
-        </div>
-      </div>
-    </div>
-    <div class="cart-row">
-      <img class="cart-row-photo" src="frames/корзина/photo2.png" alt="Изысканная Роскошь">
-      <div class="cart-row-content">
-        <p class="cart-row-name"><span class="cap">И</span>зысканная Роскошь</p>
-        <div class="cart-row-meta">
-          <p class="cart-row-price">5 300 руб.</p>
-          <div class="cart-row-qty"><button aria-label="меньше">-</button><span>1</span><button aria-label="больше">+</button></div>
-          <p class="cart-row-total">5 300 руб.</p>
-        </div>
-      </div>
-    </div>
-    <div class="cart-row">
-      <img class="cart-row-photo" src="frames/корзина/photo3.png" alt="Розовая Симфония">
-      <div class="cart-row-content">
-        <p class="cart-row-name"><span class="cap">Р</span>озовая Симфония</p>
-        <div class="cart-row-meta">
-          <p class="cart-row-price">5 800 руб.</p>
-          <div class="cart-row-qty"><button aria-label="меньше">-</button><span>1</span><button aria-label="больше">+</button></div>
-          <p class="cart-row-total">5 800 руб.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="cart-list" id="cart-list"></div>
+  <p id="cart-empty" hidden style="font-family:var(--font-sans);font-size:18px;color:rgba(45,45,53,0.55);padding:20px 0;">Корзина пуста — добавьте букет из каталога.</p>
 
   <div class="cart-summary">
     <div class="cart-summary-body">
@@ -82,68 +49,48 @@
 
 <script>
 (function(){
-  var badge = document.querySelector('.topbar-badge');
-  var cartCount = window.florisCart ? window.florisCart.get() : (parseInt(badge ? badge.textContent : '0', 10) || 0);
-
-  function setBadge(n){
-    cartCount = Math.max(0, n);
-    if (window.florisCart) { window.florisCart.set(cartCount); }
-    else if (badge) { badge.textContent = String(cartCount); }
-  }
-
-  function parsePrice(text){
-    return parseInt(text.replace(/[^\d]/g, ''), 10) || 0;
-  }
   function formatPrice(num){
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' руб.';
   }
 
-  // --- счётчики в карточках каталога: "+"/"-" сразу меняют корзину ---
-  document.querySelectorAll('.listing-stepper').forEach(function(stepper){
-    var buttons = stepper.querySelectorAll('button');
-    var count = stepper.querySelector('span');
-    if (buttons.length < 2 || !count) return;
-    buttons[0].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 0;
-      if (v > 0) {
-        count.textContent = String(v - 1);
-        setBadge(cartCount - 1);
-      }
-    });
-    buttons[1].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 0;
-      count.textContent = String(v + 1);
-      setBadge(cartCount + 1);
-    });
-  });
+  var listEl = document.getElementById('cart-list');
+  var emptyEl = document.getElementById('cart-empty');
 
-  // --- счётчик в карточке товара: локальный, влияет на «Добавить в корзину» ---
-  document.querySelectorAll('.product-qty').forEach(function(stepper){
-    var buttons = stepper.querySelectorAll('button');
-    var count = stepper.querySelector('span');
-    if (buttons.length < 2 || !count) return;
-    buttons[0].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 0;
-      count.textContent = String(Math.max(0, v - 1));
+  function renderRow(item){
+    var row = document.createElement('div');
+    row.className = 'cart-row';
+    row.innerHTML =
+      '<img class="cart-row-photo" src="' + item.photo + '" alt="' + item.name + '">' +
+      '<div class="cart-row-content">' +
+        '<p class="cart-row-name">' + item.name + '</p>' +
+        '<div class="cart-row-meta">' +
+          '<p class="cart-row-price">' + formatPrice(item.price) + '</p>' +
+          '<div class="cart-row-qty"><button type="button" aria-label="меньше">-</button><span>' + item.qty + '</span><button type="button" aria-label="больше">+</button></div>' +
+          '<p class="cart-row-total">' + formatPrice(item.price * item.qty) + '</p>' +
+        '</div>' +
+      '</div>';
+    var qtyButtons = row.querySelectorAll('.cart-row-qty button');
+    qtyButtons[0].addEventListener('click', function(){
+      window.florisCart.setItemQty(item.id, item.qty - 1);
+      render();
     });
-    buttons[1].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 0;
-      count.textContent = String(v + 1);
+    qtyButtons[1].addEventListener('click', function(){
+      window.florisCart.setItemQty(item.id, item.qty + 1);
+      render();
     });
-  });
+    return row;
+  }
 
-  // --- счётчики количества в корзине: пересчитывают сумму строки и итог ---
-  function recalcCartSummary(){
-    var rows = document.querySelectorAll('.cart-row');
+  function render(){
+    var items = window.florisCart ? window.florisCart.getItems() : [];
+    listEl.innerHTML = '';
+    var hasItems = items.length > 0;
+    listEl.hidden = !hasItems;
+    if (emptyEl) emptyEl.hidden = hasItems;
+    items.forEach(function(item){ listEl.appendChild(renderRow(item)); });
+
     var totalSum = 0, totalQty = 0;
-    rows.forEach(function(row){
-      var unit = parsePrice(row.querySelector('.cart-row-price').textContent);
-      var qty = parseInt(row.querySelector('.cart-row-qty span').textContent, 10) || 0;
-      var lineTotal = unit * qty;
-      row.querySelector('.cart-row-total').textContent = formatPrice(lineTotal);
-      totalSum += lineTotal;
-      totalQty += qty;
-    });
+    items.forEach(function(it){ totalSum += it.price * it.qty; totalQty += it.qty; });
     var summaryRow = document.querySelector('.cart-summary-row .value');
     var summaryLabel = document.querySelector('.cart-summary-row span:first-child');
     var summaryTotal = document.querySelector('.cart-summary-total .price');
@@ -152,46 +99,7 @@
     if (summaryTotal) summaryTotal.textContent = formatPrice(totalSum);
   }
 
-  document.querySelectorAll('.cart-row-qty').forEach(function(stepper){
-    var buttons = stepper.querySelectorAll('button');
-    var count = stepper.querySelector('span');
-    if (buttons.length < 2 || !count) return;
-    buttons[0].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 1;
-      count.textContent = String(Math.max(1, v - 1));
-      recalcCartSummary();
-    });
-    buttons[1].addEventListener('click', function(){
-      var v = parseInt(count.textContent, 10) || 1;
-      count.textContent = String(v + 1);
-      recalcCartSummary();
-    });
-  });
-
-  document.querySelectorAll('.cart-row-remove').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var row = btn.closest('.cart-row');
-      if (row) row.remove();
-      recalcCartSummary();
-    });
-  });
-
-  // --- «в корзину» / «Добавить в корзину»: увеличивают счётчик в хедере ---
-  document.querySelectorAll('.postcard-btn').forEach(function(btn){
-    btn.style.cursor = 'pointer';
-    btn.addEventListener('click', function(){
-      setBadge(cartCount + 1);
-    });
-  });
-
-  var addBtn = document.querySelector('.product-add-btn');
-  if (addBtn) {
-    addBtn.addEventListener('click', function(){
-      var qtyEl = document.querySelector('.product-qty span');
-      var qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
-      setBadge(cartCount + qty);
-    });
-  }
+  render();
 })();
 </script>
 

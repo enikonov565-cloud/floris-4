@@ -264,27 +264,131 @@
 '  </div>' +
 '</section>';
 
-  /* -------------------- КОРЗИНА: счётчик в шапке, общий для всех страниц --------------------
-     Раньше счётчик жил только в памяти инлайн-скрипта каждой страницы и сбрасывался
-     на 0 при любом переходе — из-за этого в шапке «не всегда» было видно, что товар
-     добавлен. Теперь значение хранится в localStorage и подтягивается на каждой странице. */
-  var CART_COUNT_KEY = 'florisCartCount';
-  function florisGetCartCount(){
-    var v = parseInt(localStorage.getItem(CART_COUNT_KEY), 10);
-    return (isNaN(v) || v < 0) ? 0 : v;
+  /* -------------------- КОРЗИНА: реальный состав + счётчик в шапке, общие для всех страниц --------------------
+     Раньше счётчик в шапке жил только в памяти инлайн-скрипта каждой страницы и сбрасывался
+     на 0 при любом переходе. Когда счётчик сделали персистентным (localStorage), выяснилось,
+     что страница «Корзина» всё равно показывает 3 статичных демо-товара, никак не связанных
+     с тем, что реально нажималось — счётчик рос, а состав корзины не менялся и его нельзя было
+     уменьшить со страницы корзины. Теперь корзина — это реальный список {id,name,price,photo,qty}
+     в localStorage; счётчик в шапке всегда ПЕРЕСЧИТЫВАЕТСЯ из этого списка, а не хранится отдельно —
+     значит разойтись они не могут. */
+  var CART_ITEMS_KEY = 'florisCartItems';
+
+  function florisGetCartItems(){
+    try {
+      var raw = localStorage.getItem(CART_ITEMS_KEY);
+      var arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
   }
+
+  function florisRenderBadge(){
+    var items = florisGetCartItems();
+    var total = items.reduce(function (sum, it) { return sum + (parseInt(it.qty, 10) || 0); }, 0);
+    document.querySelectorAll('.topbar-badge').forEach(function (b) { b.textContent = String(total); });
+    return total;
+  }
+
+  function florisSaveCartItems(items){
+    try { localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(items)); } catch (e) {}
+    return florisRenderBadge();
+  }
+
+  // Добавить товар (или увеличить его количество, если уже есть в корзине).
+  function florisAddCartItem(item){
+    if (!item || !item.id) return florisGetCartItems();
+    var items = florisGetCartItems();
+    var existing = null;
+    for (var i = 0; i < items.length; i++) { if (items[i].id === item.id) { existing = items[i]; break; } }
+    var addQty = Math.max(1, parseInt(item.qty, 10) || 1);
+    if (existing) { existing.qty = (parseInt(existing.qty, 10) || 0) + addQty; }
+    else {
+      items.push({
+        id: item.id,
+        name: item.name || 'Товар',
+        price: parseInt(item.price, 10) || 0,
+        photo: item.photo || '',
+        qty: addQty
+      });
+    }
+    florisSaveCartItems(items);
+    return items;
+  }
+
+  // Установить точное количество товара (0 или меньше — удаляет строку).
+  function florisSetCartItemQty(id, qty){
+    var items = florisGetCartItems();
+    var idx = -1;
+    for (var i = 0; i < items.length; i++) { if (items[i].id === id) { idx = i; break; } }
+    if (idx === -1) return items;
+    qty = parseInt(qty, 10) || 0;
+    if (qty <= 0) items.splice(idx, 1);
+    else items[idx].qty = qty;
+    florisSaveCartItems(items);
+    return items;
+  }
+
+  function florisRemoveCartItem(id){
+    var items = florisGetCartItems().filter(function (it) { return it.id !== id; });
+    florisSaveCartItems(items);
+    return items;
+  }
+
+  // get()/set() оставлены для обратной совместимости: set(n) переводит счётчик в единственную
+  // «условную» строку корзины, get() — сумма количеств по всем строкам (как и раньше).
+  function florisGetCartCount(){ return florisRenderBadge(); }
   function florisSetCartCount(n){
     n = Math.max(0, parseInt(n, 10) || 0);
-    try { localStorage.setItem(CART_COUNT_KEY, String(n)); } catch (e) {}
-    document.querySelectorAll('.topbar-badge').forEach(function (b) { b.textContent = String(n); });
+    florisSaveCartItems(n > 0 ? [{ id: '__legacy__', name: 'Товар', price: 0, photo: '', qty: n }] : []);
     return n;
   }
-  window.florisCart = { get: florisGetCartCount, set: florisSetCartCount };
+
+  window.florisCart = {
+    get: florisGetCartCount,
+    set: florisSetCartCount,
+    getItems: florisGetCartItems,
+    addItem: florisAddCartItem,
+    setItemQty: florisSetCartItemQty,
+    removeItem: florisRemoveCartItem
+  };
+
+  /* Достаёт {id,name,price,photo} из карточки/лайтбокса, в которых лежит нажатая
+     кнопка «в корзину» — общий разбор для всех разделов сайта (каталог, хиты
+     продаж, похожие товары, лайтбокс фото), чтобы кнопка добавляла именно тот
+     букет/открытку, на которой стоит, а не абстрактную единицу. */
+  function florisExtractProduct(btn){
+    function parsePrice(text){ return parseInt(String(text).replace(/[^\d]/g, ''), 10) || 0; }
+
+    var lightbox = document.getElementById('img-lightbox');
+    if (lightbox && btn.closest('#img-lightbox')) {
+      var lbName = document.getElementById('img-lightbox-name');
+      var lbImg = document.getElementById('img-lightbox-img');
+      var name = lbName ? lbName.textContent.trim() : 'Товар';
+      return { id: name, name: name, price: 0, photo: lbImg ? lbImg.src : '' };
+    }
+
+    var card = btn.closest('.listing-card') || btn.closest('.hits-card') || btn.closest('.pd-related-card');
+    if (card) {
+      var nameEl = card.querySelector('.listing-card-name, .hits-card-name, .pd-related-name');
+      var priceEl = card.querySelector('.listing-card-price, .hits-card-price, .pd-related-price');
+      var imgEl = card.querySelector('.listing-card-photo, .hits-card-img, img');
+      var cardName = nameEl ? nameEl.textContent.trim() : 'Товар';
+      return {
+        id: cardName,
+        name: cardName,
+        price: priceEl ? parsePrice(priceEl.textContent) : 0,
+        photo: imgEl ? (imgEl.currentSrc || imgEl.src) : ''
+      };
+    }
+
+    return { id: 'Товар', name: 'Товар', price: 0, photo: '' };
+  }
+  window.florisExtractProduct = florisExtractProduct;
 
   /* -------------------- ИНЖЕКТ -------------------- */
   var headerMount = document.getElementById('site-header-mount');
   if (headerMount) headerMount.outerHTML = HEADER_HTML;
-  florisSetCartCount(florisGetCartCount());
+  florisRenderBadge();
 
   var footerMount = document.getElementById('site-footer-mount');
   if (footerMount) footerMount.outerHTML = FOOTER_HTML;

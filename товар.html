@@ -474,7 +474,11 @@
   document.querySelectorAll('.postcard-btn').forEach(function(btn){
     btn.style.cursor = 'pointer';
     btn.addEventListener('click', function(){
-      setBadge(cartCount + 1);
+      if (window.florisCart && window.florisExtractProduct) {
+        window.florisCart.addItem(window.florisExtractProduct(btn));
+      } else {
+        setBadge(cartCount + 1);
+      }
     });
   });
 
@@ -483,7 +487,20 @@
     addBtn.addEventListener('click', function(){
       var qtyEl = document.querySelector('.pd-qty span');
       var qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 1) : 1;
-      setBadge(cartCount + qty);
+      var titleEl = document.querySelector('.pd-title');
+      var priceEl = document.querySelector('.pd-price');
+      var name = titleEl ? titleEl.textContent.trim() : 'Товар';
+      if (window.florisCart) {
+        window.florisCart.addItem({
+          id: name,
+          name: name,
+          price: priceEl ? parsePrice(priceEl.textContent) : 0,
+          photo: document.getElementById('pdMainPhoto').src,
+          qty: qty
+        });
+      } else {
+        setBadge(cartCount + qty);
+      }
       window.location.href = 'корзина.html';
     });
   }
