@@ -341,11 +341,12 @@
 <script>
 (function(){
   var badge = document.querySelector('.topbar-badge');
-  var cartCount = parseInt(badge ? badge.textContent : '0', 10) || 0;
+  var cartCount = window.florisCart ? window.florisCart.get() : (parseInt(badge ? badge.textContent : '0', 10) || 0);
 
   function setBadge(n){
     cartCount = Math.max(0, n);
-    if (badge) badge.textContent = String(cartCount);
+    if (window.florisCart) { window.florisCart.set(cartCount); }
+    else if (badge) { badge.textContent = String(cartCount); }
   }
 
   function parsePrice(text){

@@ -264,9 +264,27 @@
 '  </div>' +
 '</section>';
 
+  /* -------------------- КОРЗИНА: счётчик в шапке, общий для всех страниц --------------------
+     Раньше счётчик жил только в памяти инлайн-скрипта каждой страницы и сбрасывался
+     на 0 при любом переходе — из-за этого в шапке «не всегда» было видно, что товар
+     добавлен. Теперь значение хранится в localStorage и подтягивается на каждой странице. */
+  var CART_COUNT_KEY = 'florisCartCount';
+  function florisGetCartCount(){
+    var v = parseInt(localStorage.getItem(CART_COUNT_KEY), 10);
+    return (isNaN(v) || v < 0) ? 0 : v;
+  }
+  function florisSetCartCount(n){
+    n = Math.max(0, parseInt(n, 10) || 0);
+    try { localStorage.setItem(CART_COUNT_KEY, String(n)); } catch (e) {}
+    document.querySelectorAll('.topbar-badge').forEach(function (b) { b.textContent = String(n); });
+    return n;
+  }
+  window.florisCart = { get: florisGetCartCount, set: florisSetCartCount };
+
   /* -------------------- ИНЖЕКТ -------------------- */
   var headerMount = document.getElementById('site-header-mount');
   if (headerMount) headerMount.outerHTML = HEADER_HTML;
+  florisSetCartCount(florisGetCartCount());
 
   var footerMount = document.getElementById('site-footer-mount');
   if (footerMount) footerMount.outerHTML = FOOTER_HTML;
