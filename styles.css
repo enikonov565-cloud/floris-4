@@ -604,9 +604,23 @@ body:has(.faq) ::view-transition-new(root){
   box-shadow:0 40px 90px rgba(0,0,0,0.45);
 }
 /* большая квадратная форма превью (открытки-допы: заказ.html) — фото
-   кадрируется под квадрат, а не показывается в своих исходных пропорциях */
-.img-lightbox-media.is-square{width:clamp(320px,55vw,640px);height:clamp(320px,55vw,640px);}
-.img-lightbox-media.is-square .img-lightbox-img{width:100%;height:100%;object-fit:cover;}
+   кадрируется под квадрат; подпись и кнопка идут ПОД фото отдельным блоком,
+   а не поверх него, чтобы не перекрывать картинку */
+.img-lightbox-media.is-square{
+  width:clamp(320px,55vw,520px);height:auto;
+  display:flex;flex-direction:column;align-items:stretch;
+  border-radius:18px;overflow:hidden;
+  box-shadow:0 40px 90px rgba(0,0,0,0.45);
+}
+.img-lightbox-media.is-square .img-lightbox-img{
+  width:100%;aspect-ratio:1/1;height:auto;object-fit:cover;
+  border-radius:0;box-shadow:none;
+}
+.img-lightbox-media.is-square .img-lightbox-caption{
+  position:static;opacity:1;transform:none;
+  background:var(--white);border-radius:0;
+}
+.img-lightbox-media.is-square .img-lightbox-name{color:var(--dark);}
 .img-lightbox-caption{
   position:absolute;left:0;right:0;bottom:0;
   display:flex;align-items:center;justify-content:center;gap:28px;
