@@ -976,12 +976,38 @@ body:has(.faq) ::view-transition-new(root){
 .dl-submit{
   width:100%;height:66px;margin-top:18px;background:var(--dark);border:none;border-radius:100px;cursor:pointer;
   font-family:var(--font-sans);font-weight:600;font-size:22px;letter-spacing:0.01em;color:var(--cream);
-  transition:background-color .18s ease;
+  transition:background-color .18s ease,color .18s ease;
 }
 .dl-submit:hover{background:#43434d;}
 .dl-submit:disabled{opacity:0.6;cursor:default;}
-.dl-note{margin:8px 0 0;text-align:center;font-family:var(--font-sans);font-size:15px;color:var(--green);min-height:16px;}
-.dl-note.error{color:#D8534F;}
+.dl-submit.dl-submit--done{background:var(--green);color:var(--dark);}
+
+/* --- попап: заказ оформлен (стикер в фирменных цветах) --- */
+.order-success-overlay{
+  display:none;position:fixed;inset:0;background:rgba(45,45,53,0.55);z-index:400;
+  align-items:center;justify-content:center;padding:24px;box-sizing:border-box;
+}
+.order-success-overlay.open{display:flex;}
+.order-success-card{
+  position:relative;width:420px;max-width:100%;box-sizing:border-box;
+  padding:38px 32px;text-align:center;
+  background:var(--green);border:3px solid #98A422;
+  border-radius:30px 60px 30px 60px/60px 30px 60px 30px;
+  box-shadow:0 0 0 8px var(--white), 0 24px 60px rgba(45,45,53,0.3);
+  transform:rotate(-1deg);
+  animation:orderSuccessPop .35s cubic-bezier(.22,1.4,.36,1);
+}
+.order-success-title{
+  margin:0 0 10px;font-family:var(--font-sans);font-weight:700;font-size:28px;
+  letter-spacing:-0.01em;color:var(--dark);
+}
+.order-success-text{
+  margin:0;font-family:var(--font-sans);font-weight:500;font-size:18px;line-height:1.4;color:var(--dark);
+}
+@keyframes orderSuccessPop{
+  0%{opacity:0;transform:rotate(-1deg) scale(0.85);}
+  100%{opacity:1;transform:rotate(-1deg) scale(1);}
+}
 
 /* --- попап: адрес доставки --- */
 .addr-overlay,.dt-overlay{
@@ -1709,7 +1735,9 @@ body:has(.faq) ::view-transition-new(root){
   .dl-summary-row{font-size:var(--fs-body);}
   .dl-summary-row.total{font-size:var(--fs-section-title);}
   .dl-submit{font-size:20px;height:58px;}
-  .dl-note{font-size:15px;}
+  .order-success-card{padding:30px 22px;}
+  .order-success-title{font-size:23px;}
+  .order-success-text{font-size:16px;}
   .addr-field-row{grid-template-columns:1fr;}
   .dt-modal{padding:22px;}
 

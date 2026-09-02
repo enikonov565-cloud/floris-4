@@ -73,7 +73,6 @@
           <div class="dl-summary-row total"><span>К оплате</span><span id="dl-summary-total">17 000 ₽</span></div>
         </div>
         <button type="button" class="dl-submit" id="dl-submit">Оформить заказ</button>
-        <p class="dl-note" id="dl-submit-note"></p>
       </div>
     </div>
 
@@ -151,6 +150,14 @@
       <span class="dt-selected-radio"></span>
     </div>
     <button type="button" class="dt-save" id="dt-save">Сохранить</button>
+  </div>
+</div>
+
+<!-- попап: заказ успешно оформлен -->
+<div class="order-success-overlay" id="order-success-overlay">
+  <div class="order-success-card">
+    <p class="order-success-title">Заказ оформлен!</p>
+    <p class="order-success-text">Мы свяжемся с вами<br>в ближайшее время.</p>
   </div>
 </div>
 
@@ -318,13 +325,16 @@
 
   // --- оформить заказ ---
   var submitBtn = document.getElementById('dl-submit');
-  var submitNote = document.getElementById('dl-submit-note');
+  var successOverlay = document.getElementById('order-success-overlay');
   submitBtn.addEventListener('click', function(){
-    submitNote.classList.remove('error');
-    submitNote.textContent = 'Заказ оформлен! Мы свяжемся с вами в ближайшее время.';
     submitBtn.disabled = true;
+    submitBtn.classList.add('dl-submit--done');
     if (window.florisCart) { window.florisCart.clear(); }
     renderCart();
+    successOverlay.classList.add('open');
+  });
+  successOverlay.addEventListener('click', function(e){
+    if (e.target === successOverlay) successOverlay.classList.remove('open');
   });
 })();
 </script>
