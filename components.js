@@ -373,10 +373,10 @@
       return { id: name, name: name, price: parsePrice(lightbox.getAttribute('data-price') || '0'), photo: lbImg ? lbImg.src : '' };
     }
 
-    var card = btn.closest('.listing-card') || btn.closest('.hits-card') || btn.closest('.pd-related-card');
+    var card = btn.closest('.listing-card') || btn.closest('.hits-card') || btn.closest('.pd-related-card') || btn.closest('.pd-addon');
     if (card) {
-      var nameEl = card.querySelector('.listing-card-name, .hits-card-name, .pd-related-name');
-      var priceEl = card.querySelector('.listing-card-price, .hits-card-price, .pd-related-price');
+      var nameEl = card.querySelector('.listing-card-name, .hits-card-name, .pd-related-name, .pd-addon-name');
+      var priceEl = card.querySelector('.listing-card-price, .hits-card-price, .pd-related-price, .pd-addon-price');
       var imgEl = card.querySelector('.listing-card-photo, .hits-card-img, img');
       var cardName = nameEl ? nameEl.textContent.trim() : 'Товар';
       return {

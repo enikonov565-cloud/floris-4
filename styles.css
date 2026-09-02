@@ -790,18 +790,23 @@ body:has(.faq) ::view-transition-new(root){
 .pd-addons{background:var(--cream);border-top:1px solid rgba(45,45,53,0.1);}
 .pd-addons-wrap{max-width:1320px;margin:0 auto;padding:clamp(28px,3vw,48px) var(--page-pad);}
 .pd-addons-label{margin:0 0 18px;font-family:var(--font-sans);font-weight:500;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(45,45,53,0.5);}
-.pd-addons-list{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;}
-.pd-addon{
-  position:relative;display:flex;align-items:center;gap:14px;
-  padding:10px 18px 10px 10px;border:1px solid rgba(45,45,53,0.14);border-radius:60px;
-  cursor:pointer;transition:border-color .2s ease, background-color .2s ease;
+.pd-addons-list{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,2.4vw,32px);}
+/* карточка открытки-допа — тот же паттерн, что у «С этим букетом покупают», фото чуть меньше */
+.pd-addon{display:block;width:240px;max-width:100%;}
+.pd-addon-photo{
+  width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;
+  cursor:zoom-in;transition:opacity .3s ease;
 }
-.pd-addon:hover{border-color:rgba(45,45,53,0.3);}
-.pd-addon-check{position:absolute;opacity:0;width:0;height:0;}
-.pd-addon:has(.pd-addon-check:checked){border-color:var(--green);background:rgba(191,204,42,0.08);}
-.pd-addon-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;}
-.pd-addon-name{font-family:var(--font-sans);font-weight:400;font-size:15px;color:var(--dark);white-space:nowrap;}
-.pd-addon-price{font-family:var(--font-sans);font-weight:500;font-size:14px;color:rgba(45,45,53,0.55);white-space:nowrap;}
+.pd-addon:hover .pd-addon-photo{opacity:0.88;}
+.pd-addon-info{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;}
+.pd-addon-text{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.pd-addon-name{margin:0;font-family:var(--font-sans);font-weight:400;font-size:15px;color:var(--dark);}
+.pd-addon-price{margin:0;font-family:var(--font-sans);font-weight:500;font-size:14px;color:rgba(45,45,53,0.6);}
+.hits-add.pd-addon-add{flex:none;width:36px;height:36px;}
+.pd-addon-add .hits-add-plus{width:34px;height:34px;font-size:17px;}
+.pd-addon-add .hits-add-label{font-size:13px;}
+.pd-addon:hover .pd-addon-add{width:118px;box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
+.pd-addon:hover .pd-addon-add .hits-add-label{opacity:1;}
 
 /* --- related: "с этим товаром покупают" — маркетинговая логика, спокойная сетка --- */
 .pd-related{background:var(--cream);border-top:1px solid rgba(45,45,53,0.1);}
@@ -1707,9 +1712,7 @@ body:has(.faq) ::view-transition-new(root){
   .pd-related-list{grid-template-columns:repeat(2,1fr);}
 
   /* ---------- ОТКРЫТКИ (+ добавить к букету) ---------- */
-  .pd-addon{width:100%;justify-content:space-between;box-sizing:border-box;}
-  .pd-addon-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
-  .pd-addon-price{flex:none;}
+  .pd-addon{width:calc(50% - 10px);}
 
   /* ---------- ОФОРМЛЕНИЕ ЗАКАЗА ---------- */
   .checkout-wrap{position:static;width:100%;flex-direction:column;gap:32px;}
