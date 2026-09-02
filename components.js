@@ -29,12 +29,12 @@
 '          <a href="авторские.html">Авторские букеты</a>' +
 '          <a href="свадебные.html">Свадебные букеты</a>' +
 '          <a href="моно.html">Моно-букеты</a>' +
-'          <a href="коробки.html">Букеты в коробках</a>' +
+'          <a href="коробки.html">Букеты в&nbsp;коробках</a>' +
 '        </div>' +
 '        <div class="menu-col">' +
-'          <a href="о-компании.html">О компании</a>' +
+'          <a href="о-компании.html">О&nbsp;компании</a>' +
 '          <a href="отзывы.html">Отзывы</a>' +
-'          <a href="заказ.html">Доставка и оплата</a>' +
+'          <a href="заказ.html">Доставка и&nbsp;оплата</a>' +
 '          <a href="faq.html">Часто задаваемые вопросы</a>' +
 '        </div>' +
 '      </div>' +
@@ -61,7 +61,7 @@
 '            <button type="button" class="search-chip" data-query="Букет невесты" data-target="свадебные.html"><span>Букет невесты</span><i class="chip-radio"></i></button>' +
 '            <button type="button" class="search-chip" data-query="Розы" data-target="моно.html"><span>Розы</span><i class="chip-radio"></i></button>' +
 '            <button type="button" class="search-chip" data-query="Хризантемы" data-target="моно.html"><span>Хризантемы</span><i class="chip-radio"></i></button>' +
-'            <button type="button" class="search-chip" data-query="Цветы в коробке" data-target="коробки.html"><span>Цветы в коробке</span><i class="chip-radio"></i></button>' +
+'            <button type="button" class="search-chip" data-query="Цветы в коробке" data-target="коробки.html"><span>Цветы в&nbsp;коробке</span><i class="chip-radio"></i></button>' +
 '            <button type="button" class="search-chip selected" data-query="Пионы" data-target="моно.html"><span>Пионы</span><i class="chip-radio"></i></button>' +
 '            <button type="button" class="search-chip" data-query="Лилии" data-target="моно.html"><span>Лилии</span><i class="chip-radio"></i></button>' +
 '          </div>' +
@@ -78,8 +78,8 @@
 '' +
 '    <div class="footer-cta">' +
 '      <div class="footer-cta-copy">' +
-'        <p class="footer-cta-eyebrow">Флорис · с 2016 года</p>' +
-'        <p class="footer-cta-title">Соберём букет под ваш повод — свежий, за&nbsp;2&nbsp;часа по&nbsp;Москве.</p>' +
+'        <p class="footer-cta-eyebrow">Флорис · с&nbsp;2016 года</p>' +
+'        <p class="footer-cta-title">Соберём букет под&nbsp;ваш повод — свежий, за&nbsp;2&nbsp;часа по&nbsp;Москве.</p>' +
 '      </div>' +
 '      <a class="footer-cta-btn" href="категории.html" data-magnetic>' +
 '        <span>Выбрать букет</span>' +
@@ -101,10 +101,10 @@
 '      <div class="footer-col">' +
 '        <h4>Навигация</h4>' +
 '        <a href="категории.html">Каталог</a>' +
-'        <a href="о-компании.html">О компании</a>' +
+'        <a href="о-компании.html">О&nbsp;компании</a>' +
 '        <a href="отзывы.html">Отзывы</a>' +
-'        <a href="заказ.html">Доставка и оплата</a>' +
-'        <a href="faq.html">Вопросы и ответы</a>' +
+'        <a href="заказ.html">Доставка и&nbsp;оплата</a>' +
+'        <a href="faq.html">Вопросы и&nbsp;ответы</a>' +
 '      </div>' +
 '      <div class="footer-col">' +
 '        <h4>Информация</h4>' +
@@ -163,7 +163,7 @@
 '    <a class="dock__card" href="авторские.html" role="listitem">' +
 '      <video class="dock__video" src="frames/video/авторский-букет.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>' +
 '      <span class="dock__fade" aria-hidden="true"></span>' +
-'      <span class="dock__price">от 4 500 ₽</span>' +
+'      <span class="dock__price">от&nbsp;4 500 ₽</span>' +
 '      <span class="dock__body">' +
 '        <span class="dock__label">Авторские букеты</span>' +
 '        <span class="dock__note">Ручная сборка флориста</span>' +
@@ -172,7 +172,7 @@
 '    <a class="dock__card" href="моно.html" role="listitem">' +
 '      <video class="dock__video" src="frames/video/моно-букет.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>' +
 '      <span class="dock__fade" aria-hidden="true"></span>' +
-'      <span class="dock__price">от 2 900 ₽</span>' +
+'      <span class="dock__price">от&nbsp;2 900 ₽</span>' +
 '      <span class="dock__body">' +
 '        <span class="dock__label">Моно-букеты</span>' +
 '        <span class="dock__note">Один сорт — максимум красоты</span>' +
@@ -181,19 +181,19 @@
 '    <a class="dock__card" href="свадебные.html" role="listitem">' +
 '      <video class="dock__video" src="frames/video/свадебный-букет.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>' +
 '      <span class="dock__fade" aria-hidden="true"></span>' +
-'      <span class="dock__price">от 6 300 ₽</span>' +
+'      <span class="dock__price">от&nbsp;6 300 ₽</span>' +
 '      <span class="dock__body">' +
 '        <span class="dock__label">Свадебные букеты</span>' +
-'        <span class="dock__note">Для главного дня</span>' +
+'        <span class="dock__note">Для&nbsp;главного дня</span>' +
 '      </span>' +
 '    </a>' +
 '    <a class="dock__card" href="коробки.html" role="listitem">' +
 '      <video class="dock__video" src="frames/video/букет-в-коробке.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>' +
 '      <span class="dock__fade" aria-hidden="true"></span>' +
-'      <span class="dock__price">от 4 500 ₽</span>' +
+'      <span class="dock__price">от&nbsp;4 500 ₽</span>' +
 '      <span class="dock__body">' +
-'        <span class="dock__label">Букеты в коробках</span>' +
-'        <span class="dock__note">Готовы без хлопот с вазой</span>' +
+'        <span class="dock__label">Букеты в&nbsp;коробках</span>' +
+'        <span class="dock__note">Готовы без&nbsp;хлопот с&nbsp;вазой</span>' +
 '      </span>' +
 '    </a>' +
 '  </div>' +
@@ -205,7 +205,7 @@
 '  <div class="home-faq-inner">' +
 '' +
 '    <header class="home-faq-head">' +
-'      <p class="home-faq-eyebrow">Вопросы и ответы</p>' +
+'      <p class="home-faq-eyebrow">Вопросы и&nbsp;ответы</p>' +
 '      <h2 class="home-faq-title"><span class="cap">О</span>тветы на<br>Ваши вопросы</h2>' +
 '      <p class="home-faq-lead">Собрали то, о&nbsp;чём чаще всего спрашивают перед заказом. Не&nbsp;нашли свой вопрос — <a href="faq.html">смотрите полный список</a>.</p>' +
 '    </header>' +
@@ -213,21 +213,21 @@
 '    <div class="home-faq-list" id="home-faq-list">' +
 '      <div class="home-faq-item">' +
 '        <button class="home-faq-row" type="button" aria-expanded="false">' +
-'          <span class="home-faq-q">Как долго стоят букеты?</span>' +
+'          <span class="home-faq-q">Как&nbsp;долго стоят букеты?</span>' +
 '          <span class="home-faq-plus" aria-hidden="true"></span>' +
 '        </button>' +
 '        <div class="home-faq-answer-wrap"><div class="home-faq-answer-inner">' +
-'          <p class="home-faq-a">Мы всегда работаем только со&nbsp;свежесрезанными цветами, поэтому в&nbsp;среднем букет радует от&nbsp;5 до&nbsp;7&nbsp;дней — а&nbsp;хризантемы и&nbsp;гладиолусы при бережном уходе способны простоять и&nbsp;все 10. Держите букет подальше от&nbsp;батарей и&nbsp;прямого солнца и&nbsp;не&nbsp;забывайте менять воду.</p>' +
+'          <p class="home-faq-a">Мы всегда работаем только со&nbsp;свежесрезанными цветами, поэтому в&nbsp;среднем букет радует от&nbsp;5 до&nbsp;7&nbsp;дней — а&nbsp;хризантемы и&nbsp;гладиолусы при&nbsp;бережном уходе способны простоять и&nbsp;все 10. Держите букет подальше от&nbsp;батарей и&nbsp;прямого солнца и&nbsp;не&nbsp;забывайте менять воду.</p>' +
 '        </div></div>' +
 '      </div>' +
 '' +
 '      <div class="home-faq-item">' +
 '        <button class="home-faq-row" type="button" aria-expanded="false">' +
-'          <span class="home-faq-q">Как ухаживать за&nbsp;букетом, чтобы он&nbsp;стоял дольше?</span>' +
+'          <span class="home-faq-q">Как&nbsp;ухаживать за&nbsp;букетом, чтобы он&nbsp;стоял дольше?</span>' +
 '          <span class="home-faq-plus" aria-hidden="true"></span>' +
 '        </button>' +
 '        <div class="home-faq-answer-wrap"><div class="home-faq-answer-inner">' +
-'          <p class="home-faq-a">Секрет прост: сразу после&nbsp;доставки подрежьте стебли острым ножом под&nbsp;углом 45° — это откроет цветку доступ к&nbsp;воде. Уберите листья ниже уровня воды, меняйте воду каждые один-два дня и&nbsp;держите букет подальше от&nbsp;батарей и&nbsp;сквозняков.</p>' +
+'          <p class="home-faq-a">Секрет прост: сразу после&nbsp;доставки подрежьте стебли острым ножом под&nbsp;углом 45° — это&nbsp;откроет цветку доступ к&nbsp;воде. Уберите листья ниже уровня воды, меняйте воду каждые один-два дня и&nbsp;держите букет подальше от&nbsp;батарей и&nbsp;сквозняков.</p>' +
 '        </div></div>' +
 '      </div>' +
 '' +
@@ -237,7 +237,7 @@
 '          <span class="home-faq-plus" aria-hidden="true"></span>' +
 '        </button>' +
 '        <div class="home-faq-answer-wrap"><div class="home-faq-answer-inner">' +
-'          <p class="home-faq-a">Если букет пришёл не&nbsp;таким, каким вы&nbsp;увидели его на&nbsp;фото, или цветы оказались несвежими — напишите нам в&nbsp;течение 24&nbsp;часов и&nbsp;приложите пару фотографий. Мы во&nbsp;всём разберёмся и&nbsp;либо привезём новый букет, либо вернём деньги полностью, без лишних вопросов.</p>' +
+'          <p class="home-faq-a">Если букет пришёл не&nbsp;таким, каким вы&nbsp;увидели его на&nbsp;фото, или цветы оказались несвежими — напишите нам в&nbsp;течение 24&nbsp;часов и&nbsp;приложите пару фотографий. Мы во&nbsp;всём разберёмся и&nbsp;либо привезём новый букет, либо вернём деньги полностью, без&nbsp;лишних вопросов.</p>' +
 '        </div></div>' +
 '      </div>' +
 '' +
@@ -253,7 +253,7 @@
 '' +
 '      <div class="home-faq-item">' +
 '        <button class="home-faq-row" type="button" aria-expanded="false">' +
-'          <span class="home-faq-q">Как оформить корпоративный заказ?</span>' +
+'          <span class="home-faq-q">Как&nbsp;оформить корпоративный заказ?</span>' +
 '          <span class="home-faq-plus" aria-hidden="true"></span>' +
 '        </button>' +
 '        <div class="home-faq-answer-wrap"><div class="home-faq-answer-inner">' +
