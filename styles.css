@@ -266,11 +266,11 @@ body:has(.faq) ::view-transition-new(root){
 }
 .menu-panel.right{left:auto;right:0;}
 .menu-panel.open{display:flex;opacity:1;transform:translateY(0);}
-.menu-col{display:flex;flex-direction:column;gap:20px;align-items:flex-start;min-width:220px;}
+.menu-col{display:flex;flex-direction:column;gap:13px;align-items:flex-start;min-width:220px;}
 .menu-col.single{min-width:280px;}
-.menu-label{margin:0;font-family:var(--font-sans);font-weight:300;font-size:24px;letter-spacing:0.02em;color:var(--green);white-space:nowrap;}
+.menu-label{margin:0;font-family:var(--font-sans);font-weight:300;font-size:19px;letter-spacing:0.02em;color:var(--green);white-space:nowrap;}
 .menu-panel a{
-  font-family:var(--font-sans);font-weight:400;font-size:24px;letter-spacing:0.01em;color:var(--dark);
+  font-family:var(--font-sans);font-weight:400;font-size:19px;letter-spacing:0.01em;color:var(--dark);
   white-space:nowrap;text-decoration:none;
 }
 .menu-panel a:hover{color:var(--green);}
