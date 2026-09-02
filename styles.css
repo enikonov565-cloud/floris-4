@@ -786,27 +786,15 @@ body:has(.faq) ::view-transition-new(root){
 }
 .pd-checkout-btn:hover{border-color:var(--dark);background:rgba(45,45,53,0.04);}
 
-/* --- addons: тихая доп. опция, не отвлекает от основного CTA --- */
+/* --- addons: «+ добавить к букету» (страница оформления заказа) — карточки
+   один в один с «С этим букетом покупают» (pd-related-*), фото того же размера --- */
 .pd-addons{background:var(--cream);border-top:1px solid rgba(45,45,53,0.1);}
-.pd-addons-wrap{max-width:1320px;margin:0 auto;padding:clamp(28px,3vw,48px) var(--page-pad);}
-.pd-addons-label{margin:0 0 18px;font-family:var(--font-sans);font-weight:500;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(45,45,53,0.5);}
-.pd-addons-list{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,2.4vw,32px);}
-/* карточка открытки-допа — тот же паттерн, что у «С этим букетом покупают», фото чуть меньше */
-.pd-addon{display:block;width:240px;max-width:100%;}
-.pd-addon-photo{
-  width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;
-  cursor:zoom-in;transition:opacity .3s ease;
+.pd-addons-wrap{max-width:1440px;margin:0 auto;padding:clamp(48px,5vw,80px) var(--page-pad) clamp(64px,6vw,100px);}
+.pd-addons-label{
+  margin:0 0 clamp(24px,2.5vw,40px);
+  font-family:var(--font-sans);font-weight:400;font-size:clamp(22px,1.8vw,32px);letter-spacing:-0.01em;color:var(--dark);
+  text-transform:none;
 }
-.pd-addon:hover .pd-addon-photo{opacity:0.88;}
-.pd-addon-info{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;}
-.pd-addon-text{display:flex;flex-direction:column;gap:4px;min-width:0;}
-.pd-addon-name{margin:0;font-family:var(--font-sans);font-weight:400;font-size:15px;color:var(--dark);}
-.pd-addon-price{margin:0;font-family:var(--font-sans);font-weight:500;font-size:14px;color:rgba(45,45,53,0.6);}
-.hits-add.pd-addon-add{flex:none;width:36px;height:36px;}
-.pd-addon-add .hits-add-plus{width:34px;height:34px;font-size:17px;}
-.pd-addon-add .hits-add-label{font-size:13px;}
-.pd-addon:hover .pd-addon-add{width:118px;box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
-.pd-addon:hover .pd-addon-add .hits-add-label{opacity:1;}
 
 /* --- related: "с этим товаром покупают" — маркетинговая логика, спокойная сетка --- */
 .pd-related{background:var(--cream);border-top:1px solid rgba(45,45,53,0.1);}
@@ -1710,9 +1698,6 @@ body:has(.faq) ::view-transition-new(root){
   .pd-info{width:100%;}
   .pd-info-inner{max-width:none;padding:28px 16px;}
   .pd-related-list{grid-template-columns:repeat(2,1fr);}
-
-  /* ---------- ОТКРЫТКИ (+ добавить к букету) ---------- */
-  .pd-addon{width:calc(50% - 10px);}
 
   /* ---------- ОФОРМЛЕНИЕ ЗАКАЗА ---------- */
   .checkout-wrap{position:static;width:100%;flex-direction:column;gap:32px;}
