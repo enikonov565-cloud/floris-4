@@ -84,7 +84,7 @@
     <h2 class="pd-addons-label">+ добавить к букету</h2>
     <div class="pd-related-list">
       <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9161.png" alt="Открытка «Кремовая Лилия»">
+        <img src="frames/Rectangle 9161.png" data-full="frames/открытка в букет 1.webp" alt="Открытка «Кремовая Лилия»">
         <div class="pd-related-info">
           <div class="pd-related-text">
             <p class="pd-related-name">Открытка «Кремовая Лилия»</p>
@@ -97,7 +97,7 @@
         </div>
       </div>
       <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9162.png" alt="Открытка «Романтичные Розы»">
+        <img src="frames/Rectangle 9162.png" data-full="frames/открытка в букет 2.webp" alt="Открытка «Романтичные Розы»">
         <div class="pd-related-info">
           <div class="pd-related-text">
             <p class="pd-related-name">Открытка «Романтичные Розы»</p>
@@ -110,7 +110,7 @@
         </div>
       </div>
       <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9163.png" alt="Открытка «Золотой Пион»">
+        <img src="frames/Rectangle 9163.png" data-full="frames/открытка в букет 3.webp" alt="Открытка «Золотой Пион»">
         <div class="pd-related-info">
           <div class="pd-related-text">
             <p class="pd-related-name">Открытка «Золотой Пион»</p>
@@ -123,7 +123,7 @@
         </div>
       </div>
       <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9164.png" alt="Открытка «Шёлковый Бант»">
+        <img src="frames/Rectangle 9164.png" data-full="frames/открытка в букет 4.webp" alt="Открытка «Шёлковый Бант»">
         <div class="pd-related-info">
           <div class="pd-related-text">
             <p class="pd-related-name">Открытка «Шёлковый Бант»</p>
@@ -507,7 +507,7 @@
 
   var lastFocused = null;
   function openLightbox(photo, name, price){
-    lightboxImg.src = photo.currentSrc || photo.src;
+    lightboxImg.src = photo.getAttribute('data-full') || photo.currentSrc || photo.src;
     lightboxImg.alt = photo.alt;
     if (lightboxName) lightboxName.textContent = name;
     lightbox.setAttribute('data-price', price || '0');
