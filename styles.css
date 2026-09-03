@@ -373,7 +373,7 @@ body:has(.faq) ::view-transition-new(root){
    КАТАЛОГ-ПРЕВЬЮ — Magnetic Dock Carousel
    (4 видео-полосы встык, магнитное flex-grow расширение)
    ===================================================== */
-.home-catalog{height:auto;padding:150px 61px 120px;}
+.home-catalog{height:auto;padding:85px 61px 120px;}
 .home-catalog-head{
   display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:64px;
 }
