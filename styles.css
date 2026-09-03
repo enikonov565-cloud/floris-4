@@ -373,7 +373,7 @@ body:has(.faq) ::view-transition-new(root){
    КАТАЛОГ-ПРЕВЬЮ — Magnetic Dock Carousel
    (4 видео-полосы встык, магнитное flex-grow расширение)
    ===================================================== */
-.home-catalog{height:auto;padding:85px 61px 120px;}
+.home-catalog{height:auto;padding:130px 61px 120px;}
 .home-catalog-head{
   display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:64px;
 }
@@ -1130,10 +1130,11 @@ body:has(.faq) ::view-transition-new(root){
 .review-author-name{font-family:var(--font-sans);font-weight:600;font-size:15px;letter-spacing:0.01em;color:var(--dark);}
 .review-author-role{font-family:var(--font-sans);font-weight:300;font-size:13px;letter-spacing:0.01em;color:var(--dark);opacity:0.55;}
 
-.review-shot-badge{display:flex;align-items:center;justify-content:flex-end;width:100%;margin-top:auto;align-self:stretch;padding-top:16px;}
+.review-shot-badge{display:block;width:100%;margin-top:20px;}
 /* .leaf (розовый цветок-лого) убран по правилу декора — оставляем только фото букета от клиента */
 .review-shot-badge img.leaf{display:none;}
-.review-shot-badge .face-frame{width:120px;height:150px;flex:none;border-radius:16px;overflow:hidden;}
+/* фото на всю ширину карточки — было 120×150 в углу, оставляло много пустого места */
+.review-shot-badge .face-frame{width:100%;height:240px;border-radius:16px;overflow:hidden;}
 .review-shot-badge img.face{width:100%;height:100%;object-fit:cover;display:block;}
 
 .reviews-actions{position:static;left:auto;top:auto;right:auto;width:100%;max-width:1798px;margin:clamp(40px,5vw,64px) auto 0;padding:0 var(--page-pad);box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;}
