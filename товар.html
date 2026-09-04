@@ -73,15 +73,23 @@
     <p class="qb-note" id="qb-note"></p>
 
     <label class="qb-check">
-      <input type="checkbox" class="qb-check-input" checked>
+      <input type="checkbox" class="qb-check-input">
       <span class="qb-check-icon"></span>
       <span>Отправлять мне последние предложения и&nbsp;рекомендации</span>
     </label>
     <label class="qb-check">
-      <input type="checkbox" class="qb-check-input" id="qb-agree" checked>
+      <input type="checkbox" class="qb-check-input" id="qb-agree">
       <span class="qb-check-icon"></span>
       <span>Я принимаю <a href="faq.html">Политику конфиденциальности</a> и&nbsp;Правила использования сайта Флорис. Мы не&nbsp;передаём ваши данные и&nbsp;храним их в&nbsp;безопасности</span>
     </label>
+  </div>
+</div>
+
+<!-- попап: быстрый заказ принят -->
+<div class="order-success-overlay" id="qb-success-overlay">
+  <div class="order-success-card">
+    <p class="order-success-title">Спасибо!</p>
+    <p class="order-success-text">Мы приняли ваш заказ<br>и&nbsp;скоро свяжемся с&nbsp;вами.</p>
   </div>
 </div>
 
@@ -297,6 +305,12 @@
 
   var qbSubmit = document.getElementById('qb-submit');
   var qbNote = document.getElementById('qb-note');
+  var qbSuccessOverlay = document.getElementById('qb-success-overlay');
+  if (qbSuccessOverlay) {
+    qbSuccessOverlay.addEventListener('click', function(e){
+      if (e.target === qbSuccessOverlay) qbSuccessOverlay.classList.remove('open');
+    });
+  }
   if (qbSubmit) {
     qbSubmit.addEventListener('click', function(){
       var name = document.getElementById('qb-name');
@@ -314,8 +328,8 @@
         return;
       }
       qbNote.classList.remove('error');
-      qbNote.textContent = 'Готово! Мы перезвоним вам для подтверждения заказа.';
       qbSubmit.disabled = true;
+      if (qbSuccessOverlay) qbSuccessOverlay.classList.add('open');
       var badge = document.querySelector('.topbar-badge');
       if (badge) badge.textContent = String((parseInt(badge.textContent,10)||0) + 1);
     });
