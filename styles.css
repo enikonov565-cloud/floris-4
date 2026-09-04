@@ -609,7 +609,9 @@ body:has(.faq) ::view-transition-new(root){
 .img-lightbox-media.is-square{
   width:clamp(400px,68vw,680px);height:auto;
   border-radius:18px;overflow:hidden;
-  box-shadow:0 40px 90px rgba(0,0,0,0.45);
+  /* filter вместо box-shadow: box-shadow на элементе с overflow:hidden
+     давал едва заметную светлую полосу-обвод по скруглённому краю */
+  filter:drop-shadow(0 40px 90px rgba(0,0,0,0.45));
 }
 .img-lightbox-media.is-square .img-lightbox-img{
   width:100%;aspect-ratio:1/1;height:auto;object-fit:cover;
@@ -622,7 +624,7 @@ body:has(.faq) ::view-transition-new(root){
   position:absolute;left:0;right:0;bottom:0;
   display:flex;align-items:center;justify-content:center;gap:28px;
   padding:44px clamp(20px,3vw,36px) 28px;
-  background:linear-gradient(to top, rgba(10,9,8,0.92) 0%, rgba(10,9,8,0.72) 40%, rgba(10,9,8,0) 100%);
+  background:linear-gradient(to top, rgba(10,9,8,0.88), rgba(10,9,8,0) 100%);
   border-radius:0 0 18px 18px;
   opacity:0;transform:translateY(10px);
   transition:opacity .4s ease .15s, transform .4s ease .15s;
@@ -635,7 +637,8 @@ body:has(.faq) ::view-transition-new(root){
 .img-lightbox-name .cap{font-family:var(--font-script);font-size:1.5em;letter-spacing:0.02em;line-height:1;}
 /* в попапе открытки — простая круглая кнопка «+», без подписи и без
    расширения при наведении (по образцу кнопки на карточке каталога) */
-.img-lightbox-add{flex:none;width:46px!important;}
+.img-lightbox-add{flex:none;width:34px!important;height:34px;}
+.img-lightbox-add .hits-add-plus{width:32px;height:32px;font-size:16px;}
 .img-lightbox-add .hits-add-label{display:none;}
 .img-lightbox-add:hover{box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
 .img-lightbox-close{
