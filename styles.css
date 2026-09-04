@@ -605,21 +605,21 @@ body:has(.faq) ::view-transition-new(root){
 }
 /* большая квадратная форма превью (открытки-допы: заказ.html) — фото
    кадрируется под квадрат и заполняет всю карточку; подпись и кнопка —
-   поверх фото на градиенте, без отдельной плашки/подложки любого цвета */
+   поверх фото на градиенте, без отдельной плашки/подложки любого цвета.
+   ВАЖНО: тень НЕ на контейнере с overflow:hidden (ни box-shadow, ни
+   filter:drop-shadow — оба давали едва заметную светлую полосу-обвод
+   по скруглённому краю, это рендер-артефакт композитинга). Тени нет
+   вовсе на общем контейнере — картинка и подпись скруглены каждая
+   по отдельности, без overflow:hidden-обёртки. */
 .img-lightbox-media.is-square{
   width:clamp(400px,68vw,680px);height:auto;
-  border-radius:18px;overflow:hidden;
-  /* filter вместо box-shadow: box-shadow на элементе с overflow:hidden
-     давал едва заметную светлую полосу-обвод по скруглённому краю */
-  filter:drop-shadow(0 40px 90px rgba(0,0,0,0.45));
 }
 .img-lightbox-media.is-square .img-lightbox-img{
   width:100%;aspect-ratio:1/1;height:auto;object-fit:cover;
-  display:block;border-radius:0;box-shadow:none;
+  display:block;border-radius:18px;
+  box-shadow:0 40px 90px rgba(0,0,0,0.45);
 }
-/* угол уже скруглён/обрезан внешним контейнером (overflow:hidden) —
-   у подписи свой border-radius не нужен, он давал двойной обвод-«полосу» */
-.img-lightbox-media.is-square .img-lightbox-caption{border-radius:0;}
+.img-lightbox-media.is-square .img-lightbox-caption{border-radius:0 0 18px 18px;}
 .img-lightbox-caption{
   position:absolute;left:0;right:0;bottom:0;
   display:flex;align-items:center;justify-content:center;gap:28px;
