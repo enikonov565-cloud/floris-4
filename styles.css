@@ -615,6 +615,9 @@ body:has(.faq) ::view-transition-new(root){
   width:100%;aspect-ratio:1/1;height:auto;object-fit:cover;
   display:block;border-radius:0;box-shadow:none;
 }
+/* угол уже скруглён/обрезан внешним контейнером (overflow:hidden) —
+   у подписи свой border-radius не нужен, он давал двойной обвод-«полосу» */
+.img-lightbox-media.is-square .img-lightbox-caption{border-radius:0;}
 .img-lightbox-caption{
   position:absolute;left:0;right:0;bottom:0;
   display:flex;align-items:center;justify-content:center;gap:28px;
@@ -630,9 +633,11 @@ body:has(.faq) ::view-transition-new(root){
   font-size:clamp(18px,2vw,24px);line-height:1.1;letter-spacing:-0.01em;color:#FFFFFF;
 }
 .img-lightbox-name .cap{font-family:var(--font-script);font-size:1.5em;letter-spacing:0.02em;line-height:1;}
-.img-lightbox-add{flex:none;}
-.img-lightbox-add:hover{width:146px;box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
-.img-lightbox-add:hover .hits-add-label{opacity:1;}
+/* в попапе открытки — простая круглая кнопка «+», без подписи и без
+   расширения при наведении (по образцу кнопки на карточке каталога) */
+.img-lightbox-add{flex:none;width:46px!important;}
+.img-lightbox-add .hits-add-label{display:none;}
+.img-lightbox-add:hover{box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
 .img-lightbox-close{
   position:absolute;top:clamp(16px,3vw,32px);right:clamp(16px,3vw,32px);
   width:48px;height:48px;border-radius:50%;
