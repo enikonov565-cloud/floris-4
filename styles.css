@@ -883,15 +883,16 @@ body:has(.faq) ::view-transition-new(root){
 .qb-check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;}
 .qb-check-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
 .qb-check-icon{
-  width:22px;height:22px;border-radius:50%;background:rgba(191,204,42,0.15);flex:none;position:relative;
-  transition:background-color .15s ease;
+  width:20px;height:20px;border-radius:5px;box-sizing:border-box;
+  background:var(--white);border:1.5px solid rgba(45,45,53,0.25);flex:none;position:relative;
+  transition:background-color .15s ease,border-color .15s ease;
 }
 .qb-check-icon::after{
-  content:'';position:absolute;left:50%;top:46%;width:10px;height:6px;
-  border-left:2px solid var(--green);border-bottom:2px solid var(--green);
+  content:'';position:absolute;left:50%;top:46%;width:9px;height:5px;
+  border-left:2px solid var(--white);border-bottom:2px solid var(--white);
   transform:translate(-50%,-50%) rotate(-45deg);opacity:0;transition:opacity .15s ease;
 }
-.qb-check-input:checked ~ .qb-check-icon{background:rgba(191,204,42,0.25);}
+.qb-check-input:checked ~ .qb-check-icon{background:var(--green);border-color:var(--green);}
 .qb-check-input:checked ~ .qb-check-icon::after{opacity:1;}
 .qb-check span:last-child{font-family:var(--font-sans);font-size:13px;line-height:1.5;color:rgba(45,45,53,0.7);}
 .qb-check a{color:var(--green);text-decoration:underline;}
