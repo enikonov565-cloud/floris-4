@@ -637,7 +637,7 @@ body:has(.faq) ::view-transition-new(root){
 .img-lightbox-name .cap{font-family:var(--font-script);font-size:1.5em;letter-spacing:0.02em;line-height:1;}
 /* в попапе открытки — простая круглая кнопка «+», без подписи и без
    расширения при наведении (по образцу кнопки на карточке каталога) */
-.img-lightbox-add{flex:none;width:34px!important;height:34px;}
+.img-lightbox-add{flex:none;width:34px!important;height:34px!important;}
 .img-lightbox-add .hits-add-plus{width:32px;height:32px;font-size:16px;}
 .img-lightbox-add .hits-add-label{display:none;}
 .img-lightbox-add:hover{box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
