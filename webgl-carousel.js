@@ -499,6 +499,24 @@
       mesh.renderOrder = card.openTarget === 1 ? 1 : 0;
     }
 
+    if (typeof this.cfg.onCardsLayout === 'function'){
+      var infos = [];
+      var pv = this._layoutVec || (this._layoutVec = new THREE.Vector3());
+      for (var li = 0; li < this.cards.length; li++){
+        var lc = this.cards[li];
+        var hWorld = this.closedBox.y + (this.openedBox.y - this.closedBox.y) * lc.open;
+        pv.set(lc.mesh.position.x, lc.mesh.position.y - hWorld * lc.hover / 2, lc.mesh.position.z);
+        pv.project(this.camera);
+        infos.push({
+          index: lc.index,
+          x: (pv.x * 0.5 + 0.5) * this.width,
+          y: (-pv.y * 0.5 + 0.5) * this.height,
+          open: lc.open
+        });
+      }
+      this.cfg.onCardsLayout(infos);
+    }
+
     var settle = 1 - Math.exp(-dt * 6);
     this.speed += (Math.abs(this.oldProgress - this.progress) - this.speed) * settle;
     this.oldProgress += (this.progress - this.oldProgress) * settle;

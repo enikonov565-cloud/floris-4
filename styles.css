@@ -820,17 +820,31 @@ body:has(.faq) ::view-transition-new(root){
   font-family:var(--font-sans);font-weight:400;font-size:clamp(22px,1.8vw,32px);letter-spacing:-0.01em;color:var(--dark);
   text-transform:none;
 }
-/* WebGL-карусель (webgl-carousel.js): колода карточек + общая панель
-   название/цена/кнопка под ней, обновляется по активной карточке */
-.pd-carousel-host{position:relative;width:100%;height:clamp(340px,38vw,460px);touch-action:pan-y;}
-.pd-carousel-info{
-  display:flex;align-items:center;justify-content:center;gap:24px;
-  margin-top:28px;
+/* WebGL-карусель (webgl-carousel.js): колода карточек, у каждой карточки —
+   своя подпись название/цена + кружок-кнопка «в корзину» под фото. Позицию
+   label на каждый кадр подставляет сама карусель (onCardsLayout), поэтому
+   подпись едет вместе с фото при перетаскивании/раскрытии. */
+.pd-carousel-host{position:relative;width:100%;height:clamp(400px,44vw,520px);touch-action:pan-y;}
+.pd-carousel-label{
+  position:absolute;top:0;left:0;z-index:2;
+  transform:translate(-50%, 10px);
+  display:flex;align-items:center;gap:8px;
+  pointer-events:none;
 }
-.pd-carousel-text{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;}
-.pd-carousel-name{margin:0;font-family:var(--font-sans);font-weight:400;font-size:19px;color:var(--dark);}
-.pd-carousel-price{margin:0;font-family:var(--font-sans);font-weight:500;font-size:16px;color:rgba(45,45,53,0.6);}
-.pd-carousel-add{flex:none;}
+.pd-carousel-label-add{pointer-events:auto;}
+.pd-carousel-label-text{display:flex;flex-direction:column;gap:1px;min-width:0;}
+.pd-carousel-label-name{
+  margin:0;font-family:var(--font-sans);font-weight:400;font-size:12px;color:var(--dark);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px;
+}
+.pd-carousel-label-price{margin:0;font-family:var(--font-sans);font-weight:500;font-size:11px;color:rgba(45,45,53,0.6);white-space:nowrap;}
+.pd-carousel-label-add{
+  flex:none;width:24px;height:24px;border-radius:50%;
+  background:var(--green);border:none;color:var(--dark);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:box-shadow .2s ease;
+}
+.pd-carousel-label-add:hover{box-shadow:0 4px 10px -4px rgba(191,204,42,0.7);}
 
 /* --- related: "с этим товаром покупают" — маркетинговая логика, спокойная сетка --- */
 .pd-related{background:var(--cream);border-top:1px solid rgba(45,45,53,0.1);}

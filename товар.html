@@ -99,15 +99,6 @@
   <div class="pd-related-wrap">
     <h2 class="pd-related-title">С&nbsp;этим букетом покупают</h2>
     <div class="pd-carousel-host" id="related-carousel"></div>
-    <div class="pd-carousel-info">
-      <div class="pd-carousel-text">
-        <p class="pd-carousel-name" id="related-carousel-name"></p>
-        <p class="pd-carousel-price" id="related-carousel-price"></p>
-      </div>
-      <button type="button" class="hits-add pd-carousel-add" id="related-carousel-add" aria-label="Добавить в корзину">
-        <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <span class="hits-add-label">в&nbsp;корзину</span>
-      </button>
     </div>
   </div>
 </section>
@@ -447,34 +438,41 @@
     { src: 'frames/шоколад вподарок.jpg', name: 'Шоколадная Радость', price: 2200, focusY: 50 }
   ];
 
-  var nameEl = document.getElementById('related-carousel-name');
-  var priceEl = document.getElementById('related-carousel-price');
-  var addBtn = document.getElementById('related-carousel-add');
-  var activeItem = ITEMS[0];
-
   function formatPrice(num){ return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'; }
-  function updateInfo(i){
-    var it = ITEMS[i];
-    if (!it) return;
-    activeItem = it;
-    nameEl.textContent = it.name;
-    priceEl.textContent = formatPrice(it.price);
-    addBtn.setAttribute('aria-label', 'Добавить «' + it.name + '» в корзину');
-  }
+
+  /* подпись + кнопка «в корзину» под каждым фото — отдельный DOM-узел
+     на карточку, координаты каждый кадр берём у карусели (onCardsLayout)
+     и двигаем label вместе с фото */
+  var labels = ITEMS.map(function(it){
+    var el = document.createElement('div');
+    el.className = 'pd-carousel-label';
+    el.innerHTML =
+      '<div class="pd-carousel-label-text">' +
+        '<p class="pd-carousel-label-name">' + it.name + '</p>' +
+        '<p class="pd-carousel-label-price">' + formatPrice(it.price) + '</p>' +
+      '</div>' +
+      '<button type="button" class="pd-carousel-label-add" aria-label="Добавить «' + it.name + '» в корзину">' +
+        '<svg viewBox="0 0 16 16" width="12" height="12" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
+      '</button>';
+    host.appendChild(el);
+    el.querySelector('.pd-carousel-label-add').addEventListener('click', function(){
+      if (window.florisCart) {
+        window.florisCart.addItem({ id: it.name, name: it.name, price: it.price, photo: it.src, qty: 1 });
+      }
+    });
+    return el;
+  });
 
   window.FlorisWebGLCarousel(host, {
     images: ITEMS,
     cardWidth: 220, cardHeight: 280, cardGap: 46,
     openedWidth: 460, openedHeight: 460,
-    onActiveChange: updateInfo
-  });
-  updateInfo(0);
-
-  addBtn.addEventListener('click', function(){
-    if (window.florisCart) {
-      window.florisCart.addItem({
-        id: activeItem.name, name: activeItem.name,
-        price: activeItem.price, photo: activeItem.src, qty: 1
+    onCardsLayout: function(infos){
+      infos.forEach(function(info){
+        var el = labels[info.index];
+        if (!el) return;
+        el.style.left = info.x + 'px';
+        el.style.top = info.y + 'px';
       });
     }
   });
