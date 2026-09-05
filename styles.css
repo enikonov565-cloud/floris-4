@@ -827,7 +827,7 @@ body:has(.faq) ::view-transition-new(root){
 .pd-carousel-host{position:relative;width:100%;height:clamp(400px,44vw,520px);touch-action:pan-y;}
 .pd-carousel-label{
   position:absolute;top:0;left:0;z-index:2;
-  transform:translate(-50%, 10px);
+  transform:translate(-50%, 20px);
   display:flex;align-items:center;gap:8px;
   pointer-events:none;
   transition:opacity .25s ease;
