@@ -635,12 +635,17 @@ body:has(.faq) ::view-transition-new(root){
   font-size:clamp(18px,2vw,24px);line-height:1.1;letter-spacing:-0.01em;color:#FFFFFF;
 }
 .img-lightbox-name .cap{font-family:var(--font-script);font-size:1.5em;letter-spacing:0.02em;line-height:1;}
-/* в попапе открытки — простая круглая кнопка «+», без подписи и без
-   расширения при наведении (по образцу кнопки на карточке каталога) */
-.img-lightbox-add{flex:none;width:34px!important;height:34px!important;}
-.img-lightbox-add .hits-add-plus{width:32px;height:32px;font-size:16px;}
-.img-lightbox-add .hits-add-label{display:none;}
-.img-lightbox-add:hover{box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
+.img-lightbox-add{flex:none;}
+.img-lightbox-add:hover{width:146px;box-shadow:0 8px 20px -8px rgba(191,204,42,0.7);}
+.img-lightbox-add:hover .hits-add-label{opacity:1;}
+/* в попапе открытки (заказ.html) — простая круглая кнопка «+», без подписи
+   и без расширения при наведении (по образцу кнопки на карточке каталога).
+   Только для квадратного попапа открыток — обычный лайтбокс каталога
+   (авторские/свадебные/моно/коробки, «с этим букетом покупают») сохраняет
+   стандартную кнопку-пилюлю с подписью «в корзину». */
+.img-lightbox-media.is-square .img-lightbox-add{flex:none;width:34px!important;height:34px!important;}
+.img-lightbox-media.is-square .img-lightbox-add .hits-add-plus{width:32px;height:32px;font-size:16px;}
+.img-lightbox-media.is-square .img-lightbox-add .hits-add-label{display:none;}
 .img-lightbox-close{
   position:absolute;top:clamp(16px,3vw,32px);right:clamp(16px,3vw,32px);
   width:48px;height:48px;border-radius:50%;
@@ -815,6 +820,17 @@ body:has(.faq) ::view-transition-new(root){
   font-family:var(--font-sans);font-weight:400;font-size:clamp(22px,1.8vw,32px);letter-spacing:-0.01em;color:var(--dark);
   text-transform:none;
 }
+/* WebGL-карусель (webgl-carousel.js): колода карточек + общая панель
+   название/цена/кнопка под ней, обновляется по активной карточке */
+.pd-carousel-host{position:relative;width:100%;height:clamp(340px,38vw,460px);touch-action:pan-y;}
+.pd-carousel-info{
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  margin-top:28px;
+}
+.pd-carousel-text{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;}
+.pd-carousel-name{margin:0;font-family:var(--font-sans);font-weight:400;font-size:19px;color:var(--dark);}
+.pd-carousel-price{margin:0;font-family:var(--font-sans);font-weight:500;font-size:16px;color:rgba(45,45,53,0.6);}
+.pd-carousel-add{flex:none;}
 
 /* --- related: "с этим товаром покупают" — маркетинговая логика, спокойная сетка --- */
 .pd-related{background:var(--cream);border-top:1px solid rgba(45,45,53,0.1);}

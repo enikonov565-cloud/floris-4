@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Оформление заказа — Флорис</title>
 <link rel="stylesheet" href="styles.css?v=5">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="webgl-carousel.js"></script>
 </head>
 <body>
 
@@ -82,76 +84,19 @@
 <section class="pd-addons" aria-label="Открытки ручной работы">
   <div class="pd-addons-wrap">
     <h2 class="pd-addons-label">+ добавить к&nbsp;букету</h2>
-    <div class="pd-related-list">
-      <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9161.png" data-full="frames/открытка в букет 1.webp" alt="Открытка «Кремовая Лилия»">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Открытка «Кремовая Лилия»</p>
-            <p class="pd-related-price">+ 3 600 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Открытка «Кремовая Лилия»» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
+    <div class="pd-carousel-host" id="postcard-carousel"></div>
+    <div class="pd-carousel-info">
+      <div class="pd-carousel-text">
+        <p class="pd-carousel-name" id="postcard-carousel-name"></p>
+        <p class="pd-carousel-price" id="postcard-carousel-price"></p>
       </div>
-      <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9162.png" data-full="frames/открытка в букет 2.webp" alt="Открытка «Романтичные Розы»">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Открытка «Романтичные Розы»</p>
-            <p class="pd-related-price">+ 4 200 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Открытка «Романтичные Розы»» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
-      </div>
-      <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9163.png" data-full="frames/открытка в букет 3.webp" alt="Открытка «Золотой Пион»">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Открытка «Золотой Пион»</p>
-            <p class="pd-related-price">+ 3 700 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Открытка «Золотой Пион»» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
-      </div>
-      <div class="pd-related-card pd-postcard">
-        <img src="frames/Rectangle 9164.png" data-full="frames/открытка в букет 4.webp" alt="Открытка «Шёлковый Бант»">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Открытка «Шёлковый Бант»</p>
-            <p class="pd-related-price">+ 3 900 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Открытка «Шёлковый Бант»» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
-      </div>
+      <button type="button" class="hits-add pd-carousel-add" id="postcard-carousel-add" aria-label="Добавить в корзину">
+        <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <span class="hits-add-label">в&nbsp;корзину</span>
+      </button>
     </div>
   </div>
 </section>
-
-<div class="img-lightbox" id="img-lightbox">
-  <div class="img-lightbox-media is-square" id="img-lightbox-media">
-    <img class="img-lightbox-img" id="img-lightbox-img" src="" alt="">
-    <div class="img-lightbox-caption">
-      <p class="img-lightbox-name" id="img-lightbox-name"></p>
-      <a class="hits-add postcard-btn img-lightbox-add" id="img-lightbox-add" aria-label="Добавить в корзину" href="товар.html">
-        <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <span class="hits-add-label">в&nbsp;корзину</span>
-      </a>
-    </div>
-  </div>
-  <button type="button" class="img-lightbox-close" id="img-lightbox-close" aria-label="Закрыть">&times;</button>
-</div>
 
 <div class="addr-overlay" id="addr-overlay">
   <div class="addr-modal">
@@ -497,49 +442,51 @@
 </script>
 
 <script>
-/* Лайтбокс: клик по открытке в разделе «+ добавить к букету» открывает фото на весь экран */
+/* «+ добавить к букету»: WebGL-карусель открыток (Originkit WebGL Carousel,
+   см. webgl-carousel.js) — колода тянется мышью/колесом, по клику карточка
+   раскрывается покрупнее прямо в колоде. Это и есть «попап»: отдельного
+   всплывающего окна поверх страницы больше нет. */
 (function(){
-  var lightbox = document.getElementById('img-lightbox');
-  var lightboxImg = document.getElementById('img-lightbox-img');
-  var lightboxName = document.getElementById('img-lightbox-name');
-  var closeBtn = document.getElementById('img-lightbox-close');
-  if (!lightbox || !lightboxImg) return;
+  var host = document.getElementById('postcard-carousel');
+  if (!host || !window.FlorisWebGLCarousel) return;
 
-  var lastFocused = null;
-  function openLightbox(photo, name, price){
-    lightboxImg.src = photo.getAttribute('data-full') || photo.currentSrc || photo.src;
-    lightboxImg.alt = photo.alt;
-    if (lightboxName) lightboxName.textContent = name;
-    lightbox.setAttribute('data-price', price || '0');
-    lastFocused = document.activeElement;
-    lightbox.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    closeBtn.focus();
+  var ITEMS = [
+    { src: 'frames/открытка в букет 1.webp', name: 'Открытка «Кремовая Лилия»', price: 3600, focusY: 50 },
+    { src: 'frames/открытка в букет 2.webp', name: 'Открытка «Романтичные Розы»', price: 4200, focusY: 50 },
+    { src: 'frames/открытка в букет 3.webp', name: 'Открытка «Золотой Пион»', price: 3700, focusY: 50 },
+    { src: 'frames/открытка в букет 4.webp', name: 'Открытка «Шёлковый Бант»', price: 3900, focusY: 50 }
+  ];
+
+  var nameEl = document.getElementById('postcard-carousel-name');
+  var priceEl = document.getElementById('postcard-carousel-price');
+  var addBtn = document.getElementById('postcard-carousel-add');
+  var activeItem = ITEMS[0];
+
+  function formatPrice(num){ return '+ ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'; }
+  function updateInfo(i){
+    var it = ITEMS[i];
+    if (!it) return;
+    activeItem = it;
+    nameEl.textContent = it.name;
+    priceEl.textContent = formatPrice(it.price);
+    addBtn.setAttribute('aria-label', 'Добавить «' + it.name + '» в корзину');
   }
-  function closeLightbox(){
-    lightbox.classList.remove('is-open');
-    document.body.style.overflow = '';
-    if (lastFocused) lastFocused.focus();
-  }
 
-  document.querySelectorAll('.pd-related-card img').forEach(function(photo){
-    photo.style.cursor = 'zoom-in';
-    photo.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      var card = photo.closest('.pd-related-card');
-      var nameEl = card ? card.querySelector('.pd-related-name') : null;
-      var priceEl = card ? card.querySelector('.pd-related-price') : null;
-      openLightbox(photo, nameEl ? nameEl.textContent : photo.alt, priceEl ? priceEl.textContent : '0');
-    });
+  window.FlorisWebGLCarousel(host, {
+    images: ITEMS,
+    cardWidth: 220, cardHeight: 280, cardGap: 46,
+    openedWidth: 460, openedHeight: 460,
+    onActiveChange: updateInfo
   });
+  updateInfo(0);
 
-  closeBtn.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', function(e){
-    if (e.target === lightbox) closeLightbox();
-  });
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  addBtn.addEventListener('click', function(){
+    if (window.florisCart) {
+      window.florisCart.addItem({
+        id: activeItem.name, name: activeItem.name,
+        price: activeItem.price, photo: activeItem.src, qty: 1
+      });
+    }
   });
 })();
 </script>

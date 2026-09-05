@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Карточка товара — Флорис</title>
 <link rel="stylesheet" href="styles.css?v=5">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="webgl-carousel.js"></script>
 </head>
 <body>
 
@@ -96,59 +98,16 @@
 <section class="pd-related" aria-label="С этим товаром покупают">
   <div class="pd-related-wrap">
     <h2 class="pd-related-title">С&nbsp;этим букетом покупают</h2>
-    <div class="pd-related-list">
-      <a class="pd-related-card" href="товар.html">
-        <img src="frames/шры в подарок.jpg" alt="Праздничный Салют">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Праздничный Салют</p>
-            <p class="pd-related-price">2 500 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Праздничный Салют» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
-      </a>
-      <a class="pd-related-card" href="товар.html">
-        <img src="frames/роза в вазе.jpg" alt="Изящная Геометрия">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Изящная Геометрия</p>
-            <p class="pd-related-price">1 800 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Изящная Геометрия» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
-      </a>
-      <a class="pd-related-card" href="товар.html">
-        <img src="frames/мишка с цветами.jpg" alt="Плюшевое Признание">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Плюшевое Признание</p>
-            <p class="pd-related-price">3 400 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Плюшевое Признание» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
-      </a>
-      <a class="pd-related-card" href="товар.html">
-        <img src="frames/шоколад вподарок.jpg" alt="Шоколадная Радость">
-        <div class="pd-related-info">
-          <div class="pd-related-text">
-            <p class="pd-related-name">Шоколадная Радость</p>
-            <p class="pd-related-price">2 200 ₽</p>
-          </div>
-          <button type="button" class="hits-add postcard-btn pd-related-add" aria-label="Добавить «Шоколадная Радость» в корзину">
-            <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-            <span class="hits-add-label">в&nbsp;корзину</span>
-          </button>
-        </div>
-      </a>
+    <div class="pd-carousel-host" id="related-carousel"></div>
+    <div class="pd-carousel-info">
+      <div class="pd-carousel-text">
+        <p class="pd-carousel-name" id="related-carousel-name"></p>
+        <p class="pd-carousel-price" id="related-carousel-price"></p>
+      </div>
+      <button type="button" class="hits-add pd-carousel-add" id="related-carousel-add" aria-label="Добавить в корзину">
+        <span class="hits-add-plus"><svg viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <span class="hits-add-label">в&nbsp;корзину</span>
+      </button>
     </div>
   </div>
 </section>
@@ -448,15 +407,6 @@
     });
   });
 
-  // --- кнопка «в корзину» внутри карточки-ссылки (С этим букетом покупают):
-  // гасим переход по ссылке-карточке, добавление уже отработало обработчиком выше ---
-  document.querySelectorAll('.pd-related-card .hits-add').forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-    });
-  });
-
   var addBtn = document.querySelector('.pd-add-btn');
   if (addBtn) {
     addBtn.addEventListener('click', function(){
@@ -479,6 +429,55 @@
       window.location.href = 'корзина.html';
     });
   }
+})();
+</script>
+
+<script>
+/* «С этим букетом покупают»: та же WebGL-карусель (webgl-carousel.js) —
+   колода тянется мышью/колесом, клик раскрывает карточку крупнее прямо
+   в колоде, без отдельного всплывающего окна. */
+(function(){
+  var host = document.getElementById('related-carousel');
+  if (!host || !window.FlorisWebGLCarousel) return;
+
+  var ITEMS = [
+    { src: 'frames/шры в подарок.jpg', name: 'Праздничный Салют', price: 2500, focusY: 50 },
+    { src: 'frames/роза в вазе.jpg', name: 'Изящная Геометрия', price: 1800, focusY: 50 },
+    { src: 'frames/мишка с цветами.jpg', name: 'Плюшевое Признание', price: 3400, focusY: 50 },
+    { src: 'frames/шоколад вподарок.jpg', name: 'Шоколадная Радость', price: 2200, focusY: 50 }
+  ];
+
+  var nameEl = document.getElementById('related-carousel-name');
+  var priceEl = document.getElementById('related-carousel-price');
+  var addBtn = document.getElementById('related-carousel-add');
+  var activeItem = ITEMS[0];
+
+  function formatPrice(num){ return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'; }
+  function updateInfo(i){
+    var it = ITEMS[i];
+    if (!it) return;
+    activeItem = it;
+    nameEl.textContent = it.name;
+    priceEl.textContent = formatPrice(it.price);
+    addBtn.setAttribute('aria-label', 'Добавить «' + it.name + '» в корзину');
+  }
+
+  window.FlorisWebGLCarousel(host, {
+    images: ITEMS,
+    cardWidth: 220, cardHeight: 280, cardGap: 46,
+    openedWidth: 460, openedHeight: 460,
+    onActiveChange: updateInfo
+  });
+  updateInfo(0);
+
+  addBtn.addEventListener('click', function(){
+    if (window.florisCart) {
+      window.florisCart.addItem({
+        id: activeItem.name, name: activeItem.name,
+        price: activeItem.price, photo: activeItem.src, qty: 1
+      });
+    }
+  });
 })();
 </script>
 
