@@ -830,6 +830,7 @@ body:has(.faq) ::view-transition-new(root){
   transform:translate(-50%, 10px);
   display:flex;align-items:center;gap:8px;
   pointer-events:none;
+  transition:opacity .25s ease;
 }
 .pd-carousel-label-add{pointer-events:auto;}
 .pd-carousel-label-text{display:flex;flex-direction:column;gap:1px;min-width:0;}
