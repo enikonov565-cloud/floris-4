@@ -6,6 +6,7 @@
 const SITE = {
   brand: 'Бриф',                                // текст в шапке слева
   owner: 'Ваше имя',                            // подпись на финальном экране
+  role: 'Разработка сайтов',                    // строка под именем на финальном экране
   photo: 'img/photo.jpg',                       // ваша фотография для финального экрана
   telegram: 'https://t.me/username',            // ссылка на ваш Telegram
   replyDays: '2 рабочих дней',                  // «Напишу вам в течение …»
@@ -172,6 +173,10 @@ const val = id => (state.answers[id] || '').trim();
 const stageQs = stageId => QUESTIONS.filter(q => q.stage === stageId);
 const isTextQ = q => q.type !== 'files' && q.type !== 'consent';
 
+function initials(name) {
+  return String(name || '?').trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('');
+}
+
 function formatSize(b) {
   if (b < 1024) return b + ' Б';
   if (b < 1024 * 1024) return Math.round(b / 1024) + ' КБ';
@@ -263,6 +268,8 @@ function renderStages() {
         '<p class="stage-num"><span class="stage-num-big">' + pad(i + 1) + '</span><span class="stage-num-total">/ ' + pad(TOTAL) + '</span></p>' +
         '<h2 class="stage-title" id="st-title-' + st.id + '" tabindex="-1">' + esc(st.title) + '</h2>' +
         '<p class="stage-lead">' + esc(st.lead) + '</p>' +
+        '<ol class="stage-map" aria-hidden="true">' + STAGES.map((m, j) =>
+          '<li data-map="' + (j + 1) + '"><span>' + pad(j + 1) + '</span>' + esc(m.title) + '</li>').join('') + '</ol>' +
       '</header>' +
       '<div class="fields"></div>';
     const fields = $('.fields', sec);
@@ -427,6 +434,12 @@ function updateChrome() {
     d.classList.toggle('is-done', any && !missing && n !== s);
     d.classList.toggle('has-error', state.tried.has(i) && missing && n !== s);
     if (n === s) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current');
+  });
+
+  // карта этапов в левой колонке повторяет состояние точек
+  $$('.stage-map li').forEach(li => {
+    const dot = $$('.dot')[Number(li.dataset.map) - 1];
+    li.className = dot ? dot.className.replace('dot', '').trim() : '';
   });
 
   $('#backBtn').disabled = false;
@@ -674,8 +687,11 @@ function showFinal(mode, info = {}) {
 
   $('#screenFinal').innerHTML =
     '<figure class="final-photo">' +
-      '<img src="' + esc(SITE.photo) + '" alt="' + esc(SITE.owner) + '" onerror="this.parentNode.classList.add(\'is-empty\');this.remove()">' +
-      '<span class="final-photo-fallback" aria-hidden="true">' + esc((SITE.owner || '?').trim().charAt(0)) + '</span>' +
+      '<div class="final-photo-frame">' +
+        '<img src="' + esc(SITE.photo) + '" alt="' + esc(SITE.owner) + '" onerror="this.closest(\'.final-photo\').classList.add(\'is-empty\');this.remove()">' +
+        '<span class="final-photo-fallback" aria-hidden="true">' + esc(initials(SITE.owner)) + '</span>' +
+      '</div>' +
+      '<figcaption><b>' + esc(SITE.owner) + '</b><span>' + esc(SITE.role) + '</span></figcaption>' +
     '</figure>' +
     '<div class="final-body">' +
       '<h1 class="display final-title" tabindex="-1">' + title + '</h1>' +
@@ -804,6 +820,10 @@ function bindEvents() {
   $('#resetBtn').addEventListener('click', resetAll);
   $('#nextBtn').addEventListener('click', next);
   $('#backBtn').addEventListener('click', back);
+  $('#stages').addEventListener('click', e => {
+    const li = e.target.closest('[data-map]');
+    if (li) goTo(Number(li.dataset.map));
+  });
   $('#dots').addEventListener('click', e => {
     const b = e.target.closest('[data-go]');
     if (b) goTo(Number(b.dataset.go));
